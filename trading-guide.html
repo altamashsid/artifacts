@@ -1,4 +1,27 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading &amp; Technical Analysis — Complete Guide</title>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0D0F14; font-family: Georgia, serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0D0F14; }
+    ::-webkit-scrollbar-thumb { background: #2DD4BF44; border-radius: 3px; }
+    button { font-family: Georgia, serif; }
+    input { font-family: Georgia, serif; }
+    table { font-family: Georgia, serif; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
 
 // ── Colors ────────────────────────────────────────────────────
 const C = {
@@ -126,10 +149,6 @@ function Tabs({ tabs, active, set, color = C.gold }) {
   );
 }
 
-// ═══════════════════════════════════════════════════════════════
-// CHAPTERS
-// ═══════════════════════════════════════════════════════════════
-
 const CHAPTERS = [
   { id: "basics",     label: "📖 Basics",            color: C.gold },
   { id: "ta",         label: "📈 Technical",          color: C.teal },
@@ -148,8 +167,6 @@ const CHAPTERS = [
   { id: "risk",       label: "🛡️ Risk & Psychology",  color: C.red },
   { id: "glossary",   label: "📚 Glossary",           color: C.dim },
 ];
-
-// ─── CHAPTER COMPONENTS ───────────────────────────────────────
 
 function Basics() {
   const [t, st] = useState("market");
@@ -348,7 +365,7 @@ function Indicators() {
       </>}
       {t === "atr" && <>
         <Def term="ATR — Average True Range">Measures how much a stock typically moves per day (in rupees/points). If ATR = Rs 50, that stock moves Rs 50/day on average. Used for: stop loss placement (set stop 2x ATR below entry), position sizing (smaller position for high ATR stocks), and volatility context.</Def>
-        <Def term="ATR Stop Loss">Instead of an arbitrary 5% stop, use 2×ATR. Example: Stock at Rs 1000, ATR = Rs 30. ATR stop = Rs 1000 - (2 × Rs 30) = Rs 940. This accounts for normal daily volatility — you won't get stopped out by regular noise. Pine Script uses this for the commodity futures strategy.</Def>
+        <Def term="ATR Stop Loss">Instead of an arbitrary 5% stop, use 2×ATR. Example: Stock at Rs 1000, ATR = Rs 30. ATR stop = Rs 1000 - (2 × Rs 30) = Rs 940. This accounts for normal daily volatility — you won't get stopped out by regular noise.</Def>
         <Rule emoji="💡" color={C.blue} title="ATR practical use" text="Volatile stocks (high ATR) need wider stops. Less volatile stocks (low ATR) need tighter stops. Using a fixed 5% stop on all stocks is wrong — you'll get stopped out of volatile stocks on normal moves." />
       </>}
       {t === "other" && <>
@@ -465,7 +482,7 @@ function Fundamental() {
       </>}
       {t === "earnings" && <>
         <Def term="EPS — Earnings Per Share">Net profit divided by number of shares. This is the 'E' in P/E ratio. Growing EPS = growing profit per share = stock goes up over time. Minervini requires EPS growth of 25%+ in recent quarters to consider a stock.</Def>
-        <Def term="Earnings Surprise">When actual earnings beat analyst estimates. Positive surprise = stock jumps (like Micron's +19% day). Negative surprise = stock crashes. The MAGNITUDE of the surprise matters more than the direction. A company that consistently beats estimates = institutional interest.</Def>
+        <Def term="Earnings Surprise">When actual earnings beat analyst estimates. Positive surprise = stock jumps. Negative surprise = stock crashes. The MAGNITUDE of the surprise matters more than the direction. A company that consistently beats estimates = institutional interest.</Def>
         <Def term="Earnings Acceleration">EPS growth rate itself is accelerating. Was 10% growth, now 20%, now 30%. This is Minervini's MOST important signal — it means the business is going through an inflection point. Like a car not just speeding up but accelerating harder.</Def>
         <Def term="IV Crush (for options traders)">Around earnings, IV (implied volatility) spikes dramatically. Options become very expensive. After earnings, IV collapses 30-70% overnight regardless of direction. This destroys option buyers. Smart traders SELL premium before earnings. Never buy options just before earnings — you will almost always lose even if the direction is right.</Def>
       </>}
@@ -726,9 +743,7 @@ function RiskPsych() {
       ]} />
       {t === "sizing" && <>
         <Def term="The 1% Rule">Never risk more than 1-2% of your total trading capital on any single trade. Rs 10 lakh portfolio = max Rs 10,000-20,000 at risk per trade. This means even 10 consecutive losses only cost 10-20% of capital — survivable and recoverable.</Def>
-        <Def term="Position Sizing Formula">
-          {"Position Size = (Portfolio × Risk %) ÷ Stop Loss %\n\nExample: Rs 10L portfolio, risk 1%, stop loss 8%\nMax position = (10L × 1%) ÷ 8% = Rs 1,25,000"}
-        </Def>
+        <Def term="Position Sizing Formula">Position Size = (Portfolio × Risk %) ÷ Stop Loss %. Example: Rs 10L portfolio, risk 1%, stop loss 8%. Max position = (10L × 1%) ÷ 8% = Rs 1,25,000</Def>
         <Def term="Pyramiding (Adding to Winners)">Ashwin's method: enter with 50% of planned size at breakout. If it works (goes up), add 30% on first 10 DMA bounce. Add remaining 20% on second confirmation. Never add to LOSERS. Only add to WINNERS. This maximises returns on your best ideas.</Def>
         <Rule emoji="⚠️" color={C.red} title="Ashwin's capital lesson" text="'Ask yourself: if this entire amount is wiped out tomorrow, can you still live your life? Trade only with that amount. The pain of losing it should be real but not life-destroying.'" />
       </>}
@@ -866,7 +881,6 @@ function Glossary() {
   );
 }
 
-// ─── MARKET PHASES ────────────────────────────────────────────
 function MarketPhases() {
   const [t, st] = useState("cycle");
   return (
@@ -879,7 +893,6 @@ function MarketPhases() {
         { id: "stages",  label: "4 Stage Model" },
         { id: "sectors", label: "Sector Rotation" },
       ]} />
-
       {t === "cycle" && <>
         <Quote source="Howard Marks">The four most dangerous words in investing are: 'This time it's different.'</Quote>
         <Def term="The Market Cycle">Every market goes through the same four phases repeatedly — driven by human emotion (greed and fear) and economic fundamentals. The cycle has repeated for 200+ years. Understanding which phase you're in determines which strategy works.</Def>
@@ -928,7 +941,6 @@ function MarketPhases() {
           </div>
         ))}
       </>}
-
       {t === "bull" && <>
         <Def term="Bull Market Definition">A sustained rise of 20%+ from recent lows. Typically lasts 2-5 years. Average bull market gain: 180%+. India's major bull runs: 2003-2007, 2009-2010, 2012-2018, 2020-2024. Bull markets die of euphoria or rate hikes — not old age.</Def>
         <Def term="Early Bull">Economy recovering. PE ratios low. Most are skeptical — 'it's a dead cat bounce.' Best time to buy. Hardest to act because sentiment is terrible. Ashwin's VCP setups just starting to appear.</Def>
@@ -936,7 +948,6 @@ function MarketPhases() {
         <Def term="Late Bull / Euphoria">Everyone is bullish. Taxi drivers giving stock tips. IPOs oversubscribed 100x. Stories of 'new paradigm.' Every dip bought. Smart money quietly distributing. DANGER zone for new entries. Exit planning essential.</Def>
         <Def term="What works in a Bull Market">Going long (buying) stocks and calls. VCP breakouts succeed at high rate. Straddle buyers profit from single events. Bull Put spreads work reliably. FIIs buying consistently. Nifty above 200 MA.</Def>
       </>}
-
       {t === "bear" && <>
         <Def term="Bear Market Definition">A decline of 20%+ from recent highs. Average bear market loss: 35%. Average duration: 9-18 months. India bear markets: 2000-2001 (dot-com), 2008 (financial crisis -60%), 2011, 2015-16, March 2020 (COVID -38%), 2022 (-15% mid-cap).</Def>
         <Def term="Early Bear">Market peaks. Distribution happening. Smart money selling. Most think 'just a correction.' Longs start losing. Iron Condors getting tested. Signs: VIX rising, Nifty below 50 MA, FIIs starting to sell.</Def>
@@ -945,14 +956,12 @@ function MarketPhases() {
         <Def term="What works in a Bear Market">Short selling (advanced). Bear Put Spreads. Defensive stocks (FMCG, Pharma, IT services). Gold (safe haven). Cash. Put buying early in bear. Iron Condors fail — avoid. Wait for Phase 1 signals before going long.</Def>
         <Rule emoji="🛡️" color={C.red} title="Bear market survival rules" text="1) Reduce position sizes. 2) Raise cash. 3) Stop buying dips until trend confirms. 4) Don't average down. 5) Accept small losses early rather than catastrophic losses later." />
       </>}
-
       {t === "sideways" && <>
         <Def term="Sideways / Rangebound Market">Index moves within a defined range for weeks to months. No clear trend up or down. Frustrating for directional traders. IDEAL for options sellers. Happens 35-40% of the time. India VIX typically 15-20 in sideways markets.</Def>
         <Def term="Signs of Sideways Market">Nifty between same support and resistance for 4+ weeks. PCR oscillating between 0.8-1.2. VIX flat 15-20. FII cash flows mixed (some days buying, some selling). MA stack losing alignment. No clear sector leadership.</Def>
         <Def term="What works in Sideways Market">Iron Condor (BEST). Covered Calls. Bull Put Spreads. Bear Call Spreads. Calendar Spreads. Time decay (theta) is your best friend. Directional trades (long calls, long futures) lose money in choppy sideways markets.</Def>
         <Def term="Range Trading">Buy at support, sell at resistance. Works only when range is well-defined. Risk: range breaks. Always keep stop loss outside the range. More of an advanced strategy — beginners should stick to trend-following.</Def>
       </>}
-
       {t === "stages" && <>
         <Quote source="Stan Weinstein">The stage analysis concept may be the single most important investment concept you will ever learn.</Quote>
         <Table headers={["Stage","Name","Price vs 200 MA","Strategy","Duration"]}
@@ -966,7 +975,6 @@ function MarketPhases() {
         />
         <Rule emoji="💡" color={C.blue} title="The single most important rule" text="Only buy stocks in Stage 2. Only. Nothing else. This one rule alone will improve your win rate dramatically. If price is below the 200 MA — it's Stage 1 or Stage 4. Stay away." />
       </>}
-
       {t === "sectors" && <>
         <Def term="Sector Rotation">Different sectors outperform at different phases of the economic cycle. Smart money rotates between sectors ahead of the curve. Understanding rotation helps you be in the right sectors at the right time.</Def>
         <Table headers={["Economic Phase","Outperforming Sectors","Underperforming"]}
@@ -985,7 +993,6 @@ function MarketPhases() {
   );
 }
 
-// ─── INVESTMENT TYPES ─────────────────────────────────────────
 function InvestmentTypes() {
   const [sel, sSel] = useState("equity");
   const types = [
@@ -1013,13 +1020,13 @@ function InvestmentTypes() {
       tax: "Equity MF: same as stocks (STCG/LTCG). Debt MF: taxed as per income slab (post-2023 change).",
     },
     {
-      id: "etf", label: "ETF (Exchange Traded Fund)", emoji: "⚡", color: C.teal,
+      id: "etf", label: "ETF", emoji: "⚡", color: C.teal,
       risk: "Same as underlying", return: "Tracks index/commodity", horizon: "Any",
       liquidity: "Intraday (trades like a stock)",
       desc: "Like a mutual fund but trades on exchange like a stock. Buy Nifty ETF and you instantly own all 50 Nifty stocks proportionally. Lower cost than MF. Gold ETF = gold exposure without physical gold storage.",
       types: ["Nifty 50 ETF (NIFTYBEES) — Most liquid. Tracks Nifty 50.",
               "Bank ETF (BANKBEES) — Tracks Bank Nifty.",
-              "Gold ETF (GOLDBEES) — 1 unit = ~0.01 grams of gold. No storage hassle.",
+              "Gold ETF (GOLDBEES) — 1 unit ≈ 0.01 grams of gold. No storage hassle.",
               "Debt ETF — Bharat Bond ETF. Government bonds.",
               "International ETF — US Tech (Nasdaq 100 ETF), S&P 500 ETF."],
       tax: "Same as equity for stock ETFs (STCG/LTCG). Gold ETF: LTCG after 3 years.",
@@ -1126,7 +1133,6 @@ function InvestmentTypes() {
   );
 }
 
-// ─── EXIT STRATEGIES ──────────────────────────────────────────
 function ExitStrategies() {
   const [t, st] = useState("why");
   return (
@@ -1139,7 +1145,6 @@ function ExitStrategies() {
         { id: "time",    label: "Time-Based Exits" },
         { id: "invest_exit", label: "Investment Exits" },
       ]} />
-
       {t === "why" && <>
         <Quote source="Ashwin Raghavan">Entry is easy. Exit is the hardest part. It's a constant work in progress. Even after years of trading.</Quote>
         <Quote source="Mark Minervini">The exit is where you make or lose money. The entry just determines your risk. The exit determines your reward.</Quote>
@@ -1157,30 +1162,21 @@ function ExitStrategies() {
           ]}
         />
       </>}
-
       {t === "stop" && <>
         <Def term="Hard Stop Loss">A predetermined price where you exit NO MATTER WHAT. Set it BEFORE entering. Place it as a GTT order so emotion can't interfere. This is non-negotiable — it's the only thing standing between you and a catastrophic loss.</Def>
         <Def term="Percentage-Based Stop">Set stop X% below entry. Simple but can be wrong for the stock's volatility. Example: 8% stop for all stocks. Minervini's rule: never let a loss exceed 8%. Disadvantage: doesn't account for normal daily volatility (ATR).</Def>
-        <Def term="ATR-Based Stop">Stop = Entry - (2 × ATR). Accounts for normal daily volatility. If stock moves Rs 50/day normally, stop at 2×Rs 50 = Rs 100 below entry. Avoids being stopped out on noise. Best for commodity futures (what the Pine Script uses).</Def>
+        <Def term="ATR-Based Stop">Stop = Entry - (2 × ATR). Accounts for normal daily volatility. If stock moves Rs 50/day normally, stop at 2×Rs 50 = Rs 100 below entry. Avoids being stopped out on noise. Best for commodity futures.</Def>
         <Def term="Technical Stop (Below Support)">Stop just below the nearest support level, key moving average, or pattern low. Logic: if price breaks that level, your trade thesis is wrong. Ashwin: stop below 20 DMA. Minervini: stop below the pivot buy point.</Def>
-        <Def term="Volatility Stop (Chandelier Stop)">Stop trails highest close × (1 - ATR multiple). Built into many charting platforms. More sophisticated trailing stop that adapts to volatility. Good for swing trades.</Def>
         <Rule emoji="⚠️" color={C.red} title="Stop loss psychology" text="When your stop is hit, you MUST exit. The most common mistake: 'I'll just give it a little more room.' This is how small losses become catastrophic ones. Treat your stop like a contract with yourself." />
       </>}
-
       {t === "target" && <>
         <Def term="Fixed Profit Target">Set a target price BEFORE entering. Sell when target is hit. Simple, disciplined. Works for income-focused traders. Disadvantage: you exit too early in strong trending stocks — the biggest gains require riding the trend.</Def>
         <Def term="R-Multiple Targets">Target based on your risk (R). If stop loss = Rs 50 risk (1R), target 2R = Rs 100 profit, 3R = Rs 150. Ensures your wins are always bigger than losses. Minervini targets minimum 2-3R on every trade.</Def>
-        <Def term="Scale-Out Targets (Ashwin's Method)">Don't exit all at once. Scale out in tranches:
-          First exit: sell 50% at first target (+15-20%)
-          Second exit: sell 25% at second target (+30-40%)
-          Trail remaining 25% until stop is hit.
-          This way: you always book some profit, but keep exposure to the biggest potential move.</Def>
+        <Def term="Scale-Out Targets (Ashwin's Method)">Don't exit all at once. First exit: sell 50% at first target (+15-20%). Second exit: sell 25% at second target (+30-40%). Trail remaining 25% until stop is hit. This way: you always book some profit, but keep exposure to the biggest potential move.</Def>
         <Def term="Fibonacci Targets">Use Fibonacci extension levels (1.272, 1.618, 2.618) above the base as price targets. Based on natural mathematical ratios that appear repeatedly in market prices. Many institutions use these levels, which makes them self-fulfilling.</Def>
-        <Def term="Measured Move Target">Height of the base/pattern projected upward from the breakout. Cup-and-Handle: project the cup depth above the breakout. Head & Shoulders: project the head height below the neckline. Simple and widely used.</Def>
       </>}
-
       {t === "trail" && <>
-        <Def term="Trailing Stop Loss">A stop that automatically moves UP as the stock price rises (for long positions). Locks in profits while letting winners run. If stock goes from Rs 100 → Rs 150 with 10% trail, stop moves from Rs 90 → Rs 135. You never give back more than 10% of the high.</Def>
+        <Def term="Trailing Stop Loss">A stop that automatically moves UP as the stock price rises. Locks in profits while letting winners run. If stock goes from Rs 100 to Rs 150 with 10% trail, stop moves from Rs 90 to Rs 135. You never give back more than 10% of the high.</Def>
         <Def term="Moving Average Trail">Trail stop to the 20 DMA (Ashwin), 50 DMA, or 200 DMA depending on your time horizon. Day/week traders: trail to 10 or 20 DMA. Swing traders: 20 or 50 DMA. Long-term investors: 200 DMA. Exit when price closes below the trailing MA.</Def>
         <Def term="Parabolic Move Exit">When a stock goes parabolic (near-vertical rise, 3-5 standard deviations from MA), the risk of reversal is extreme. Even committed holders should sell 50-75% into parabolic moves — the reversal, when it comes, is violent and fast.</Def>
         <Table headers={["Time horizon","Trail method","Exit signal"]}
@@ -1194,16 +1190,14 @@ function ExitStrategies() {
           ]}
         />
       </>}
-
       {t === "time" && <>
         <Def term="Time Stop">If a trade doesn't move in your expected direction within X days — exit regardless of profit or loss. Reason: capital tied in a non-moving position has opportunity cost. 10 days of sideways = better to redeploy capital elsewhere.</Def>
         <Def term="Options Time Stop (Critical)">Options lose value every day (theta decay). For buyers: exit if your option is not in profit within 5-7 days. Even if direction is right, you may not have enough time left for the move to overcome theta decay. Ashwin abandoned options buying for this reason.</Def>
         <Def term="Expiry-Based Exits (Options Sellers)">For Iron Condor / spreads: exit when 50% of max profit is reached OR when 5-7 days to expiry arrive — whichever comes first. Never hold options positions into expiry day. Gamma acceleration can destroy profits in hours.</Def>
         <Rule emoji="⏰" color={C.orange} title="The options time rule" text="Never hold to expiry. Exit options positions 2-3 days before expiry. The gamma risk in the final 48 hours makes even winning positions highly unpredictable." />
       </>}
-
       {t === "invest_exit" && <>
-        <Def term="When to Exit a Long-Term Investment">This is the hardest question. General principles: (1) Exit when the reason you bought is no longer valid. (2) Exit when you need the money. (3) Exit when valuation is extreme (P/E 3x historical). (4) Exit if better opportunity found. NOT: 'it has doubled, so I should sell.'</Def>
+        <Def term="When to Exit a Long-Term Investment">General principles: (1) Exit when the reason you bought is no longer valid. (2) Exit when you need the money. (3) Exit when valuation is extreme (P/E 3x historical). (4) Exit if better opportunity found. NOT: 'it has doubled, so I should sell.'</Def>
         <Def term="Story Change Exit">You bought Zomato because food delivery would grow massively. If the story changes (regulations, competition, unit economics deteriorate) — exit even at a loss. The original thesis no longer holds. Price doesn't matter; thesis matters.</Def>
         <Def term="Valuation Exit">If P/E is 3x historical average with no fundamental change — trim position. Not full exit, but reduce. Example: Nifty PE above 25 = reduce equity allocation. Below 15 = increase. Mean reversion in valuations is powerful over long horizons.</Def>
         <Def term="Rebalancing Exit">Periodic selling of overperforming assets to maintain target allocation. Annual exercise. Sell what has grown most (take profits), buy what has fallen (buy dip). Enforces 'buy low, sell high' mechanically.</Def>
@@ -1223,162 +1217,85 @@ function ExitStrategies() {
   );
 }
 
-// ─── LEARNING JOURNEY ─────────────────────────────────────────
 function LearningJourney() {
   const [sel, sSel] = useState(0);
   const phases = [
     {
-      n: 0, label: "Phase 0", name: "Complete Beginner",
-      subtitle: "Just heard about the stock market", color: C.muted,
+      n: 0, label: "Phase 0", name: "Complete Beginner", subtitle: "Just heard about the stock market", color: C.muted,
       duration: "Month 1-2", emoji: "👶",
       mindset: "Excited and confused. Everything sounds complicated.",
       where: "You're here when someone mentions 'my friend made 10 lakh in stocks' and you wonder what stocks even are.",
-      learn: [
-        "What is a company, share, stock market",
-        "BSE vs NSE. Sensex vs Nifty.",
-        "How to open a demat account (Zerodha, Groww, Upstox)",
-        "What is a broker, demat account, trading account",
-        "Buy your first stock with Rs 100 — just to feel it",
-        "Difference between investing and trading",
-        "What is SIP and why mutual funds exist",
-      ],
+      learn: ["What is a company, share, stock market","BSE vs NSE. Sensex vs Nifty.","How to open a demat account (Zerodha, Groww, Upstox)","What is a broker, demat account, trading account","Buy your first stock with Rs 100 — just to feel it","Difference between investing and trading","What is SIP and why mutual funds exist"],
       resources: ["Zerodha Varsity Module 1-3 (free, in Hindi too)", "Groww YouTube channel", "Investopedia basic articles"],
       mistakes: ["Putting all savings immediately", "Asking tips from friends/family", "Expecting to 'get rich quick'"],
       milestone: "Open demat account. Buy 1 stock. Buy 1 mutual fund SIP. Read Varsity Module 1-3.",
     },
     {
-      n: 1, label: "Phase 1", name: "Curious Learner",
-      subtitle: "Knows the basics, wants to understand more", color: C.blue,
+      n: 1, label: "Phase 1", name: "Curious Learner", subtitle: "Knows the basics, wants to understand more", color: C.blue,
       duration: "Month 3-6", emoji: "📚",
       mindset: "Curious. Reading a lot. Trying to understand what experienced traders do.",
       where: "You know what a stock is but don't know why prices move, what affects them, how to analyse.",
-      learn: [
-        "Reading a candlestick chart",
-        "Support and resistance (basic)",
-        "What moving averages are (50 MA, 200 MA)",
-        "Basics of company analysis (revenue, profit, P/E ratio)",
-        "How quarterly results affect stock prices",
-        "What is FII/DII and why they matter",
-        "Understanding the economy → market connection",
-        "How to read news and financial statements (basic)",
-      ],
+      learn: ["Reading a candlestick chart","Support and resistance (basic)","What moving averages are (50 MA, 200 MA)","Basics of company analysis (revenue, profit, P/E ratio)","How quarterly results affect stock prices","What is FII/DII and why they matter","Understanding the economy → market connection","How to read news and financial statements (basic)"],
       resources: ["Zerodha Varsity (complete all modules)", "Book: The Intelligent Investor (Intro chapters)", "MoneyControl, Screener.in (explore)"],
       mistakes: ["Overloading on too many indicators", "Analysis paralysis", "Still taking tips from channels"],
       milestone: "Can explain why a stock moved today. Can read a basic chart. Know 5 company metrics.",
     },
     {
-      n: 2, label: "Phase 2", name: "Paper Trader",
-      subtitle: "Learning by doing — without real money", color: C.teal,
+      n: 2, label: "Phase 2", name: "Paper Trader", subtitle: "Learning by doing — without real money", color: C.teal,
       duration: "Month 6-12", emoji: "📝",
       mindset: "Eager. Making mistakes but learning fast. Building conviction.",
       where: "Understand basics but not ready to risk real money. Need to test your theories safely.",
-      learn: [
-        "Paper trade on Sensibull (options) — track P&L without real money",
-        "Practice VCP identification on TradingView",
-        "Set up your watchlist and scan every weekend",
-        "Learn to read Options Chain (IV, OI, PCR)",
-        "Understand Greeks: Delta, Theta, Vega, Gamma in practice",
-        "Iron Condor setup on Sensibull (paper trade 10 setups)",
-        "Keep a trading journal: every trade, reason, result, lesson",
-        "Follow market daily for 6 months without trading",
-      ],
+      learn: ["Paper trade on Sensibull (options) — track P&L without real money","Practice VCP identification on TradingView","Set up your watchlist and scan every weekend","Learn to read Options Chain (IV, OI, PCR)","Understand Greeks: Delta, Theta, Vega, Gamma in practice","Iron Condor setup on Sensibull (paper trade 10 setups)","Keep a trading journal: every trade, reason, result, lesson","Follow market daily for 6 months without trading"],
       resources: ["Sensibull (paper trading)", "TradingView (free tier)", "Trading diary — Google Sheets", "Abid Hassan YouTube (Sensibull daily analysis)"],
       mistakes: ["Skipping paper trading to 'feel real', jumping to real money", "Not keeping journal", "Changing strategy every week"],
       milestone: "2,000 hours of chart study. 50 paper trades with documented entry/exit/lesson. Consistent paper P&L for 3 months.",
     },
     {
-      n: 3, label: "Phase 3", name: "Small Capital Trader",
-      subtitle: "Real money, small positions, building discipline", color: C.green,
+      n: 3, label: "Phase 3", name: "Small Capital Trader", subtitle: "Real money, small positions, building discipline", color: C.green,
       duration: "Year 1-2", emoji: "💰",
       mindset: "Nervous but disciplined. Following rules. Learning that psychology is 80% of trading.",
       where: "Paper trading profitable for 3 months. Ready to risk real money but need to start SMALL.",
-      learn: [
-        "Start with Rs 50,000 — Rs 1,00,000 ONLY",
-        "One strategy only: Bull Put Spread or Iron Condor",
-        "Maximum 2-3 lots per trade",
-        "Follow checklist for EVERY trade",
-        "Journal every single trade religiously",
-        "Learn from losses — what rule was broken?",
-        "Read: Trade Like a Stock Market Wizard",
-        "Understand position sizing and never risk more than 2% per trade",
-        "Monthly review: win rate, avg win/loss, P&L",
-      ],
+      learn: ["Start with Rs 50,000 — Rs 1,00,000 ONLY","One strategy only: Bull Put Spread or Iron Condor","Maximum 2-3 lots per trade","Follow checklist for EVERY trade","Journal every single trade religiously","Learn from losses — what rule was broken?","Read: Trade Like a Stock Market Wizard","Understand position sizing and never risk more than 2% per trade","Monthly review: win rate, avg win/loss, P&L"],
       resources: ["Trade Like a Stock Market Wizard (Minervini)", "Sensibull for options", "Your own journal"],
       mistakes: ["Increasing position size after wins", "Abandoning rules during losses", "Over-trading"],
       milestone: "Profitable for 6 consecutive months. Know exact win rate. Can explain every loss. Capital preserved.",
     },
     {
-      n: 4, label: "Phase 4", name: "Developing Trader",
-      subtitle: "Consistent. Refining the system. Growing capital.", color: C.gold,
+      n: 4, label: "Phase 4", name: "Developing Trader", subtitle: "Consistent. Refining the system. Growing capital.", color: C.gold,
       duration: "Year 2-3", emoji: "⚙️",
       mindset: "Calmer. More patient. Starting to trust the process over individual outcomes.",
       where: "Profitably trading for 6+ months. Now ready to scale and add strategies.",
-      learn: [
-        "Add second strategy: directional trades (VCP for stocks)",
-        "Read macro: FII data, RBI, oil, Rupee — and connect to trades",
-        "Scale up position size gradually (not suddenly)",
-        "Learn advanced options: spreads, Iron Fly, adjustments",
-        "Study your own patterns: time of day, market conditions when you win/lose",
-        "Build your own watchlist scanning routine (weekend)",
-        "Start following commodity futures charts (gold, silver)",
-        "Understand sector rotation and use it",
-      ],
+      learn: ["Add second strategy: directional trades (VCP for stocks)","Read macro: FII data, RBI, oil, Rupee — and connect to trades","Scale up position size gradually (not suddenly)","Learn advanced options: spreads, Iron Fly, adjustments","Study your own patterns: time of day, market conditions when you win/lose","Build your own watchlist scanning routine (weekend)","Start following commodity futures charts (gold, silver)","Understand sector rotation and use it"],
       resources: ["Stan Weinstein: Secrets for Profiting in Bull and Bear Markets", "Investopedia advanced options", "NSE Academy courses"],
       mistakes: ["Thinking you've figured it out", "Overcomplicating with too many strategies", "Ignoring psychology work"],
       milestone: "Two strategies working simultaneously. Positive P&L for 12 months. Account growing without blowing up.",
     },
     {
-      n: 5, label: "Phase 5", name: "Proficient Trader",
-      subtitle: "Experienced. Comfortable with losses. System-driven.", color: C.orange,
+      n: 5, label: "Phase 5", name: "Proficient Trader", subtitle: "Experienced. Comfortable with losses. System-driven.", color: C.orange,
       duration: "Year 3-5", emoji: "🔧",
       mindset: "Professional mindset. Think in probabilities. Losses are just cost of doing business.",
       where: "Profitable for 2+ years. Multiple strategies. Understanding different market conditions.",
-      learn: [
-        "Trade across market cycles (bull, bear, sideways) successfully",
-        "Advanced position sizing: Kelly Criterion, volatility-adjusted sizing",
-        "Portfolio-level thinking (correlations, sector exposure)",
-        "Macro analysis integration: when to reduce/increase exposure",
-        "Consider: should you go full-time? (only if corpus > Rs 50L for options)",
-        "Mentor others — teaching accelerates your own learning",
-        "Start tracking your own performance vs Nifty (alpha generation)",
-      ],
+      learn: ["Trade across market cycles (bull, bear, sideways) successfully","Advanced position sizing: Kelly Criterion, volatility-adjusted sizing","Portfolio-level thinking (correlations, sector exposure)","Macro analysis integration: when to reduce/increase exposure","Consider: should you go full-time? (only if corpus > Rs 50L for options)","Mentor others — teaching accelerates your own learning","Start tracking your own performance vs Nifty (alpha generation)"],
       resources: ["Market Wizards series (Jack Schwager)", "Options as a Strategic Investment (McMillan)", "Options Volatility & Pricing (Natenberg)"],
       mistakes: ["Overconfidence after good years", "Increasing leverage too aggressively"],
       milestone: "Consistent alpha (beating Nifty) over 2+ years. Clear written system. Can trade any market condition.",
     },
     {
-      n: 6, label: "Phase 6", name: "Expert Performer",
-      subtitle: "Ashwin/Minervini level. Edge clearly defined.", color: C.purple,
+      n: 6, label: "Phase 6", name: "Expert Performer", subtitle: "Ashwin/Minervini level. Edge clearly defined.", color: C.purple,
       duration: "Year 5-8", emoji: "🏆",
       mindset: "Mastery. Know exactly what edge you have. Market conditions you excel in vs avoid.",
       where: "5+ years. Multiple market cycles survived. System proven. Capital substantial (Rs 50L+).",
-      learn: [
-        "Deep specialisation: 1-2 strategies done at world-class level",
-        "Proprietary scans and systems built on your experience",
-        "Risk management at institutional level",
-        "Psychology fully under control: no fear, no greed — just execution",
-        "Compound aggressively but wisely",
-        "May consider running a fund/PMS or trading community",
-        "Keep learning: markets evolve, strategies must evolve",
-      ],
+      learn: ["Deep specialisation: 1-2 strategies done at world-class level","Proprietary scans and systems built on your experience","Risk management at institutional level","Psychology fully under control: no fear, no greed — just execution","Compound aggressively but wisely","May consider running a fund/PMS or trading community","Keep learning: markets evolve, strategies must evolve"],
       resources: ["Study competition trades (Minervini wins US Championship)", "Own trade analysis > any book", "Market history studies"],
       mistakes: ["Complacency — markets change, don't stop learning", "Letting lifestyle inflation force overtrading"],
       milestone: "Rs 1 Cr+ corpus. Clear documented edge. Sustained 25%+ CAGR over 5+ years. Can teach what you do.",
     },
     {
-      n: 7, label: "Phase 7", name: "Super Performer",
-      subtitle: "Ashwin's journey. Extraordinary returns. Few reach here.", color: C.goldL,
+      n: 7, label: "Phase 7", name: "Super Performer", subtitle: "Ashwin's journey. Extraordinary returns. Few reach here.", color: C.goldL,
       duration: "Year 8+", emoji: "🚀",
       mindset: "The market is a game. Chart is a language you're fluent in. You see things others can't.",
       where: "Elite. Rs 1 Cr+ corpus. Proven across multiple cycles. Like Ashwin's Rs 7L to Rs 15 Cr journey.",
-      learn: [
-        "The system runs itself — discipline is automatic",
-        "Concentration into highest conviction ideas (Ashwin: 50-100% in one trade when conviction is extreme)",
-        "Understanding the psychological edge you have over the market",
-        "Participation in investment championships (US Investing Championship)",
-        "Teaching and community building (multiplies your own learning)",
-        "Giving back — Ashwin's first time sharing his journey publicly on podcast",
-      ],
+      learn: ["The system runs itself — discipline is automatic","Concentration into highest conviction ideas (Ashwin: 50-100% in one trade when conviction is extreme)","Understanding the psychological edge you have over the market","Participation in investment championships (US Investing Championship)","Teaching and community building (multiplies your own learning)","Giving back — Ashwin's first time sharing his journey publicly on podcast"],
       resources: ["Your own 8+ years of journal and experience", "Studying your own psychology", "Conversations with other elite traders"],
       mistakes: ["The biggest risk: overconfidence AFTER massive wins", "'I am invincible' feeling = most dangerous moment"],
       milestone: "100%+ returns in a year (verifiable). Multiple blown accounts before this. Extraordinary resilience proven.",
@@ -1388,7 +1305,6 @@ function LearningJourney() {
   const curr = phases[sel];
   return (
     <div>
-      {/* Phase selector */}
       <div style={{ display: "flex", overflowX: "auto", gap: 0, marginBottom: 16,
         background: C.card, borderRadius: 10, padding: 4 }}>
         {phases.map((p, i) => (
@@ -1404,15 +1320,11 @@ function LearningJourney() {
           </button>
         ))}
       </div>
-
-      {/* Progress bar */}
       <div style={{ height: 4, background: C.border, borderRadius: 10, marginBottom: 16, overflow: "hidden" }}>
         <div style={{ height: "100%", width: `${(sel / (phases.length - 1)) * 100}%`,
           background: `linear-gradient(90deg, ${C.blue}, ${curr.color})`,
           borderRadius: 10, transition: "width 0.4s ease" }} />
       </div>
-
-      {/* Content */}
       <div style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 12 }}>
         <div style={{ fontSize: 32 }}>{curr.emoji}</div>
         <div>
@@ -1421,17 +1333,14 @@ function LearningJourney() {
           <div style={{ marginTop: 4 }}><Badge label={curr.duration} color={curr.color} /></div>
         </div>
       </div>
-
       <Card accent={curr.color}>
         <div style={{ fontSize: 11, color: C.muted, marginBottom: 3, textTransform: "uppercase", letterSpacing: 1, fontWeight: 700 }}>Mindset at this stage</div>
         <div style={{ fontSize: 12.5, color: C.dim, fontStyle: "italic" }}>{curr.mindset}</div>
       </Card>
-
       <Card accent={C.border}>
         <div style={{ fontSize: 11, color: C.muted, marginBottom: 3, textTransform: "uppercase", letterSpacing: 1, fontWeight: 700 }}>You are here when...</div>
         <div style={{ fontSize: 12.5, color: C.dim, lineHeight: 1.6 }}>{curr.where}</div>
       </Card>
-
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 11, color: curr.color, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>What to Learn</div>
         {curr.learn.map((item, i) => (
@@ -1442,7 +1351,6 @@ function LearningJourney() {
           </div>
         ))}
       </div>
-
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
         <div style={{ background: `${C.green}08`, border: `1px solid ${C.green}20`, borderRadius: 8, padding: 12 }}>
           <div style={{ fontSize: 11, color: C.green, fontWeight: 700, marginBottom: 6 }}>Resources</div>
@@ -1457,7 +1365,6 @@ function LearningJourney() {
           ))}
         </div>
       </div>
-
       <div style={{ background: `${curr.color}12`, border: `1px solid ${curr.color}30`,
         borderRadius: 10, padding: "12px 14px" }}>
         <div style={{ fontSize: 11, color: curr.color, fontWeight: 700, marginBottom: 5,
@@ -1468,7 +1375,6 @@ function LearningJourney() {
   );
 }
 
-// ─── STOCK SELECTION ──────────────────────────────────────────
 function StockSelection() {
   const [t, st] = useState("framework");
   return (
@@ -1483,11 +1389,9 @@ function StockSelection() {
         { id: "by_style",  label: "By Trading Style" },
         { id: "avoid",     label: "Stocks to Avoid" },
       ]} />
-
       {t === "framework" && <>
         <Quote source="Mark Minervini">I don't look for good stocks. I look for perfect setups. There's a difference. A good stock can be a terrible trade if the setup is wrong.</Quote>
         <Def term="The Core Problem">NSE has 2,200+ listed stocks. BSE has 5,000+. You cannot watch all of them. You need a systematic FILTERING process that narrows 5,000 → 500 → 50 → 5 actionable setups. Without a filter, you are gambling on random names you heard from friends or news.</Def>
-        <Def term="The 4-Filter Funnel">Every professional trader uses some version of this funnel. Start broad, get specific at each step.</Def>
         <div style={{ position: "relative", padding: "0 0 0 20px" }}>
           {[
             { n: "Filter 1 — Universe", color: C.blue, count: "5,000 → 500", what: "Which stocks are even eligible to trade? F&O list (212 stocks) for traders. Nifty 500 for investors. Remove penny stocks, SME board, low liquidity stocks automatically." },
@@ -1496,8 +1400,7 @@ function StockSelection() {
             { n: "Filter 4 — Chart Review + Timing", color: C.green, count: "20 → 3-5", what: "Manually review each candidate chart. Is the setup right today? Is the entry timing good? Is there a clear pivot point? This produces your final actionable list." },
           ].map((f, i) => (
             <div key={i} style={{ display: "flex", gap: 10, marginBottom: 14 }}>
-              <div style={{ position: "absolute", left: 8, width: 2, background: C.border, top: 0, bottom: 0 }} />
-              <div style={{ width: 12, height: 12, borderRadius: "50%", background: f.color, flexShrink: 0, marginTop: 3, zIndex: 1 }} />
+              <div style={{ width: 12, height: 12, borderRadius: "50%", background: f.color, flexShrink: 0, marginTop: 3 }} />
               <div style={{ flex: 1, background: C.card, border: `1px solid ${f.color}25`, borderRadius: 10, padding: "11px 13px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                   <span style={{ fontSize: 13, fontWeight: 700, color: f.color }}>{f.n}</span>
@@ -1510,333 +1413,107 @@ function StockSelection() {
         </div>
         <Rule emoji="💡" color={C.goldL} title="The key insight" text="Most retail traders skip Filters 1-3 and jump straight to buying stocks they hear about on news or Telegram. That's backwards. Build the funnel and only act on what survives all 4 filters." />
       </>}
-
       {t === "topdown" && <>
-        <Quote source="Peter Lynch">Know what you own, and know why you own it. Invest in what you understand.</Quote>
         <Def term="Top-Down Analysis">Start from the BIG picture and work DOWN to individual stocks. Economy → Sector → Industry → Company. The most logical approach. If the economy is in trouble, even great companies suffer. If a sector is in decline, even good stocks in it underperform.</Def>
-
         {[
-          {
-            step: "Step 1 — Global Macro Check", color: C.red,
-            questions: ["Is US Fed hiking or cutting rates? (Affects FII flows into India)", "Is Dollar strengthening or weakening? (Strong dollar = FII sell India)", "Oil price direction? (India = oil importer, high oil = bad for markets)", "Any geopolitical risk? (Iran war, US-China trade, etc.)", "Is global risk appetite high (buy EM) or low (sell EM)?"],
-            tools: ["TradingView: DXY (Dollar Index), USOIL, US10Y (yields)", "Market Intelligence dashboard (built earlier)", "Investing.com economic calendar"],
-          },
-          {
-            step: "Step 2 — India Macro Check", color: C.orange,
-            questions: ["Is RBI in rate cut or hike cycle? (Cut = bullish for banks, real estate)", "Is GDP growing or slowing? (Growing = buy cyclicals)", "Is inflation under control? (High inflation = RBI hawks = markets nervous)", "FII net buying or selling? (3+ days of buying = positive)", "Is Nifty above or below 200 MA? (Above = uptrend, be long biased)"],
-            tools: ["Sensibull FII/DII data", "NSE website: FII statistics", "RBI website for macro data"],
-          },
-          {
-            step: "Step 3 — Sector Selection", color: C.gold,
-            questions: ["Which sectors are hitting new 52-week highs? (Momentum sectors)", "Which sectors have strong earnings growth? (Check last 2 quarters)", "Any policy tailwind? (Defence spending, PLI scheme, infra push)", "Any sector-specific macro boost? (Oil up = energy sector, rate cut = banks)", "Is FII buying concentrated in any sector?"],
-            tools: ["NSE sector indices (NIFTY IT, NIFTY BANK, NIFTY PHARMA etc)", "Screener.in sector analysis", "ET Markets sector heatmap"],
-          },
-          {
-            step: "Step 4 — Industry within Sector", color: C.teal,
-            questions: ["Within the sector, which industry sub-segment is strongest?", "Example: Banking sector → Private banks or PSU banks leading?", "IT sector → Large cap IT or mid-cap IT outperforming?", "Pharma → Domestic formulations or US generics doing better?"],
-            tools: ["NSE industry indices", "Screener.in industry comparison"],
-          },
-          {
-            step: "Step 5 — Individual Stock", color: C.green,
-            questions: ["Which company in the industry is the market leader?", "Who has the best earnings growth recently?", "Whose chart looks strongest (near ATH, VCP forming)?", "Who has lowest debt + highest ROE in the group?"],
-            tools: ["Screener.in custom screen", "TradingView stock scanner", "Ashwin's weekend F&O scan"],
-          },
+          { step: "Step 1 — Global Macro Check", color: C.red, questions: ["Is US Fed hiking or cutting rates? (Affects FII flows into India)","Is Dollar strengthening or weakening? (Strong dollar = FII sell India)","Oil price direction? (India = oil importer, high oil = bad for markets)","Any geopolitical risk? (Iran war, US-China trade, etc.)","Is global risk appetite high (buy EM) or low (sell EM)?"], tools: ["TradingView: DXY (Dollar Index), USOIL, US10Y (yields)","Investing.com economic calendar"] },
+          { step: "Step 2 — India Macro Check", color: C.orange, questions: ["Is RBI in rate cut or hike cycle? (Cut = bullish for banks, real estate)","Is GDP growing or slowing? (Growing = buy cyclicals)","Is inflation under control? (High inflation = RBI hawks = markets nervous)","FII net buying or selling? (3+ days of buying = positive)","Is Nifty above or below 200 MA? (Above = uptrend, be long biased)"], tools: ["Sensibull FII/DII data","NSE website: FII statistics","RBI website for macro data"] },
+          { step: "Step 3 — Sector Selection", color: C.gold, questions: ["Which sectors are hitting new 52-week highs? (Momentum sectors)","Which sectors have strong earnings growth? (Check last 2 quarters)","Any policy tailwind? (Defence spending, PLI scheme, infra push)","Any sector-specific macro boost? (Oil up = energy sector, rate cut = banks)","Is FII buying concentrated in any sector?"], tools: ["NSE sector indices (NIFTY IT, NIFTY BANK, NIFTY PHARMA etc)","Screener.in sector analysis","ET Markets sector heatmap"] },
+          { step: "Step 4 — Individual Stock", color: C.green, questions: ["Which company in the industry is the market leader?","Who has the best earnings growth recently?","Whose chart looks strongest (near ATH, VCP forming)?","Who has lowest debt + highest ROE in the group?"], tools: ["Screener.in custom screen","TradingView stock scanner","Ashwin's weekend F&O scan"] },
         ].map((s, i) => (
           <div key={i} style={{ marginBottom: 14, border: `1px solid ${s.color}25`, borderRadius: 10, overflow: "hidden" }}>
             <div style={{ background: `${s.color}15`, padding: "10px 14px", fontWeight: 700, color: s.color, fontSize: 13 }}>{s.step}</div>
             <div style={{ padding: "10px 14px" }}>
-              <div style={{ fontSize: 11, color: C.muted, fontWeight: 700, marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>Key Questions</div>
-              {s.questions.map((q, j) => (
-                <div key={j} style={{ fontSize: 12, color: C.dim, padding: "3px 0", display: "flex", gap: 6 }}>
-                  <span style={{ color: s.color }}>?</span>{q}
-                </div>
-              ))}
-              <div style={{ fontSize: 11, color: C.muted, fontWeight: 700, marginTop: 8, marginBottom: 4, textTransform: "uppercase", letterSpacing: 1 }}>Tools</div>
-              {s.tools.map((tool, j) => (
-                <div key={j} style={{ fontSize: 11, color: C.dim, padding: "2px 0" }}>› {tool}</div>
-              ))}
+              {s.questions.map((q, j) => <div key={j} style={{ fontSize: 12, color: C.dim, padding: "3px 0", display: "flex", gap: 6 }}><span style={{ color: s.color }}>?</span>{q}</div>)}
+              <div style={{ fontSize: 11, color: C.muted, fontWeight: 700, marginTop: 8, marginBottom: 4 }}>Tools</div>
+              {s.tools.map((tool, j) => <div key={j} style={{ fontSize: 11, color: C.dim, padding: "2px 0" }}>› {tool}</div>)}
             </div>
           </div>
         ))}
       </>}
-
       {t === "technical" && <>
-        <Def term="Technical Screening — What to look for">A technical screen finds stocks where the CHART is set up for a move. You don't care about revenue or profits — you care about price structure, trend, volume, and pattern. Ashwin's weekend scan is a technical screen.</Def>
-
-        <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: C.goldL, marginBottom: 10 }}>The 7-Point Technical Checklist</div>
-          {[
-            { n: "✅ 1. Above 200 EMA (Daily)", color: C.green, detail: "Non-negotiable first filter. If price is below 200 EMA, skip immediately. Stock is in Stage 1 or Stage 4. Not your hunting ground.", tv: "In TradingView screener: Close > EMA(200)" },
-            { n: "✅ 2. MA Stack Aligned", color: C.green, detail: "10 EMA > 20 EMA > 50 EMA > 200 EMA. All moving averages in ascending order. This confirms a healthy uptrend at multiple timeframes.", tv: "EMA(10) > EMA(20) > EMA(50) > EMA(200)" },
-            { n: "✅ 3. Near 52-Week High (ATH preferred)", color: C.teal, detail: "Ashwin's rule: prefer stocks within 15% of all-time high. No overhead supply. Everyone holding is in profit. Clean run when it breaks out.", tv: "Close > (Highest High (252) × 0.85)" },
-            { n: "✅ 4. Prior Uptrend 30%+", color: C.teal, detail: "The stock must have come from somewhere. A VCP base forming after a 30%+ prior run is valid. A VCP forming in a sideways stock is not a VCP — it's just noise.", tv: "Check manually on chart" },
-            { n: "✅ 5. Tight Consolidation (Base Forming)", color: C.gold, detail: "Price range contracting over recent weeks. Each pullback smaller than the last. Looks like price is 'coiling.' Volume drying up during this phase.", tv: "Check visually: bars getting shorter, range narrowing" },
-            { n: "✅ 6. Volume Dry-Up During Base", color: C.gold, detail: "Average volume during the base should be below the 20-day average. Sellers exhausted. No more supply. The spring is coiling.", tv: "Volume(5 day avg) < Volume(20 day avg)" },
-            { n: "✅ 7. Relative Strength", color: C.orange, detail: "Is this stock outperforming Nifty? If Nifty is flat but this stock is at new highs — something special is happening. Strong RS stocks lead the next bull phase.", tv: "Compare stock chart to NIFTY: stock making new highs when Nifty isn't = strong RS" },
-          ].map((item, i) => (
-            <div key={i} style={{ background: C.card, border: `1px solid ${item.color}20`, borderLeft: `3px solid ${item.color}`, borderRadius: 8, padding: "10px 13px", marginBottom: 7 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: item.color, marginBottom: 3 }}>{item.n}</div>
-              <div style={{ fontSize: 12, color: C.dim, lineHeight: 1.5, marginBottom: 4 }}>{item.detail}</div>
-              <div style={{ fontSize: 11, color: C.muted, fontFamily: "monospace", background: "#0a0c10", padding: "4px 8px", borderRadius: 4 }}>TV: {item.tv}</div>
-            </div>
-          ))}
-        </div>
-
-        <Card accent={C.orange}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: C.orange, marginBottom: 6 }}>Entry Trigger (after all 7 checks pass)</div>
-          <div style={{ fontSize: 12, color: C.dim, lineHeight: 1.6 }}>
-            Wait for price to break above the base resistance (pivot point) on 1.5-2x average volume.
-            Green candle closing near day's high. That's your entry. Not before. Premature entries get stopped out on base breakout failures.
+        <Def term="Technical Screening">A technical screen finds stocks where the CHART is set up for a move. You don't care about revenue or profits — you care about price structure, trend, volume, and pattern.</Def>
+        {[
+          { n: "✅ 1. Above 200 EMA (Daily)", color: C.green, detail: "Non-negotiable first filter. If price is below 200 EMA, skip immediately. Stock is in Stage 1 or Stage 4. Not your hunting ground." },
+          { n: "✅ 2. MA Stack Aligned", color: C.green, detail: "10 EMA > 20 EMA > 50 EMA > 200 EMA. All moving averages in ascending order. This confirms a healthy uptrend at multiple timeframes." },
+          { n: "✅ 3. Near 52-Week High (ATH preferred)", color: C.teal, detail: "Ashwin's rule: prefer stocks within 15% of all-time high. No overhead supply. Everyone holding is in profit. Clean run when it breaks out." },
+          { n: "✅ 4. Prior Uptrend 30%+", color: C.teal, detail: "The stock must have come from somewhere. A VCP base forming after a 30%+ prior run is valid. A VCP forming in a sideways stock is not a VCP — it's just noise." },
+          { n: "✅ 5. Tight Consolidation (Base Forming)", color: C.gold, detail: "Price range contracting over recent weeks. Each pullback smaller than the last. Looks like price is 'coiling.' Volume drying up during this phase." },
+          { n: "✅ 6. Volume Dry-Up During Base", color: C.gold, detail: "Average volume during the base should be below the 20-day average. Sellers exhausted. No more supply. The spring is coiling." },
+          { n: "✅ 7. Relative Strength", color: C.orange, detail: "Is this stock outperforming Nifty? If Nifty is flat but this stock is at new highs — something special is happening. Strong RS stocks lead the next bull phase." },
+        ].map((item, i) => (
+          <div key={i} style={{ background: C.card, border: `1px solid ${item.color}20`, borderLeft: `3px solid ${item.color}`, borderRadius: 8, padding: "10px 13px", marginBottom: 7 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: item.color, marginBottom: 3 }}>{item.n}</div>
+            <div style={{ fontSize: 12, color: C.dim, lineHeight: 1.5 }}>{item.detail}</div>
           </div>
-        </Card>
+        ))}
       </>}
-
       {t === "fundamental" && <>
         <Def term="Fundamental Screening — Minervini's SEPA + India Context">Fundamental screens find stocks where the BUSINESS is exceptional. You want companies where earnings are growing fast, management is strong, and the sector has tailwinds. Then you wait for the technical setup to align.</Def>
-
         <div style={{ marginBottom: 14 }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: C.green, marginBottom: 10 }}>Screener.in Formula — Paste these filters directly</div>
           <div style={{ background: "#0a0c10", border: `1px solid ${C.green}30`, borderRadius: 8, padding: "12px 14px", fontFamily: "monospace", fontSize: 11, color: C.teal, lineHeight: 2 }}>
-            {`Market Capitalization > 5000 AND
-Sales growth 3Years > 15 AND
-Profit growth 3Years > 20 AND
-Return on equity > 15 AND
-Debt to equity < 1 AND
-Current ratio > 1.5 AND
-Price to Earning < 50 AND
-Promoter holding > 30 AND
-Change in promoter holding > 0`}
+            {`Market Capitalization > 5000 AND\nSales growth 3Years > 15 AND\nProfit growth 3Years > 20 AND\nReturn on equity > 15 AND\nDebt to equity < 1 AND\nCurrent ratio > 1.5 AND\nPrice to Earning < 50 AND\nPromoter holding > 30 AND\nChange in promoter holding > 0`}
           </div>
-          <div style={{ fontSize: 11, color: C.muted, marginTop: 6 }}>Go to screener.in → Stock Screener → paste above in the query box → Run query</div>
         </div>
-
-        <Table headers={["Criterion", "Minervini Standard", "India Adaptation", "Why it matters"]}
-          colors={[C.goldL, C.dim, C.teal, C.dim]}
+        <Table headers={["Criterion", "Minervini Standard", "India Adaptation"]}
+          colors={[C.goldL, C.dim, C.teal]}
           rows={[
-            ["EPS Growth (quarterly)", "25%+ last 2-3 quarters", "20%+ acceptable in India", "Accelerating earnings = institutional interest"],
-            ["Revenue Growth", "25%+ recent quarters", "15%+ for large caps", "Top-line shows real business momentum"],
-            ["ROE", "17%+ minimum", "15%+ good, 25%+ excellent", "How efficiently management uses capital"],
-            ["Debt/Equity", "Low or zero", "Below 1x", "High debt = risk in rising rate environment"],
-            ["Profit Margins", "Expanding or at highs", "Stable or rising", "Pricing power and operational efficiency"],
-            ["Promoter Holding", "N/A (US context)", "30%+ preferred", "Skin in the game. Insider confidence."],
-            ["Promoter Pledge", "N/A", "Below 10% (lower better)", "Pledged shares = risk of forced selling"],
-            ["Institutional Holding", "Growing", "FII/MF increasing", "Smart money accumulating = bullish"],
-            ["Relative Strength", "Top 30% vs market", "Outperforming Nifty", "Leaders lead. Laggards lag."],
+            ["EPS Growth (quarterly)", "25%+ last 2-3 quarters", "20%+ acceptable in India"],
+            ["Revenue Growth", "25%+ recent quarters", "15%+ for large caps"],
+            ["ROE", "17%+ minimum", "15%+ good, 25%+ excellent"],
+            ["Debt/Equity", "Low or zero", "Below 1x"],
+            ["Promoter Holding", "N/A (US context)", "30%+ preferred"],
+            ["Institutional Holding", "Growing", "FII/MF increasing"],
           ]}
         />
-
-        <Def term="The Earnings Acceleration Filter (Most Important)">Not just growing earnings — ACCELERATING earnings. If EPS was growing 10% → 15% → 25% → 40% — that acceleration is the single most powerful signal. It means the company is going through an inflection point. Institutions pay up for acceleration.</Def>
-        <Rule emoji="🎯" color={C.green} title="Quick India-specific screens on Screener.in" text="Save these custom screens: (1) 'Momentum Leaders': ROE > 20, Sales growth > 20%, Price near 52-week high, P/E < 40. (2) 'Turnaround': Profit growth last year > 50%, Debt falling, Promoter buying. (3) 'Quality Compounders': ROE > 20 for 5 years, Sales growth > 15%, Debt/equity < 0.5." />
       </>}
-
       {t === "tools" && <>
-        <Def term="Overview">You need 3 types of tools: a screener (to filter from 5,000), a charting platform (to analyse filtered stocks), and a data platform (for options-specific data like OI, IV, PCR).</Def>
-
         {[
-          {
-            tool: "Screener.in", color: C.green, free: "Free (basic) / Rs 1,999/yr (pro)",
-            best: "Fundamental screening. India's best tool for this.",
-            how: ["Go to screener.in", "Click 'Stock Screener'", "Enter criteria in the query box (see Fundamental tab)", "Save your screen for reuse", "Click any stock to see full P&L, balance sheet, cash flow history, pledging, FII/DII ownership changes"],
-            features: ["Custom query language", "P&L + balance sheet history", "Export to Excel", "Peer comparison", "Sector screens", "FII/DII holding changes"],
-          },
-          {
-            tool: "TradingView", color: C.blue, free: "Free / $14.95/month (Pro)",
-            best: "Charting and technical screening. Used by Ashwin.",
-            how: ["Open tradingview.com", "Stock Screener (top menu)", "Filter: Country = India (NSE/BSE)", "Add conditions: EMA(200) below price, Volume above average", "Switch individual charts to Log scale (right-click price axis)", "Set price alerts for breakout levels"],
-            features: ["Screener with 150+ filters", "Custom Pine Script indicators", "Log scale charts", "Multi-timeframe analysis", "Economic calendar", "Alert system (email/app)"],
-          },
-          {
-            tool: "Sensibull", color: C.purple, free: "Free basic / Rs 999/month (pro)",
-            best: "Options-specific data: IV, OI, PCR, Max Pain, strategy builder.",
-            how: ["Login at sensibull.com (linked to Upstox/Zerodha)", "Today's market page → PCR, VIX, Max Pain at a glance", "FII/DII tab → Check daily flows and futures position", "Option Chain → See IV across strikes, OI buildup", "Strategy Builder → Build Iron Condor/spreads visually", "Paper trade without real money to practice"],
-            features: ["India VIX live", "FII/DII history", "IV Percentile (IVP)", "Max Pain calculator", "PCR real-time", "Strategy payoff diagrams", "Paper trading"],
-          },
-          {
-            tool: "NSE India Website", color: C.orange, free: "Completely free",
-            best: "Official data source. F&O ban list, lot sizes, OI data.",
-            how: ["nseindia.com → Derivatives → F&O Ban List (check every morning!)", "Derivatives → Option Chain (most accurate OI data)", "Derivatives → FII Statistics (official FII data)", "Market Data → Bhavcopy (end-of-day data download)", "Derivatives → Lot Size list"],
-            features: ["F&O ban list (daily)", "Official OI + option chain", "FII/DII official statistics", "Lot size list", "Historical data download"],
-          },
-          {
-            tool: "Finviz (for US stocks)", color: C.teal, free: "Free / $24.96/month (Elite)",
-            best: "US stock screening. If you trade US markets.",
-            how: ["finviz.com → Screener", "Set: Country = USA, Market Cap > $1B, EPS growth QoQ > 25%, Above SMA200, Near 52-week high", "Heatmap view shows entire market at a glance", "News tab aggregates all market news"],
-            features: ["Visual stock heatmap", "Filters for all fundamentals + technicals", "Insider trading data", "Analyst ratings", "Options data"],
-          },
-          {
-            tool: "Tijori Finance", color: C.gold, free: "Free",
-            best: "India deep-dive: promoter holding, pledging, concall transcripts.",
-            how: ["tijorifinance.com → search any NSE stock", "See promoter pledging history", "See institutional ownership changes quarter by quarter", "Earnings call transcripts", "Segment revenue breakdown"],
-            features: ["Promoter pledge tracker", "FII/DII quarterly ownership", "Concall transcripts", "Segment analysis", "Peer comparison"],
-          },
+          { tool: "Screener.in", color: C.green, free: "Free / Rs 1,999/yr", best: "Fundamental screening. India's best tool for this.", features: ["Custom query language","P&L + balance sheet history","Export to Excel","Sector screens","FII/DII holding changes"] },
+          { tool: "TradingView", color: C.blue, free: "Free / $14.95/month", best: "Charting and technical screening. Used by Ashwin.", features: ["Screener with 150+ filters","Custom Pine Script indicators","Log scale charts","Multi-timeframe analysis","Alert system (email/app)"] },
+          { tool: "Sensibull", color: C.purple, free: "Free basic / Rs 999/month", best: "Options-specific data: IV, OI, PCR, Max Pain, strategy builder.", features: ["India VIX live","FII/DII history","IV Percentile (IVP)","Max Pain calculator","PCR real-time","Paper trading"] },
+          { tool: "NSE India Website", color: C.orange, free: "Completely free", best: "Official data source. F&O ban list, lot sizes, OI data.", features: ["F&O ban list (daily)","Official OI + option chain","FII/DII official statistics","Lot size list","Historical data download"] },
+          { tool: "Tijori Finance", color: C.gold, free: "Free", best: "India deep-dive: promoter holding, pledging, concall transcripts.", features: ["Promoter pledge tracker","FII/DII quarterly ownership","Concall transcripts","Segment analysis","Peer comparison"] },
         ].map((tool, i) => (
           <div key={i} style={{ marginBottom: 14, border: `1px solid ${tool.color}25`, borderRadius: 10, overflow: "hidden" }}>
             <div style={{ background: `${tool.color}12`, padding: "10px 14px", borderBottom: `1px solid ${tool.color}20`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontWeight: 800, fontSize: 14, color: tool.color }}>{tool.tool}</span>
-              <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                <Badge label={tool.free} color={tool.color} />
-              </div>
+              <Badge label={tool.free} color={tool.color} />
             </div>
             <div style={{ padding: "10px 14px" }}>
               <div style={{ fontSize: 12, color: C.dim, marginBottom: 8, fontStyle: "italic" }}>Best for: {tool.best}</div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                <div>
-                  <div style={{ fontSize: 11, color: tool.color, fontWeight: 700, marginBottom: 5, textTransform: "uppercase", letterSpacing: 1 }}>How to use</div>
-                  {tool.how.map((h, j) => <div key={j} style={{ fontSize: 11, color: C.dim, padding: "2px 0" }}>{j + 1}. {h}</div>)}
-                </div>
-                <div>
-                  <div style={{ fontSize: 11, color: tool.color, fontWeight: 700, marginBottom: 5, textTransform: "uppercase", letterSpacing: 1 }}>Key features</div>
-                  {tool.features.map((f, j) => <div key={j} style={{ fontSize: 11, color: C.dim, padding: "2px 0" }}>› {f}</div>)}
-                </div>
-              </div>
+              {tool.features.map((f, j) => <div key={j} style={{ fontSize: 12, color: C.dim, padding: "2px 0" }}>› {f}</div>)}
             </div>
           </div>
         ))}
       </>}
-
       {t === "ashwin_scan" && <>
         <Quote source="Ashwin Raghavan">Every weekend I go through all 212 F&O stocks manually. After 2,000-3,000 hours in front of charts — 3-4 seconds per chart is enough. I know instantly if it's interesting or not.</Quote>
-
-        <div style={{ marginBottom: 14 }}>
-          {[
-            {
-              step: "Saturday — Build the Universe", color: C.blue, time: "30 minutes",
-              tasks: [
-                "Open TradingView. Go to NSE F&O stocks list (all 212).",
-                "Switch ALL charts to LOG scale. This is Step 1 every time.",
-                "Quick filter: is stock above 200 EMA? If NO → skip immediately.",
-                "Is MA stack roughly aligned (10 above 20 above 50 above 200)? If not → skip.",
-                "Takes 3-4 seconds per stock after experience. Initially 10-15 minutes per stock.",
-              ],
-            },
-            {
-              step: "Saturday — VCP Identification", color: C.teal, time: "1-2 hours",
-              tasks: [
-                "From stocks that passed filter: is there a VCP base forming?",
-                "Prior uptrend of 30%+? If no prior trend → not a VCP, skip.",
-                "Are corrections getting smaller? Is the range contracting?",
-                "Is volume drying up during the base consolidation?",
-                "Are lows getting higher (higher lows pattern)?",
-                "Mark stocks with clear VCP forming in a separate watchlist.",
-              ],
-            },
-            {
-              step: "Sunday — Set Entry Levels & Alerts", color: C.gold, time: "1 hour",
-              tasks: [
-                "For each VCP candidate: identify the pivot point (resistance / last high of base).",
-                "Set a price alert in TradingView: alert when price closes above pivot.",
-                "Note the volume threshold: breakout needs 1.5-2x average volume.",
-                "Write down your planned entry price, stop loss (below 20 EMA), and target.",
-                "Do NOT enter yet — wait for breakout with volume confirmation.",
-              ],
-            },
-            {
-              step: "Weekdays — React to Alerts Only", color: C.green, time: "Alert-driven",
-              tasks: [
-                "Do NOT scan all 212 stocks every day. That's weekend work.",
-                "Wait for TradingView alerts to fire from your shortlist.",
-                "When alert fires: check chart IMMEDIATELY on 15-min and 5-min.",
-                "Is volume confirming? Is the candle strong (closing near high)?",
-                "If YES → Enter. Same second: place stop loss as GTT order.",
-                "If volume is weak → Wait. False breakout likely.",
-              ],
-            },
-            {
-              step: "Add-on Entries During the Week", color: C.orange, time: "Ongoing",
-              tasks: [
-                "After a breakout entry: set alert at 10 EMA level.",
-                "When stock pulls back to 10 EMA → add to the position.",
-                "Volume should be lower than the breakout day (just profit booking).",
-                "This is Ashwin's pyramiding: add to winners as they prove themselves.",
-                "Never add to a position that is at a loss.",
-              ],
-            },
-          ].map((s, i) => (
-            <div key={i} style={{ marginBottom: 12, border: `1px solid ${s.color}25`, borderRadius: 10, overflow: "hidden" }}>
-              <div style={{ background: `${s.color}12`, padding: "9px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontWeight: 700, color: s.color, fontSize: 13 }}>{s.step}</span>
-                <Badge label={s.time} color={s.color} />
-              </div>
-              <div style={{ padding: "10px 14px" }}>
-                {s.tasks.map((task, j) => (
-                  <div key={j} style={{ display: "flex", gap: 8, padding: "4px 0", fontSize: 12, color: C.dim, lineHeight: 1.5, borderBottom: j < s.tasks.length - 1 ? `1px solid ${C.border}20` : "none" }}>
-                    <span style={{ color: s.color, flexShrink: 0, fontWeight: 700 }}>{j + 1}.</span>
-                    {task}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        <Rule emoji="⏱️" color={C.teal} title="Time reality check" text="Ashwin can do 212 stocks in 30-45 minutes because of 3,000+ hours experience. When you start: budget 5-10 minutes per chart. Begin with just the top 30 most liquid F&O stocks. Build to 212 over 6-12 months." />
-      </>}
-
-      {t === "by_style" && <>
-        <Def term="Different goals need different screens">A scalper needs high volume + intraday momentum. A swing trader needs technical setups. A long-term investor needs fundamental quality. Using the wrong screen for your style produces bad results.</Def>
-
         {[
-          {
-            style: "Intraday Trader", color: C.red, horizon: "Same day",
-            criteria: [
-              "High liquidity: volume > 50 lakh shares/day (Nifty, BankNifty, top 20 F&O stocks only)",
-              "Stock in clear intraday trend: check 15-min and 5-min charts from 9:30am",
-              "Price above VWAP = bullish bias. Below VWAP = bearish bias",
-              "Opening range breakout: buy if price breaks above first 15-min high with volume",
-              "Avoid stocks in F&O ban list (reduced liquidity = slippage)",
-              "Avoid stocks with results/announcements that day (too volatile)",
-            ],
-            tools: "Sensibull for OI + FII data. NSE option chain. 5-min chart on TradingView.",
-          },
-          {
-            style: "Swing Trader (2-20 days)", color: C.orange, horizon: "Days to weeks",
-            criteria: [
-              "Stock above 50 EMA and 200 EMA on daily chart",
-              "VCP or flag pattern forming on daily chart",
-              "RSI between 50-65 (not overbought yet, but momentum building)",
-              "Volume dry-up during consolidation phase",
-              "Breakout imminent: price near pivot with tightening range",
-              "Strong sector: pick leaders in the sector with the strongest breadth",
-            ],
-            tools: "TradingView daily charts. Screener.in for quick fundamental check. Sensibull for options flow.",
-          },
-          {
-            style: "Positional Trader (weeks to months)", color: C.gold, horizon: "Weeks to months",
-            criteria: [
-              "All of swing criteria PLUS:",
-              "Stock near all-time high (Ashwin's ATH filter)",
-              "Prior uptrend of 30%+ before VCP base",
-              "Fundamental screen pass: ROE > 15%, debt manageable, earnings growing",
-              "Weekly chart also shows strength (zoom out to confirm trend)",
-              "Industry leadership: stock is the Nifty-beater in its sector",
-            ],
-            tools: "TradingView weekly + daily. Screener.in. NSE shareholding pattern (institutional accumulation).",
-          },
-          {
-            style: "Long-term Investor (years)", color: C.green, horizon: "3-10 years",
-            criteria: [
-              "Strong and growing moat (brand, network, cost advantage, IP)",
-              "ROE > 18% consistently for 5+ years",
-              "Revenue and profit growing 15%+ annually for 3+ years",
-              "Debt/equity < 1. Positive free cash flow.",
-              "Promoter holding > 40%. No pledging. Management track record clean.",
-              "Valuation reasonable: P/E below 5-year historical average OR P/E justified by growth (PEG < 1.5)",
-              "Sector tailwind: secular growth story (not cyclical)",
-            ],
-            tools: "Screener.in (primary tool). Annual reports. Tijori Finance for concalls. NSE shareholding.",
-          },
-          {
-            style: "Options Seller (Iron Condor / Spreads)", color: C.purple, horizon: "15-45 days",
-            criteria: [
-              "NOT individual stocks — trade on INDEX (Nifty, BankNifty)",
-              "VIX between 15-25 (ideal selling zone)",
-              "IVP (on Sensibull) above 50 — premiums expensive",
-              "PCR between 0.8-1.2 (balanced market, no strong directional bias)",
-              "Max Pain identified (center your condor here)",
-              "No major events in next 15 days (RBI, Budget, Elections)",
-              "Nifty in sideways range (not trending strongly in either direction)",
-            ],
-            tools: "Sensibull (primary). NSE option chain for OI. Economic calendar. India VIX.",
-          },
+          { step: "Saturday — Build the Universe", color: C.blue, time: "30 minutes", tasks: ["Open TradingView. Go to NSE F&O stocks list (all 212).","Switch ALL charts to LOG scale. This is Step 1 every time.","Quick filter: is stock above 200 EMA? If NO → skip immediately.","Is MA stack roughly aligned? If not → skip.","Takes 3-4 seconds per stock after experience."] },
+          { step: "Saturday — VCP Identification", color: C.teal, time: "1-2 hours", tasks: ["From stocks that passed filter: is there a VCP base forming?","Prior uptrend of 30%+? If no prior trend → not a VCP, skip.","Are corrections getting smaller? Is the range contracting?","Is volume drying up during the base consolidation?","Mark stocks with clear VCP forming in a separate watchlist."] },
+          { step: "Sunday — Set Entry Levels & Alerts", color: C.gold, time: "1 hour", tasks: ["For each VCP candidate: identify the pivot point (resistance / last high of base).","Set a price alert in TradingView: alert when price closes above pivot.","Note the volume threshold: breakout needs 1.5-2x average volume.","Write down your planned entry price, stop loss (below 20 EMA), and target.","Do NOT enter yet — wait for breakout with volume confirmation."] },
+          { step: "Weekdays — React to Alerts Only", color: C.green, time: "Alert-driven", tasks: ["Do NOT scan all 212 stocks every day. That's weekend work.","Wait for TradingView alerts to fire from your shortlist.","When alert fires: check chart IMMEDIATELY on 15-min and 5-min.","Is volume confirming? Is the candle strong (closing near high)?","If YES → Enter. Same second: place stop loss as GTT order."] },
+        ].map((s, i) => (
+          <div key={i} style={{ marginBottom: 12, border: `1px solid ${s.color}25`, borderRadius: 10, overflow: "hidden" }}>
+            <div style={{ background: `${s.color}12`, padding: "9px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontWeight: 700, color: s.color, fontSize: 13 }}>{s.step}</span>
+              <Badge label={s.time} color={s.color} />
+            </div>
+            <div style={{ padding: "10px 14px" }}>
+              {s.tasks.map((task, j) => <div key={j} style={{ display: "flex", gap: 8, padding: "4px 0", fontSize: 12, color: C.dim, lineHeight: 1.5 }}><span style={{ color: s.color, flexShrink: 0, fontWeight: 700 }}>{j+1}.</span>{task}</div>)}
+            </div>
+          </div>
+        ))}
+      </>}
+      {t === "by_style" && <>
+        {[
+          { style: "Intraday Trader", color: C.red, horizon: "Same day", criteria: ["High liquidity: volume > 50 lakh shares/day","Stock in clear intraday trend: check 15-min and 5-min charts from 9:30am","Price above VWAP = bullish bias. Below VWAP = bearish bias","Opening range breakout: buy if price breaks above first 15-min high with volume","Avoid stocks in F&O ban list (reduced liquidity = slippage)"] },
+          { style: "Swing Trader (2-20 days)", color: C.orange, horizon: "Days to weeks", criteria: ["Stock above 50 EMA and 200 EMA on daily chart","VCP or flag pattern forming on daily chart","RSI between 50-65 (not overbought yet, but momentum building)","Volume dry-up during consolidation phase","Breakout imminent: price near pivot with tightening range"] },
+          { style: "Positional Trader", color: C.gold, horizon: "Weeks to months", criteria: ["All of swing criteria PLUS:","Stock near all-time high (Ashwin's ATH filter)","Prior uptrend of 30%+ before VCP base","Fundamental screen pass: ROE > 15%, debt manageable, earnings growing","Weekly chart also shows strength (zoom out to confirm trend)"] },
+          { style: "Long-term Investor", color: C.green, horizon: "3-10 years", criteria: ["Strong and growing moat (brand, network, cost advantage, IP)","ROE > 18% consistently for 5+ years","Revenue and profit growing 15%+ annually for 3+ years","Debt/equity < 1. Positive free cash flow.","Promoter holding > 40%. No pledging."] },
+          { style: "Options Seller (Iron Condor)", color: C.purple, horizon: "15-45 days", criteria: ["NOT individual stocks — trade on INDEX (Nifty, BankNifty)","VIX between 15-25 (ideal selling zone)","IVP (on Sensibull) above 50 — premiums expensive","PCR between 0.8-1.2 (balanced market)","No major events in next 15 days (RBI, Budget, Elections)"] },
         ].map((s, i) => (
           <div key={i} style={{ marginBottom: 12, border: `1px solid ${s.color}25`, borderRadius: 10, overflow: "hidden" }}>
             <div style={{ background: `${s.color}12`, padding: "9px 14px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${s.color}20` }}>
@@ -1844,35 +1521,25 @@ Change in promoter holding > 0`}
               <Badge label={s.horizon} color={s.color} />
             </div>
             <div style={{ padding: "10px 14px" }}>
-              {s.criteria.map((c, j) => (
-                <div key={j} style={{ display: "flex", gap: 8, padding: "4px 0", fontSize: 12, color: C.dim, lineHeight: 1.5, borderBottom: j < s.criteria.length - 1 ? `1px solid ${C.border}15` : "none" }}>
-                  <span style={{ color: s.color, flexShrink: 0 }}>›</span>{c}
-                </div>
-              ))}
-              <div style={{ marginTop: 8, fontSize: 11, color: C.muted }}>Tools: {s.tools}</div>
+              {s.criteria.map((c, j) => <div key={j} style={{ display: "flex", gap: 8, padding: "4px 0", fontSize: 12, color: C.dim, lineHeight: 1.5 }}><span style={{ color: s.color, flexShrink: 0 }}>›</span>{c}</div>)}
             </div>
           </div>
         ))}
       </>}
-
       {t === "avoid" && <>
         <Quote source="Warren Buffett">Rule #1: Never lose money. Rule #2: Never forget Rule #1.</Quote>
-        <Def term="Stocks to Always Avoid — The Danger List">Knowing WHAT NOT TO BUY is as important as knowing what to buy. These filters alone will prevent 80% of bad trades.</Def>
-
         {[
-          { cat: "F&O Ban List Stocks", color: C.red, why: "Stock in ban = OI exceeded 95% of MWPL. No new positions allowed. Illiquid options, wide spreads. Even if direction is right, you can't exit cleanly. Check nseindia.com every morning before trading.", example: "Check NSE ban list daily. NEVER enter F&O of banned stocks." },
-          { cat: "Penny Stocks (below Rs 50)", color: C.red, why: "Massive lot sizes (IDEA: 71,475 per lot!). Enormous margin required. Huge bid-ask spread. Easy to manipulate. The 'operator-driven' stocks. Pump-and-dump targets. Retail always loses in these.", example: "IDEA, YES BANK (historically), any stock below Rs 50 with F&O." },
-          { cat: "Stocks Below 200 EMA", color: C.orange, why: "Below 200 EMA = Stage 3 or Stage 4. Downtrend. Buying a falling stock hoping for reversal = catching a falling knife. Even if it recovers, your capital is locked while better opportunities exist.", example: "Apply this rule without exception. No 'value buys' below 200 EMA for traders." },
-          { cat: "High Promoter Pledge (>30%)", color: C.orange, why: "Promoters pledged shares as collateral for loans. If stock falls, lenders trigger margin calls and sell pledged shares → cascade fall. Look for this in BSE shareholding data. Many mid-cap disasters preceded by high pledge.", example: "Reliance Capital, DHFL, Vodafone-Idea — pledging was a warning sign before collapse." },
-          { cat: "Results Day / Event Day Stocks", color: C.orange, why: "Quarterly results, RBI policy day, Budget day, FOMC day — options prices spike. IV is expensive. Direction is unpredictable even if you have information advantage. Avoid new entries on event days.", example: "Don't enter any stock F&O on the day of its quarterly results announcement." },
-          { cat: "Stocks with News-Driven Spikes (Not Chart-Driven)", color: C.gold, why: "If a stock jumped 10% on news TODAY and you're thinking of buying — you're too late. Smart money already exited. You're buying their exit. Wait for a base to form after the news, then enter on the next VCP breakout.", example: "Micron example from our session: +19% gap up. Ashwin says: 'This trade is over. Wait for the next setup.'" },
-          { cat: "Stocks with Declining Revenue 3 Quarters in a Row", color: C.gold, why: "Revenue decline = business deteriorating. Even if stock looks cheap (low P/E), a value trap is worse than paying high for a grower. Avoid 'cheap' stocks where cheapness is justified by deteriorating fundamentals.", example: "Use Screener.in: Revenue growth last 3 quarters — avoid negative trend." },
-          { cat: "Illiquid Options Stocks", color: C.teal, why: "If a stock's options have wide bid-ask spreads (Rs 10+ difference between buy and sell), you lose money the moment you enter. Check option chain — if volume on strike is less than 500 contracts, it's illiquid. Stick to top 30 most liquid F&O stocks for options.", example: "Stick to: NIFTY, BANKNIFTY, RELIANCE, HDFCBANK, ICICIBANK, INFY, TCS for options trading." },
+          { cat: "F&O Ban List Stocks", color: C.red, why: "Stock in ban = OI exceeded 95% of MWPL. No new positions allowed. Illiquid options, wide spreads. Even if direction is right, you can't exit cleanly. Check nseindia.com every morning before trading." },
+          { cat: "Penny Stocks (below Rs 50)", color: C.red, why: "Massive lot sizes (IDEA: 71,475 per lot!). Enormous margin required. Huge bid-ask spread. Easy to manipulate. The 'operator-driven' stocks. Pump-and-dump targets. Retail always loses in these." },
+          { cat: "Stocks Below 200 EMA", color: C.orange, why: "Below 200 EMA = Stage 3 or Stage 4. Downtrend. Buying a falling stock hoping for reversal = catching a falling knife. Even if it recovers, your capital is locked while better opportunities exist." },
+          { cat: "High Promoter Pledge (>30%)", color: C.orange, why: "Promoters pledged shares as collateral for loans. If stock falls, lenders trigger margin calls and sell pledged shares → cascade fall." },
+          { cat: "Results Day / Event Day Stocks", color: C.orange, why: "Quarterly results, RBI policy day, Budget day, FOMC day — options prices spike. IV is expensive. Direction is unpredictable. Avoid new entries on event days." },
+          { cat: "Stocks with News-Driven Spikes (Not Chart-Driven)", color: C.gold, why: "If a stock jumped 10% on news TODAY and you're thinking of buying — you're too late. Smart money already exited. You're buying their exit. Wait for a base to form after the news, then enter on the next VCP breakout." },
+          { cat: "Illiquid Options Stocks", color: C.teal, why: "If a stock's options have wide bid-ask spreads (Rs 10+ difference), you lose money the moment you enter. Stick to top 30 most liquid F&O stocks for options trading." },
         ].map((item, i) => (
           <div key={i} style={{ marginBottom: 10, border: `1px solid ${item.color}25`, borderRadius: 10, padding: "11px 14px" }}>
             <div style={{ fontSize: 13, fontWeight: 700, color: item.color, marginBottom: 5 }}>🚫 {item.cat}</div>
-            <div style={{ fontSize: 12, color: C.dim, lineHeight: 1.6, marginBottom: 6 }}>{item.why}</div>
-            <div style={{ fontSize: 11, color: C.muted, background: "#0a0c10", padding: "5px 9px", borderRadius: 5 }}>Example: {item.example}</div>
+            <div style={{ fontSize: 12, color: C.dim, lineHeight: 1.6 }}>{item.why}</div>
           </div>
         ))}
       </>}
@@ -1880,7 +1547,6 @@ Change in promoter holding > 0`}
   );
 }
 
-// ─── TA SETUPS ────────────────────────────────────────────────
 function TASetups() {
   const [style, setStyle] = useState("swing");
   const [setup, setSetup] = useState(0);
@@ -1896,562 +1562,162 @@ function TASetups() {
   const ALL_SETUPS = {
     intraday: [
       {
-        name: "Opening Range Breakout (ORB)",
-        grade: "A+", winrate: "55-65%", rr: "1:2",
-        timeframe: "5-min / 15-min", best: "Trending market days (Nifty gap up/down)",
+        name: "Opening Range Breakout (ORB)", grade: "A+", winrate: "55-65%", rr: "1:2",
+        timeframe: "5-min / 15-min", best: "Trending market days",
         desc: "The most reliable intraday setup. First 15 minutes form a range. When price breaks above (or below) that range on high volume — the direction is set for the day.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "     9:15 — 9:30 AM Range",
-          "  ┌─────────────────────────┐",
-          "  │  HIGH: 23,750  ←──────── BREAKOUT ENTRY",
-          "  │  Price whipsaws here    │",
-          "  │  LOW:  23,680           │",
-          "  └─────────────────────────┘",
-          "     After 9:30: Break + Volume → ENTER",
-          "     Stop: below the range LOW",
-          "     Target: Range size projected up",
-        ],
-        entry: ["Wait for 9:15–9:30 candle to complete (opening range)", "Mark the HIGH and LOW of that candle", "When next candle closes ABOVE the high with 1.5x volume → BUY", "When next candle closes BELOW the low with 1.5x volume → SELL SHORT"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","     9:15 — 9:30 AM Range","  ┌─────────────────────────┐","  │  HIGH: 23,750  ←──────── BREAKOUT ENTRY","  │  Price whipsaws here    │","  │  LOW:  23,680           │","  └─────────────────────────┘","     After 9:30: Break + Volume → ENTER","     Stop: below the range LOW","     Target: Range size projected up"],
+        entry: ["Wait for 9:15–9:30 candle to complete (opening range)","Mark the HIGH and LOW of that candle","When next candle closes ABOVE the high with 1.5x volume → BUY","When next candle closes BELOW the low with 1.5x volume → SELL SHORT"],
         stop: "Below the low of the opening range (for long). Above the high (for short).",
         target: "Range size projected from breakout. If range = 70 pts → target 70 pts above breakout.",
-        rules: ["Only trade if Nifty/BankNifty itself is trending (not flat open)", "Skip if opening range is too wide (>100 pts for Nifty) — risk too high", "Best on days with clear gap up/down — shows directional conviction", "Exit before 3:00 PM regardless"],
+        rules: ["Only trade if Nifty/BankNifty itself is trending (not flat open)","Skip if opening range is too wide (>100 pts for Nifty) — risk too high","Best on days with clear gap up/down — shows directional conviction","Exit before 3:00 PM regardless"],
       },
       {
-        name: "VWAP Reclaim Setup",
-        grade: "A", winrate: "60-70%", rr: "1:1.5",
+        name: "VWAP Reclaim Setup", grade: "A", winrate: "60-70%", rr: "1:1.5",
         timeframe: "5-min / 15-min", best: "Pullback days in uptrend",
         desc: "Price drops below VWAP (intraday sell-off), then reclaims VWAP with volume. Institutions use VWAP as benchmark — when price reclaims, they step in. High win rate setup.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  ▲ Price rising",
-          "  ─────── VWAP ──────────────",
-          "        ↘ Price dips below VWAP",
-          "           (low volume dip = healthy)",
-          "        ↗ RECLAIM VWAP with volume → ENTRY",
-          "  ─────── VWAP ──────────────",
-          "  ▲ Continues up",
-        ],
-        entry: ["Price must be above VWAP earlier in the day (established uptrend)", "Price dips below VWAP on LOW volume (not a trend change)", "Price reclaims VWAP with a strong green candle on HIGH volume → BUY", "Entry: candle close above VWAP"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  ▲ Price rising","  ─────── VWAP ──────────────","        ↘ Price dips below VWAP","           (low volume dip = healthy)","        ↗ RECLAIM VWAP with volume → ENTRY","  ─────── VWAP ──────────────","  ▲ Continues up"],
+        entry: ["Price must be above VWAP earlier in the day (established uptrend)","Price dips below VWAP on LOW volume (not a trend change)","Price reclaims VWAP with a strong green candle on HIGH volume → BUY","Entry: candle close above VWAP"],
         stop: "Below the low of the dip candle (last low before VWAP reclaim).",
         target: "Previous high of the day. Or VWAP + same distance as the dip.",
-        rules: ["Only valid if stock was above VWAP for majority of the morning", "Low-volume dip = profit booking not distribution (good sign)", "High-volume dip below VWAP = distribution, do NOT buy the reclaim", "Works best between 10:00 AM – 1:00 PM"],
+        rules: ["Only valid if stock was above VWAP for majority of the morning","Low-volume dip = profit booking not distribution (good sign)","High-volume dip below VWAP = distribution, do NOT buy the reclaim","Works best between 10:00 AM – 1:00 PM"],
       },
       {
-        name: "EMA 9/21 Crossover Intraday",
-        grade: "B+", winrate: "50-58%", rr: "1:2",
-        timeframe: "15-min", best: "Trending days",
-        desc: "9 EMA crossing above 21 EMA on 15-min chart with volume expansion. Simple, mechanical, widely used. Works on trending days, gives false signals on choppy days.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  9 EMA:  ────────────╱───────",
-          "                    ╱ CROSS",
-          "  21 EMA: ──────────╱─────────",
-          "                   ↑",
-          "             Volume spike here",
-          "             ENTRY on next candle open",
-        ],
-        entry: ["9 EMA crosses ABOVE 21 EMA on 15-min chart", "Volume on the crossover candle must be above average", "Price must also be above VWAP at crossover", "Enter at open of candle AFTER the crossover candle"],
-        stop: "Below the low of the crossover candle.",
-        target: "2x the stop loss distance. Trail with 9 EMA once profitable.",
-        rules: ["Avoid in first 30 minutes (false signals)", "Only use when Nifty itself is trending on that day", "Multiple crossovers in one day = choppy market, stop trading", "Best on stocks with high beta (BankNifty components, Nifty50 stocks)"],
-      },
-      {
-        name: "First Pullback After Gap",
-        grade: "A", winrate: "62-70%", rr: "1:2.5",
+        name: "First Pullback After Gap", grade: "A", winrate: "62-70%", rr: "1:2.5",
         timeframe: "5-min / 15-min", best: "Gap-up or gap-down days",
         desc: "Stock gaps up significantly (2%+). Pulls back mildly in first 30-45 mins (consolidation). Then bounces and continues the gap direction. Entering on the first pullback gives better R:R than chasing the gap.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "         ╭────────── GAP UP",
-          "         │  (2%+ gap open)",
-          "         ↘  First pullback",
-          "           ↘ (low volume, 30-45 min)",
-          "            ↗ BOUNCE = ENTRY",
-          "            ↑",
-          "       Volume increases on bounce",
-        ],
-        entry: ["Identify gap of 2%+ at open", "Watch first 30-45 min: price consolidates or pulls back mildly", "Enter when price bounces off support (often previous close or gap fill zone) on volume", "Candle must close green and above the pullback low"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","         ╭────────── GAP UP","         │  (2%+ gap open)","         ↘  First pullback","           ↘ (low volume, 30-45 min)","            ↗ BOUNCE = ENTRY","            ↑","       Volume increases on bounce"],
+        entry: ["Identify gap of 2%+ at open","Watch first 30-45 min: price consolidates or pulls back mildly","Enter when price bounces off support on volume","Candle must close green and above the pullback low"],
         stop: "Below the pullback low. If gap fills fully — trend failed, exit.",
         target: "Gap high + extension. Typically 1.5-2x the gap size from entry.",
-        rules: ["Only for genuine gaps (earnings, news catalyst) not fake gaps", "Volume must be higher than pre-gap average on the gap candle", "If price falls below previous close = full gap fill = exit immediately", "Best in first 2 hours of trading"],
-      },
-      {
-        name: "Supertrend Reversal",
-        grade: "B", winrate: "55-60%", rr: "1:1.5",
-        timeframe: "15-min", best: "Any trending day",
-        desc: "Supertrend indicator flips from red to green (or green to red) on 15-min chart. Simple, mechanical, widely followed by Indian retail. Works in trending markets, produces whipsaws in sideways.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  RED ██████ (bearish)",
-          "         ↓ price falling",
-          "  ─── FLIP ───────────────────",
-          "         ↑ price recovers + closes above",
-          "  GREEN ▓▓▓▓▓▓ (bullish) ← ENTRY",
-          "         ↑ trail stop with green line",
-        ],
-        entry: ["Supertrend flips from red to green on 15-min chart", "Candle that causes the flip must close above the Supertrend line", "Volume on flip candle should be above average", "Enter at open of next candle"],
-        stop: "The Supertrend line itself (trail it as it moves up).",
-        target: "No fixed target — trail the Supertrend stop. Exit when it flips back.",
-        rules: ["Works MUCH better with market trend (don't buy Supertrend flip if Nifty is downtrending)", "Avoid when market is choppy — too many flips = choppy = losses", "Add RSI check: Supertrend flip + RSI crossing 50 = higher conviction", "Can be automated easily with Pine Script alerts"],
+        rules: ["Only for genuine gaps (earnings, news catalyst) not fake gaps","Volume must be higher than pre-gap average on the gap candle","If price falls below previous close = full gap fill = exit immediately","Best in first 2 hours of trading"],
       },
     ],
     swing: [
       {
-        name: "VCP — Volatility Contraction Pattern",
-        grade: "A+", winrate: "55-65%", rr: "1:3+",
+        name: "VCP — Volatility Contraction Pattern", grade: "A+", winrate: "55-65%", rr: "1:3+",
         timeframe: "Daily (primary) + Weekly (confirm)", best: "Bull market, Stage 2 stocks",
         desc: "Ashwin's and Minervini's #1 setup. After a prior uptrend, stock consolidates in a series of shrinking corrections. Volume dries up. Then breaks out on high volume. The tightest, most explosive setup in trading.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Prior Uptrend 30%+",
-          "       /\\",
-          "      /  \\     /\\",
-          "     /    \\   /  \\  /\\",
-          "    /      \\ /    \\/  ↗ BREAKOUT",
-          "   /        v (volume↓) ← ENTRY",
-          "  ← wider →← tighter →",
-          "  Resistance level ─────────────",
-        ],
-        entry: ["Stock above 200 EMA, MA stack aligned (10>20>50>200)", "Prior uptrend 30%+ before base", "3+ contractions visible, each smaller than last", "Volume declining during base (drying up)", "Entry: CLOSE above resistance (pivot) on 1.5-2x average volume"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  Prior Uptrend 30%+","       /\\","      /  \\     /\\","     /    \\   /  \\  /\\","    /      \\ /    \\/ BREAKOUT","   /        v (volume↓) ← ENTRY","  ← wider →← tighter →","  Resistance level ─────────────"],
+        entry: ["Stock above 200 EMA, MA stack aligned (10>20>50>200)","Prior uptrend 30%+ before base","3+ contractions visible, each smaller than last","Volume declining during base (drying up)","Entry: CLOSE above resistance (pivot) on 1.5-2x average volume"],
         stop: "Below the 20 EMA daily OR below the last swing low within the base.",
         target: "Measured move: base depth projected upward. First target: +15%. Second: +30%. Trail remaining with 20 EMA.",
-        rules: ["Never enter BEFORE the breakout — wait for close above pivot on volume", "If breakout fails and price closes back below pivot = exit immediately (failed VCP)", "Best setups near all-time high (no overhead supply)", "Add on 10 EMA bounces after breakout (Ashwin's pyramiding rule)"],
+        rules: ["Never enter BEFORE the breakout — wait for close above pivot on volume","If breakout fails and price closes back below pivot = exit immediately (failed VCP)","Best setups near all-time high (no overhead supply)","Add on 10 EMA bounces after breakout (Ashwin's pyramiding rule)"],
       },
       {
-        name: "Bull Flag / Bear Flag",
-        grade: "A", winrate: "58-67%", rr: "1:2.5",
+        name: "Bull Flag / Bear Flag", grade: "A", winrate: "58-67%", rr: "1:2.5",
         timeframe: "Daily", best: "Trending stocks in strong uptrend",
         desc: "After a sharp move (flagpole), stock consolidates in a tight downward channel (flag). Volume should decrease during flag. Breakout from flag = trend continues. One of the most reliable continuation patterns.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  FLAGPOLE:   /",
-          "             /  (sharp move up, high vol)",
-          "            / ",
-          "  FLAG:       \\  ← consolidation",
-          "               \\ (slight downward drift)",
-          "                \\ (volume drying up)",
-          "                 ╲",
-          "  BREAKOUT: ↗ above flag upper line",
-          "  Entry at breakout candle close",
-        ],
-        entry: ["Sharp move up on high volume (flagpole 10-20%+)", "Tight downward channel for 5-15 days (the flag)", "Volume declining during flag phase", "Entry: close above upper channel line with volume expansion"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  FLAGPOLE:   /","             /  (sharp move up, high vol)","            / ","  FLAG:       \\  ← consolidation","               \\ (slight downward drift)","                \\ (volume drying up)","                 ╲","  BREAKOUT: ↗ above flag upper line","  Entry at breakout candle close"],
+        entry: ["Sharp move up on high volume (flagpole 10-20%+)","Tight downward channel for 5-15 days (the flag)","Volume declining during flag phase","Entry: close above upper channel line with volume expansion"],
         stop: "Below the lower channel line of the flag. If broken — move failed.",
         target: "Flagpole height added to breakout point. E.g., flagpole = 15% → target 15% above breakout.",
-        rules: ["Tighter flag = more powerful breakout", "Flag should not retrace more than 38-50% of the flagpole", "Time matters: flag older than 4 weeks loses reliability", "Works on 15-min (intraday flags) and daily (swing flags) equally well"],
+        rules: ["Tighter flag = more powerful breakout","Flag should not retrace more than 38-50% of the flagpole","Time matters: flag older than 4 weeks loses reliability","Works on 15-min (intraday flags) and daily (swing flags) equally well"],
       },
       {
-        name: "Cup and Handle",
-        grade: "A+", winrate: "60-68%", rr: "1:3",
+        name: "Cup and Handle", grade: "A+", winrate: "60-68%", rr: "1:3",
         timeframe: "Daily / Weekly", best: "Stage 2 stocks, bull market",
         desc: "Stock rises, rounds off in a U-shape (cup takes weeks/months), then forms a small downward drift (handle), then breaks out. Made famous by William O'Neil. Minervini's favorite. Handle is a mini-VCP.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Left lip ──────────── Right lip",
-          "     \\                  / \\",
-          "      \\   CUP (U shape)/   \\ HANDLE",
-          "       \\               /    ↘",
-          "        ───────────────      ↗ BREAKOUT",
-          "  Left lip = Right lip = same level",
-          "  Handle: max 30-35% pullback from right lip",
-          "  Entry: breakout above right lip (pivot)",
-        ],
-        entry: ["Prior uptrend before cup", "Cup forms in U-shape (rounded bottom, not V-shape)", "Right lip near same level as left lip", "Handle: 1-4 weeks, shallow pullback (10-15%), tight price action", "Entry: breakout above handle pivot on 2x+ volume"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  Left lip ──────────── Right lip","     \\                  / \\","      \\   CUP (U shape)/   \\ HANDLE","       \\               /    ↘","        ───────────────      ↗ BREAKOUT","  Left lip = Right lip = same level","  Handle: max 30-35% pullback from right lip","  Entry: breakout above right lip (pivot)"],
+        entry: ["Prior uptrend before cup","Cup forms in U-shape (rounded bottom, not V-shape)","Right lip near same level as left lip","Handle: 1-4 weeks, shallow pullback (10-15%), tight price action","Entry: breakout above handle pivot on 2x+ volume"],
         stop: "Below handle low. If cup high is also broken on downside — full exit.",
         target: "Cup depth projected from the right lip upward.",
-        rules: ["V-shaped bottoms (too sharp) are less reliable than U-shaped cups", "Handle should slope slightly DOWN (not up — that's a wedge, weaker)", "Volume during cup should dry up at the base", "Ideal hold time after breakout: months to a year for full target"],
+        rules: ["V-shaped bottoms (too sharp) are less reliable than U-shaped cups","Handle should slope slightly DOWN (not up — that's a wedge, weaker)","Volume during cup should dry up at the base","Ideal hold time after breakout: months to a year for full target"],
       },
       {
-        name: "Flat Base Breakout",
-        grade: "A", winrate: "58-65%", rr: "1:2.5",
-        timeframe: "Daily / Weekly", best: "Strong uptrend, after prior base",
-        desc: "Stock consolidates horizontally for 5-7 weeks, barely moving. Volume is extremely low. Tight price range (within 10-15%). Then breaks out. Indicates a very tight balance between supply and demand — the mildest exhale before a big inhale.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Prior uptrend                 ↗",
-          "               ┌──────────────┐",
-          "               │ FLAT BASE    │← barely moves",
-          "               │ (5-7 weeks)  │← volume very low",
-          "               │ tight range  │",
-          "               └──────────────┘",
-          "  Resistance ─────────────────────",
-          "                               ↗ BREAKOUT",
-        ],
-        entry: ["Stock was in uptrend before the flat base", "Flat base: price range less than 10-15% for 5-7 weeks", "Volume dramatically reduced during base", "Entry: close above flat base high on high volume"],
-        stop: "Mid-point of the flat base. If price falls to center of range = base failed.",
-        target: "Measured move based on prior move length. Or +15-25% from entry.",
-        rules: ["Flat bases are SECOND or THIRD stage bases — form after prior bases already broke out", "The more bases a stock has formed (each breaking out and moving up), the stronger the overall trend", "Very low volume during flat base = strongest version of this setup", "Ashwin calls this a 'tight area' within a VCP"],
-      },
-      {
-        name: "Moving Average Bounce (20/50 EMA)",
-        grade: "B+", winrate: "55-62%", rr: "1:2",
+        name: "Moving Average Bounce (20/50 EMA)", grade: "B+", winrate: "55-62%", rr: "1:2",
         timeframe: "Daily", best: "Strong uptrend, after pullback",
         desc: "Stock in clear uptrend pulls back to test the 20 EMA or 50 EMA. Bounces on lower volume. Classic 'buy the dip' in an uptrend. Not a reversal play — a trend continuation after a healthy rest.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Stock uptrending            ↗",
-          "         ↘ Pullback",
-          "  ─── 20 EMA ─────────────────",
-          "           ↘ touches 20 EMA",
-          "            (volume drying up)",
-          "            ↗ BOUNCE = ENTRY",
-          "  ─── 20 EMA ─────────────────",
-          "                          ↗",
-        ],
-        entry: ["Stock in clear uptrend (above 50 and 200 EMA)", "Pullback to 20 EMA (or 50 EMA for less frequent setup)", "Volume should be below average during the pullback", "Entry: green candle bouncing from EMA with volume expansion"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  Stock uptrending            ↗","         ↘ Pullback","  ─── 20 EMA ─────────────────","           ↘ touches 20 EMA","            (volume drying up)","            ↗ BOUNCE = ENTRY","  ─── 20 EMA ─────────────────","                          ↗"],
+        entry: ["Stock in clear uptrend (above 50 and 200 EMA)","Pullback to 20 EMA (or 50 EMA for less frequent setup)","Volume should be below average during the pullback","Entry: green candle bouncing from EMA with volume expansion"],
         stop: "Below the EMA by 1-2%. If 20 EMA is decisively broken on close = exit.",
         target: "Previous high. Then trail with 20 EMA.",
-        rules: ["Bounce off 20 EMA in uptrend works ~60% of time (Ashwin's 'add to position' trigger)", "Bounce off 50 EMA = riskier but larger reward potential", "Multiple EMA bounces in one uptrend = staircase pattern = very healthy trend", "Never buy an EMA bounce in a downtrend (the bounce will fail)"],
-      },
-      {
-        name: "Pocket Pivot",
-        grade: "B+", winrate: "55-60%", rr: "1:2",
-        timeframe: "Daily", best: "Early breakout signal within VCP base",
-        desc: "Developed by Gil Morales. An early buy signal within a base — before the full breakout. Stock has a strong up day with volume HIGHER than any down day in the prior 10 days. Indicates institutional buying within the base.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  In the VCP base:",
-          "  Day 1: Red  (vol 50L)",
-          "  Day 2: Red  (vol 40L)",
-          "  Day 3: Green (vol 30L)",
-          "  Day 4: Red  (vol 45L)",
-          "  Day 5: GREEN (vol 80L!) ← POCKET PIVOT",
-          "          ↑ volume > any down-day vol",
-          "          EARLY ENTRY before full breakout",
-        ],
-        entry: ["Stock in a base (not yet broken out)", "Strong up day (green candle, closes near high)", "Volume on this up day EXCEEDS the highest volume of any DOWN day in prior 10 days", "Price still within the base (not yet at pivot)"],
-        stop: "Below the low of the pocket pivot candle.",
-        target: "The full breakout pivot. Then trail from there.",
-        rules: ["Pocket pivot = early warning that institutions accumulating within the base", "Lower risk entry than waiting for full breakout (but more false signals)", "If stock then breaks out on volume = confirm and add to position", "Skip if market is in downtrend (pocket pivots fail in bear markets)"],
+        rules: ["Bounce off 20 EMA in uptrend works ~60% of time (Ashwin's 'add to position' trigger)","Bounce off 50 EMA = riskier but larger reward potential","Multiple EMA bounces in one uptrend = staircase pattern = very healthy trend","Never buy an EMA bounce in a downtrend (the bounce will fail)"],
       },
     ],
     positional: [
       {
-        name: "Stage 2 Breakout (Weinstein / Minervini)",
-        grade: "A+", winrate: "50-60%", rr: "1:5+",
-        timeframe: "Weekly (primary) + Daily (entry)",
-        best: "Bull market, any sector in leadership",
+        name: "Stage 2 Breakout (Weinstein / Minervini)", grade: "A+", winrate: "50-60%", rr: "1:5+",
+        timeframe: "Weekly (primary) + Daily (entry)", best: "Bull market, any sector in leadership",
         desc: "The queen of all setups for positional trading. Stock breaks out of a long Stage 1 base into Stage 2 on high weekly volume. This is the signal that smart money has fully accumulated and is now driving price higher. Can produce 50-300% gains.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  STAGE 1 (months/years of base)",
-          "  ─────────────────────────────",
-          "  Price flat. Volume low.",
-          "  50 WMA rising slowly.",
-          "  ─────────────────────────────",
-          "          BREAKOUT WEEK →",
-          "          Volume: 3x+ average  ↗",
-          "          50 WMA crosses 200 WMA",
-          "  STAGE 2 begins ──────────────",
-        ],
-        entry: ["Weekly chart: stock breaks above multi-month/year resistance", "Weekly volume: highest in 3+ months (clear institutional buying)", "Daily: price above 50 EMA and 200 EMA", "MA stack aligned on weekly: 10W > 20W > 50W", "Entry: week after breakout candle (confirm it's holding)"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  STAGE 1 (months/years of base)","  ─────────────────────────────","  Price flat. Volume low.","  50 WMA rising slowly.","  ─────────────────────────────","          BREAKOUT WEEK →","          Volume: 3x+ average  ↗","          50 WMA crosses 200 WMA","  STAGE 2 begins ──────────────"],
+        entry: ["Weekly chart: stock breaks above multi-month/year resistance","Weekly volume: highest in 3+ months (clear institutional buying)","Daily: price above 50 EMA and 200 EMA","MA stack aligned on weekly: 10W > 20W > 50W","Entry: week after breakout candle (confirm it's holding)"],
         stop: "Below the breakout week's low. Or below the 50-week MA.",
         target: "No fixed target — hold Stage 2 until distribution signs appear. Can be months to years.",
-        rules: ["Hold through minor pullbacks as long as 10-week MA holds", "Scale out only when signs of Stage 3 appear (choppy, failed new highs, volume drying on up weeks)", "This is how Minervini makes his biggest gains — holding Stage 2 leaders", "In India: works beautifully on Nifty 50 stocks that become sector leaders"],
+        rules: ["Hold through minor pullbacks as long as 10-week MA holds","Scale out only when signs of Stage 3 appear (choppy, failed new highs, volume drying on up weeks)","This is how Minervini makes his biggest gains — holding Stage 2 leaders","In India: works beautifully on Nifty 50 stocks that become sector leaders"],
       },
       {
-        name: "High Tight Flag (HTF)",
-        grade: "A+", winrate: "65-72%", rr: "1:4+",
+        name: "High Tight Flag (HTF)", grade: "A+", winrate: "65-72%", rr: "1:4+",
         timeframe: "Daily / Weekly", best: "Strong bull market, catalyst-driven stocks",
-        desc: "Minervini's highest conviction setup. Stock doubles (100%+) in 4-8 weeks, then consolidates in a VERY tight range (10-15%) for 3-5 weeks on very low volume. This extreme tightness after extreme strength = maximum institutional sponsorship. Very rare but very powerful.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Flagpole: stock doubles",
-          "  in 4-8 weeks         /",
-          "                    //",
-          "                   //",
-          "  Flag: ┌─────────┐  ← 10-15%",
-          "        │ TIGHT   │  ← 3-5 weeks",
-          "        │ vol low │  ← crucial",
-          "        └─────────┘",
-          "                   ↗ BREAKOUT → ENTRY",
-        ],
-        entry: ["Stock doubled in 4-8 weeks (the flagpole)", "Now consolidates in 10-15% range for 3-5 weeks", "Volume during flag: below average (ideally 40-50% of recent average)", "Entry: breakout above flag upper boundary on high volume"],
+        desc: "Minervini's highest conviction setup. Stock doubles (100%+) in 4-8 weeks, then consolidates in a VERY tight range (10-15%) for 3-5 weeks on very low volume. This extreme tightness after extreme strength = maximum institutional sponsorship.",
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  Flagpole: stock doubles","  in 4-8 weeks         /","                    //","                   //","  Flag: ┌─────────┐  ← 10-15%","        │ TIGHT   │  ← 3-5 weeks","        │ vol low │  ← crucial","        └─────────┘","                   ↗ BREAKOUT → ENTRY"],
+        entry: ["Stock doubled in 4-8 weeks (the flagpole)","Now consolidates in 10-15% range for 3-5 weeks","Volume during flag: below average (ideally 40-50% of recent average)","Entry: breakout above flag upper boundary on high volume"],
         stop: "Below the mid-point of the tight flag. If broken — exit immediately.",
         target: "Flagpole height projected. If flagpole = 100% → target 100% from breakout.",
-        rules: ["Very rare setup — maybe 2-3 per year across all markets", "Minervini: 'When you see a High Tight Flag, concentrate heavily'", "India context: look for after major earnings beats, PLI scheme winners, defence stocks", "Don't chase if you missed it — wait for next base after first 20-30% move from breakout"],
+        rules: ["Very rare setup — maybe 2-3 per year across all markets","Minervini: 'When you see a High Tight Flag, concentrate heavily'","In India context: look for after major earnings beats, PLI scheme winners, defence stocks","Don't chase if you missed it — wait for next base after first 20-30% move from breakout"],
       },
       {
-        name: "Ascending Base",
-        grade: "A", winrate: "58-65%", rr: "1:3",
-        timeframe: "Daily / Weekly", best: "Healthy bull market",
-        desc: "Three or more bases, each breaking out and setting a higher low before forming the next base. Like a staircase. Each base higher than the last. Shows persistent institutional accumulation over a long period. Extremely powerful when base 3+ breaks out.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Base 1                   ╭─ Base 3 entry",
-          "  ─────╮  Break 1        ╭─╯",
-          "        ╰──╮             │",
-          "     Base 2╯   Break 2 ╭─╯",
-          "            ╰──────────╯",
-          "  Each base: Higher than previous",
-          "  Each breakout: Volume expansion",
-          "  Best entry: Base 3+ breakout",
-        ],
-        entry: ["Stock has formed 2+ prior bases, each at higher prices", "Current base at higher level than previous", "Entry: breakout from the current (third or later) base on volume", "All MAs aligned and rising"],
-        stop: "Below mid-point of current base.",
-        target: "Usually equals prior move length projected from breakout.",
-        rules: ["Later bases (3rd, 4th) often produce the biggest moves", "Institutional holders accumulated in earlier bases = strong holder base", "Time between bases typically 4-12 weeks", "In India: look at 2-year weekly charts of HDFC, Titan, Reliance to see ascending bases"],
-      },
-      {
-        name: "52-Week High Breakout",
-        grade: "A", winrate: "60-68%", rr: "1:3",
+        name: "52-Week High Breakout", grade: "A", winrate: "60-68%", rr: "1:3",
         timeframe: "Daily / Weekly", best: "Strong bull market",
-        desc: "Stock breaks to a fresh 52-week high on high volume. No overhead supply above this level. Counter-intuitive but highly effective — buying new highs is more profitable than buying 'cheap' stocks at lows. First 52-week high breakout after a long base is extremely powerful.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  52-WEEK HIGH ─────────────────",
-          "                  ↗ BREAKS ABOVE",
-          "  ┌──────────────┐  (volume 2x)",
-          "  │ Base below   │",
-          "  │ 52-week high │← accumulated here",
-          "  └──────────────┘",
-          "  Entry: CLOSE above 52-week high",
-          "  on volume expansion",
-        ],
-        entry: ["Stock has been consolidating just below 52-week high", "VCP or flat base forming near the 52-week high level", "Entry: daily close above the 52-week high on volume 2x+ average"],
+        desc: "Stock breaks to a fresh 52-week high on high volume. No overhead supply above this level. Counter-intuitive but highly effective — buying new highs is more profitable than buying 'cheap' stocks at lows.",
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  52-WEEK HIGH ─────────────────","                  ↗ BREAKS ABOVE","  ┌──────────────┐  (volume 2x)","  │ Base below   │","  │ 52-week high │← accumulated here","  └──────────────┘","  Entry: CLOSE above 52-week high","  on volume expansion"],
+        entry: ["Stock has been consolidating just below 52-week high","VCP or flat base forming near the 52-week high level","Entry: daily close above the 52-week high on volume 2x+ average"],
         stop: "Below the 52-week high level (now becomes support). Or 7-8% below entry.",
         target: "Price discovery territory — use ATH (all-time high) as next reference. Trail with 20 EMA.",
-        rules: ["First 52-week high breakout after a long consolidation = most powerful", "Breakout on earnings week = even more powerful (fundamental + technical combined)", "Never buy a stock that has been making 52-week highs for months without any base — chasing", "Best version: stock at 52-week high AND all-time high (complete overhead supply cleared)"],
-      },
-      {
-        name: "Golden Cross (50/200 EMA)",
-        grade: "B+", winrate: "55-62%", rr: "1:4",
-        timeframe: "Daily / Weekly", best: "Bear-to-bull market transition",
-        desc: "50 EMA crosses above 200 EMA for the first time after a prolonged downtrend. Signals major trend reversal. Works best as a MARKET entry signal (buy Nifty ETF or index funds on golden cross). Lagging signal — but confirms major trend change.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  200 EMA ──────────────────────",
-          "  50 EMA  ─────────╲───────────",
-          "                    ╲",
-          "  Death Cross → BEAR PHASE      ",
-          "                         ╱─────",
-          "  50 EMA ───────────────╱ CROSS",
-          "  200 EMA ──────────────────────",
-          "  Golden Cross → BULL PHASE ↗",
-        ],
-        entry: ["50 EMA crosses above 200 EMA (Golden Cross)", "Price is also above both EMAs (confirms strength)", "Entry: next week open after Golden Cross", "Better version: buy the 'retrace to 50 EMA after Golden Cross' — lower risk entry"],
-        stop: "Below the 200 EMA. If price closes below 200 EMA after Golden Cross = false signal, exit.",
-        target: "Hold for 6-18 months. Use 50 EMA as trailing stop.",
-        rules: ["Signal is lagging (forms after trend already started) but very reliable when it appears", "For Nifty specifically: Golden Cross has preceded major bull runs in 2009, 2012, 2020", "Works better on weekly chart (more reliable) than daily", "Use for long-term portfolio allocation decisions — when to increase equity exposure"],
+        rules: ["First 52-week high breakout after a long consolidation = most powerful","Breakout on earnings week = even more powerful (fundamental + technical combined)","Never buy a stock that has been making 52-week highs for months without any base — chasing","Best version: stock at 52-week high AND all-time high (complete overhead supply cleared)"],
       },
     ],
     longterm: [
       {
-        name: "Earnings Acceleration + Technical Breakout",
-        grade: "A+", winrate: "65-72%", rr: "1:10+",
+        name: "Earnings Acceleration + Technical Breakout", grade: "A+", winrate: "65-72%", rr: "1:10+",
         timeframe: "Quarterly + Weekly chart", best: "Any market with strong earnings growers",
-        desc: "The most powerful long-term setup: A company showing 3+ consecutive quarters of ACCELERATING earnings growth COMBINED with a weekly chart VCP or flat base breakout. This is the complete Minervini SEPA setup. When fundamentals and technicals align — hold for years.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  EPS growth: 10% → 18% → 30% → 45%",
-          "  ACCELERATING = institutional magnet",
-          "",
-          "  Weekly chart:",
-          "  ┌──────────────────────────┐",
-          "  │ Base: 6-12 weeks         │",
-          "  │ Volume drying up         │",
-          "  └──────────────────────────┘",
-          "                          ↗ BREAKOUT + ENTRY",
-          "  Hold months to years",
-        ],
-        entry: ["Fundamental screen: EPS growing 25%+ AND accelerating for 3+ quarters", "ROE > 18%, debt manageable, revenue growing", "Technical: weekly VCP or flat base forming", "Entry: weekly close above base pivot on volume"],
+        desc: "The most powerful long-term setup: A company showing 3+ consecutive quarters of ACCELERATING earnings growth COMBINED with a weekly chart VCP or flat base breakout. This is the complete Minervini SEPA setup.",
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  EPS growth: 10% → 18% → 30% → 45%","  ACCELERATING = institutional magnet","","  Weekly chart:","  ┌──────────────────────────┐","  │ Base: 6-12 weeks         │","  │ Volume drying up         │","  └──────────────────────────┘","                          ↗ BREAKOUT + ENTRY","  Hold months to years"],
+        entry: ["Fundamental screen: EPS growing 25%+ AND accelerating for 3+ quarters","ROE > 18%, debt manageable, revenue growing","Technical: weekly VCP or flat base forming","Entry: weekly close above base pivot on volume"],
         stop: "Initial stop: 8-10% below entry. After 3 months profitable: trail with 10-week MA.",
         target: "No time-based target. Hold as long as: (1) EPS acceleration continues AND (2) price above 10-week MA.",
-        rules: ["Review earnings every quarter — if growth decelerates sharply, reduce position", "Price below 30-week MA = warning. Below 40-week MA = exit regardless of fundamentals", "Best India candidates: companies in sectors with secular growth (IT, Pharma, FMCG, Consumer)", "Reinvest dividends. Never sell on valuation alone if growth story intact"],
+        rules: ["Review earnings every quarter — if growth decelerates sharply, reduce position","Price below 30-week MA = warning. Below 40-week MA = exit regardless of fundamentals","Best India candidates: companies in sectors with secular growth (IT, Pharma, FMCG, Consumer)","Reinvest dividends. Never sell on valuation alone if growth story intact"],
       },
       {
-        name: "Sector Leader at Start of Industry Cycle",
-        grade: "A+", winrate: "60-70%", rr: "1:10-50x",
+        name: "Sector Leader at Start of Industry Cycle", grade: "A+", winrate: "60-70%", rr: "1:10-50x",
         timeframe: "Monthly / Yearly (multi-year hold)", best: "Identifying industry inflection points",
-        desc: "Buying the market leader in a sector just as a multi-year industry tailwind begins. This is how wealth is compounded across decades. Examples: IT in 2000s, pharma in 2010s, defence in 2022-2025. Requires combining macro insight with stock selection.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Industry catalyst identified:",
-          "  PLI scheme / defence budget /",
-          "  sector reform / tech shift",
-          "",
-          "  Sector leader identified:",
-          "  - Market leader in sector",
-          "  - Strongest balance sheet",
-          "  - Expanding margins",
-          "  - Management track record",
-          "",
-          "  Entry: On first Stage 2 breakout",
-          "  Hold: Years. Multiple VCP bases.",
-          "  Result: 10x-100x potential",
-        ],
-        entry: ["Identify sector catalyst (policy, technology, global trend)", "Find sector leader: highest ROE, lowest debt, strongest brand in that sector", "Wait for first Stage 2 weekly breakout (not chasing — buying the first confirmed breakout)", "Entry near 52-week high, all MAs aligned weekly"],
+        desc: "Buying the market leader in a sector just as a multi-year industry tailwind begins. This is how wealth is compounded across decades. Examples: IT in 2000s, pharma in 2010s, defence in 2022-2025.",
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  Industry catalyst identified:","  PLI scheme / defence budget /","  sector reform / tech shift","","  Sector leader identified:","  - Market leader in sector","  - Strongest balance sheet","  - Expanding margins","","  Entry: On first Stage 2 breakout","  Hold: Years. Multiple VCP bases.","  Result: 10x-100x potential"],
+        entry: ["Identify sector catalyst (policy, technology, global trend)","Find sector leader: highest ROE, lowest debt, strongest brand in that sector","Wait for first Stage 2 weekly breakout (not chasing — buying the first confirmed breakout)","Entry near 52-week high, all MAs aligned weekly"],
         stop: "8-10% initial stop. After 20%+ profit: trail with 40-week MA.",
         target: "No fixed target. Re-evaluate annually. Sell only when story changes.",
-        rules: ["This is Rakesh Jhunjhunwala's approach — Titan, CRISIL in early stages", "Patience is the entire edge here — most people sell after 2x and miss the 50x", "Use SIP approach: build position over 3-6 months, don't go all-in at once", "In India: upcoming sectors — EV, renewable energy, defence, semiconductors, speciality chemicals"],
-      },
-      {
-        name: "Dividend + Price Recovery (GARP)",
-        grade: "B+", winrate: "65-72%", rr: "1:3 (plus dividend yield)",
-        timeframe: "Daily / Monthly", best: "PSU stocks, mature companies, yield investors",
-        desc: "GARP = Growth At Reasonable Price. Buy quality companies when temporarily depressed (sector headwind, short-term earnings miss, market fear) at valuation below historical average. Collect dividend while waiting for recovery. PSU stocks often present this setup.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Stock PE: Historical avg = 20x",
-          "  After sector fear: trades at 12x",
-          "  Dividend yield spikes to 5-6%",
-          "  Free cash flow still strong",
-          "  Balance sheet intact",
-          "",
-          "  Price ─────────────╲ (temporary dip)",
-          "                      ╲",
-          "  200 EMA ─────────────╲ (touches)",
-          "                        ↗ ENTRY",
-          "  Dividend income while waiting",
-        ],
-        entry: ["Stock PE 20-30% below its 5-year historical average", "Dividend yield above 3% (pays you to wait)", "Free cash flow positive — company is genuinely healthy", "Technical: price near 200 EMA support or just bouncing from it"],
-        stop: "If fundamental story changes (not just price movement): sell. Or if 200 EMA breaks on weekly chart.",
-        target: "Revert to historical valuation (PE mean reversion) = 20-30% upside plus dividends.",
-        rules: ["Check WHY the stock is cheap — temporary fear vs permanent damage", "Avoid 'value traps': cheap because business is actually declining", "India examples: Coal India, Power Grid, NTPC — high dividend yield + stable business", "SIP into these over 3-6 months rather than lump sum"],
-      },
-      {
-        name: "Insider / Promoter Buying Setup",
-        grade: "A", winrate: "62-68%", rr: "1:4",
-        timeframe: "Weekly / Monthly", best: "Any market condition",
-        desc: "When company insiders (promoters, directors, large shareholders) buy shares from the OPEN MARKET — not ESOP, not bonus — that is the strongest possible signal. They know more than anyone. Combine with technical setup for high-probability entry.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  NSE Bulk Deals / BSE data:",
-          "  Promoter buys 5 lakh shares",
-          "  (open market purchase)",
-          "",
-          "  Meanwhile on chart:",
-          "  ┌──────────────────────────┐",
-          "  │ Stock consolidating      │",
-          "  │ near 52-week lows        │",
-          "  └──────────────────────────┘",
-          "                ↗ Promoter buy = catalyst",
-          "  Entry: next day open",
-        ],
-        entry: ["Check BSE/NSE bulk deals and block deals for promoter buying", "Promoter buying must be OPEN MARKET purchase (not ESOP grant)", "Technical: stock at support, or forming a base", "Entry: within 5 trading days of the bulk deal announcement"],
-        stop: "8% below entry. If promoter starts selling again — exit immediately.",
-        target: "Promoter's likely buying target + 20-30%. Trail with 50 EMA.",
-        rules: ["Distinguish between ESOP (given to employees, not a buy signal) vs open market purchase", "Check Tijori Finance and NSE for bulk deal history", "Multiple promoters buying = stronger signal than single buy", "Promoter pledge DECREASING + buying = very strong combination"],
+        rules: ["This is Rakesh Jhunjhunwala's approach — Titan, CRISIL in early stages","Patience is the entire edge here — most people sell after 2x and miss the 50x","Use SIP approach: build position over 3-6 months, don't go all-in at once","In India: upcoming sectors — EV, renewable energy, defence, semiconductors, speciality chemicals"],
       },
     ],
     options: [
       {
-        name: "Iron Condor — The Theta Machine",
-        grade: "A+", winrate: "68-72%", rr: "1:1.5 (premium:risk)",
+        name: "Iron Condor — The Theta Machine", grade: "A+", winrate: "68-72%", rr: "1:1.5",
         timeframe: "15-45 days to expiry (monthly)", best: "VIX 18-25, sideways market, IVP > 50",
         desc: "Sell both a put spread below the market and a call spread above. Profit from time decay (theta) as long as market stays within your range. Our primary income strategy.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  Profit Zone:  [▓▓▓▓▓▓▓▓▓▓▓]",
-          "                23,000 ─── 24,200",
-          "",
-          "  Structure:    BUY  SELL─────SELL  BUY",
-          "              22,800 23,000 24,200 24,400",
-          "  Pattern:     BUY  SELL  SELL  BUY",
-          "",
-          "  Max Profit:  Net premium collected",
-          "  Max Loss:    Gap - Net premium",
-          "  Win when:    Nifty stays BETWEEN sells",
-        ],
-        entry: ["VIX between 18-25 (not too low, not too high)", "IVP above 50 on Sensibull (premiums expensive)", "PCR between 0.8-1.2 (balanced market)", "Set sell strikes at 0.15-0.30 delta (OTM)", "Center condor around Max Pain strike", "15+ days to expiry (never on weekly expiry)"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  Profit Zone:  [▓▓▓▓▓▓▓▓▓▓▓]","                23,000 ─── 24,200","","  Structure:    BUY  SELL─────SELL  BUY","              22,800 23,000 24,200 24,400","","  Max Profit:  Net premium collected","  Max Loss:    Gap - Net premium","  Win when:    Nifty stays BETWEEN sells"],
+        entry: ["VIX between 18-25 (not too low, not too high)","IVP above 50 on Sensibull (premiums expensive)","PCR between 0.8-1.2 (balanced market)","Set sell strikes at 0.15-0.30 delta (OTM)","Center condor around Max Pain strike","15+ days to expiry (never on weekly expiry)"],
         stop: "Exit entire position if: (1) one side reaches 200% of initial premium OR (2) Nifty breaks past sell strike closing price.",
         target: "Exit at 50% of maximum profit. Don't be greedy — 50% is the optimal exit.",
-        rules: ["ALWAYS use spreads (buy strikes to cap loss) — never naked sells", "Use Sensibull strategy builder to find exact strikes and visualise payoff", "Never hold into expiry week (gamma kills spreads in last 48 hours)", "No new trades in event week (RBI, Budget, results)"],
+        rules: ["ALWAYS use spreads (buy strikes to cap loss) — never naked sells","Use Sensibull strategy builder to find exact strikes and visualise payoff","Never hold into expiry week (gamma kills spreads in last 48 hours)","No new trades in event week (RBI, Budget, results)"],
       },
       {
-        name: "IV Crush Trade (Sell Before, Exit After)",
-        grade: "A+", winrate: "70-78%", rr: "1:1.2",
+        name: "IV Crush Trade (Sell Before, Exit After)", grade: "A+", winrate: "70-78%", rr: "1:1.2",
         timeframe: "1-5 days around events", best: "RBI policy, quarterly results, Budget",
         desc: "Before a major event (RBI, earnings, Budget) — IV spikes dramatically making options very expensive. SELL straddle or strangle a day before the event. After announcement, IV crushes 30-60% regardless of direction. Buy back cheaper. Pocket the IV difference.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  IV (Implied Volatility):",
-          "  45% ────────────╮",
-          "                  │ PRE-EVENT (sell here)",
-          "                  │",
-          "  EVENT ──────────┼──────────",
-          "                  ╰─────────── 22%",
-          "  Post-event IV crush = 50%+ drop",
-          "",
-          "  SELL: 1 day before event",
-          "  BUY BACK: Day after event opens",
-          "  Profit: IV difference × vega",
-        ],
-        entry: ["Identify event: RBI policy date, earnings date, Budget date", "1 day before: check IVP — should be 70+ (very expensive)", "SELL ATM straddle (sell both ATM call + put)", "Or sell strangle for lower margin requirement"],
-        stop: "If price moves more than 2x expected move (check options pricing for 'expected move'), consider adjusting.",
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  IV (Implied Volatility):","  45% ────────────╮","                  │ PRE-EVENT (sell here)","                  │","  EVENT ──────────┼──────────","                  ╰─────────── 22%","  Post-event IV crush = 50%+ drop","","  SELL: 1 day before event","  BUY BACK: Day after event opens","  Profit: IV difference × vega"],
+        entry: ["Identify event: RBI policy date, earnings date, Budget date","1 day before: check IVP — should be 70+ (very expensive)","SELL ATM straddle (sell both ATM call + put)","Or sell strangle for lower margin requirement"],
+        stop: "If price moves more than 2x expected move, consider adjusting.",
         target: "Exit next morning after event opens — don't wait for full day. IV crush happens at open.",
-        rules: ["This works because options price in a BIG expected move — market often moves less than priced", "Risk: if actual move EXCEEDS expected move (e.g., surprise 5%+ move on earnings), you lose", "Reduce size for this trade — 50% of normal position", "Never do this on Budget day (too unpredictable)"],
+        rules: ["This works because options price in a BIG expected move — market often moves less than priced","Risk: if actual move EXCEEDS expected move (e.g., surprise 5%+ move on earnings), you lose","Reduce size for this trade — 50% of normal position","Never do this on Budget day (too unpredictable)"],
       },
       {
-        name: "Long Straddle — Event Play",
-        grade: "B+", winrate: "35-45%", rr: "1:4",
-        timeframe: "3-7 days before event", best: "VIX below 15, IVP below 30, before known catalyst",
-        desc: "Buy both ATM call and put when options are CHEAP and a big move is expected. If the move exceeds your total premium paid — you profit. Works when actual move > what options priced in (surprise events).",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  P&L Diagram:",
-          "         ╭─────╮",
-          "         │LOSS │",
-          "  ───────┤     ├───────",
-          "         │ZONE │",
-          "  ───────┴─────┴───────",
-          "  ↙ PROFIT       PROFIT ↘",
-          "  (big move down) (big move up)",
-          "",
-          "  Break-even = entry ± total premium paid",
-          "  WIN when market moves BEYOND break-even",
-        ],
-        entry: ["IVP below 30 (options cheap)", "Known event coming in 3-7 days (RBI, election, earnings)", "Buy ATM call + ATM put (same expiry)", "Keep position small (10% of capital max)"],
-        stop: "Exit if half the premium is lost with 3+ days remaining. Time is your enemy.",
-        target: "Exit IMMEDIATELY after the event — before IV crush hits. Even if direction is right, IV crush erodes value fast.",
-        rules: ["If VIX is already above 20, straddles are usually overpriced — avoid", "Best time to enter: 5-7 days before event when IV hasn't fully spiked yet", "This is the OPPOSITE of the IV Crush trade — you're the buyer not seller", "Low win rate but asymmetric payoff when right"],
-      },
-      {
-        name: "Bull Put Spread — Income with Bullish Bias",
-        grade: "A", winrate: "62-68%", rr: "1:1.5",
+        name: "Bull Put Spread — Income with Bullish Bias", grade: "A", winrate: "62-68%", rr: "1:1.5",
         timeframe: "15-30 days to expiry", best: "Bullish/sideways market, VIX > 15",
         desc: "Sell a put near support, buy a put one strike lower. Collect net premium. Profit if market stays above your sell strike. More directional than Iron Condor — biased toward market staying flat or rising.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  CURRENT NIFTY: 23,700",
-          "  Support: 23,200",
-          "",
-          "  SELL 23,200 PE → collect Rs 120",
-          "  BUY  22,900 PE → pay    Rs 50",
-          "  Net premium collected = Rs 70",
-          "",
-          "  ✅ PROFIT: Nifty stays above 23,200",
-          "  ❌ LOSS:   Nifty falls below 23,130",
-          "  Max loss = Rs 300 - Rs 70 = Rs 230",
-        ],
-        entry: ["Market neutral to bullish (above 200 EMA)", "Strong support level identified below sell strike", "VIX above 15 (enough premium)", "Sell strike at 0.20-0.30 delta (just below support)", "PCR above 1.0 (puts more expensive than calls = good to sell puts)"],
+        chart: ["━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━","  CURRENT NIFTY: 23,700","  Support: 23,200","","  SELL 23,200 PE → collect Rs 120","  BUY  22,900 PE → pay    Rs 50","  Net premium collected = Rs 70","","  ✅ PROFIT: Nifty stays above 23,200","  ❌ LOSS:   Nifty falls below 23,130","  Max loss = Rs 300 - Rs 70 = Rs 230"],
+        entry: ["Market neutral to bullish (above 200 EMA)","Strong support level identified below sell strike","VIX above 15 (enough premium)","Sell strike at 0.20-0.30 delta (just below support)","PCR above 1.0 (puts more expensive than calls = good to sell puts)"],
         stop: "If market closes below the sell strike on two consecutive days — exit. Stop loss = 1.5x net premium collected.",
         target: "Exit at 50-60% of max profit. Or 5 days before expiry.",
-        rules: ["Enter after a clear bounce from support (don't catch a falling knife)", "Adjust to Bear Call Spread if market weakens and your support breaks", "Best combined with Iron Condor (Bull Put Spread is the 'put side' of an Iron Condor)", "Maximum 1 Bull Put Spread per week per index"],
-      },
-      {
-        name: "Long Call on VCP Breakout",
-        grade: "B+", winrate: "45-55%", rr: "1:3",
-        timeframe: "30-45 days expiry", best: "IVP below 40, clear VCP breakout",
-        desc: "When you spot a VCP breakout but don't want futures risk — buy an ITM or ATM call option. Less capital than futures. Limited loss. But theta works against you so the breakout must happen quickly.",
-        chart: [
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "  VCP breakout confirmed ↗",
-          "",
-          "  Instead of futures:",
-          "  BUY ATM Call (30-45 DTE)",
-          "  Delta: 0.50-0.60",
-          "  IVP must be < 40 (cheap options!)",
-          "",
-          "  If stock moves 10% in 7 days:",
-          "  Call option moves 20-50%",
-          "  Theta cost: ~Rs 30-50/day",
-          "  Net: still very profitable",
-        ],
-        entry: ["VCP confirmed on daily chart", "Stock breaks above pivot on volume", "IVP below 40 (options not expensive)", "Buy ATM call with 30-45 days to expiry (not weekly!)", "Delta 0.50-0.60 (deep enough to move well)"],
-        stop: "Exit call if: (1) 35-40% of premium lost OR (2) stock closes back below VCP pivot.",
-        target: "Exit at 50-100% profit on the option. Or when stock hits measured target.",
-        rules: ["Never buy calls on expiry week — theta destroys value", "IVP above 50? Don't buy calls — too expensive, use Bull Put Spread instead", "The move must happen within 10-15 days of entry or theta erosion kills profit", "Alternative: use futures if IVP is high (futures have no theta decay)"],
+        rules: ["Enter after a clear bounce from support (don't catch a falling knife)","Adjust to Bear Call Spread if market weakens and your support breaks","Best combined with Iron Condor (Bull Put Spread is the 'put side' of an Iron Condor)","Maximum 1 Bull Put Spread per week per index"],
       },
     ],
   };
@@ -2462,7 +1728,6 @@ function TASetups() {
 
   return (
     <div>
-      {/* Style selector */}
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
         {STYLES.map(s => (
           <button key={s.id} onClick={() => { setStyle(s.id); setSetup(0); }} style={{
@@ -2473,8 +1738,6 @@ function TASetups() {
           }}>{s.label}</button>
         ))}
       </div>
-
-      {/* Setup tabs */}
       <div style={{ display: "flex", overflowX: "auto", gap: 5, marginBottom: 14, paddingBottom: 2 }}>
         {curr.map((s, i) => (
           <button key={i} onClick={() => setSetup(i)} style={{
@@ -2485,10 +1748,8 @@ function TASetups() {
           }}>{s.name}</button>
         ))}
       </div>
-
       {activeSetup && (
         <div>
-          {/* Header */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center", marginBottom: 12 }}>
             <div style={{ fontSize: 16, fontWeight: 800, color: currStyle.color, flex: 1 }}>{activeSetup.name}</div>
             <Badge label={`Grade: ${activeSetup.grade}`} color={activeSetup.grade.startsWith("A+") ? C.green : activeSetup.grade.startsWith("A") ? C.teal : C.orange} />
@@ -2499,26 +1760,20 @@ function TASetups() {
             <Badge label={`TF: ${activeSetup.timeframe}`} color={C.muted} />
             <Badge label={`Best in: ${activeSetup.best}`} color={C.muted} />
           </div>
-
-          {/* Description */}
           <Card accent={currStyle.color}>
             <div style={{ fontSize: 12.5, color: C.dim, lineHeight: 1.7 }}>{activeSetup.desc}</div>
           </Card>
-
-          {/* Chart ASCII */}
           <div style={{ background: "#050608", border: `1px solid ${currStyle.color}30`, borderRadius: 10, padding: "12px 14px", marginBottom: 12, fontFamily: "monospace" }}>
             <div style={{ fontSize: 10, color: currStyle.color, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 8 }}>Chart Visual</div>
             {activeSetup.chart.map((line, i) => (
               <div key={i} style={{ fontSize: 11, color: line.includes("ENTRY") || line.includes("BREAKOUT") ? currStyle.color : line.includes("STOP") || line.includes("LOSS") ? C.red : C.dim, lineHeight: 1.8 }}>{line}</div>
             ))}
           </div>
-
-          {/* Entry / Stop / Target */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 8, marginBottom: 12 }}>
             <div style={{ background: `${C.green}08`, border: `1px solid ${C.green}20`, borderLeft: `3px solid ${C.green}`, borderRadius: 8, padding: "11px 13px" }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: C.green, marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>Entry Conditions</div>
               {activeSetup.entry.map((e, i) => (
-                <div key={i} style={{ fontSize: 12, color: C.dim, padding: "3px 0", display: "flex", gap: 8, lineHeight: 1.5, borderBottom: i < activeSetup.entry.length - 1 ? `1px solid ${C.border}20` : "none" }}>
+                <div key={i} style={{ fontSize: 12, color: C.dim, padding: "3px 0", display: "flex", gap: 8, lineHeight: 1.5 }}>
                   <span style={{ color: C.green, flexShrink: 0, fontWeight: 700 }}>{i + 1}.</span>{e}
                 </div>
               ))}
@@ -2534,12 +1789,10 @@ function TASetups() {
               </div>
             </div>
           </div>
-
-          {/* Rules */}
           <div style={{ background: `${currStyle.color}08`, border: `1px solid ${currStyle.color}20`, borderRadius: 10, padding: "12px 14px" }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: currStyle.color, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>Key Rules</div>
             {activeSetup.rules.map((r, i) => (
-              <div key={i} style={{ display: "flex", gap: 8, fontSize: 12, color: C.dim, padding: "4px 0", lineHeight: 1.5, borderBottom: i < activeSetup.rules.length - 1 ? `1px solid ${C.border}15` : "none" }}>
+              <div key={i} style={{ display: "flex", gap: 8, fontSize: 12, color: C.dim, padding: "4px 0", lineHeight: 1.5 }}>
                 <span style={{ color: currStyle.color, flexShrink: 0 }}>›</span>{r}
               </div>
             ))}
@@ -2550,7 +1803,6 @@ function TASetups() {
   );
 }
 
-// ── CHAPTER MAP ───────────────────────────────────────────────
 const CONTENT = {
   basics:    <Basics />,
   ta:        <TechnicalAnalysis />,
@@ -2570,16 +1822,13 @@ const CONTENT = {
   glossary:  <Glossary />,
 };
 
-// ── APP ───────────────────────────────────────────────────────
-export default function App() {
+function App() {
   const [active, setActive] = useState("basics");
   const curr = CHAPTERS.find(c => c.id === active);
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", color: C.text,
       fontFamily: "'Georgia', serif" }}>
-
-      {/* Header */}
       <div style={{ background: C.card, borderBottom: `1px solid ${C.border}`,
         padding: "14px 16px", position: "sticky", top: 0, zIndex: 100 }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
@@ -2589,8 +1838,6 @@ export default function App() {
             letterSpacing: "-0.5px" }}>Trading & Technical Analysis</div>
         </div>
       </div>
-
-      {/* Chapter nav */}
       <div style={{ background: "#0f1118", borderBottom: `1px solid ${C.border}`,
         padding: "0 16px", overflowX: "auto" }}>
         <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", gap: 0 }}>
@@ -2606,8 +1853,6 @@ export default function App() {
           ))}
         </div>
       </div>
-
-      {/* Content */}
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "20px 16px" }}>
         <div style={{ fontSize: 11, color: curr?.color, fontWeight: 700,
           letterSpacing: 2, textTransform: "uppercase", marginBottom: 14 }}>
@@ -2615,7 +1860,6 @@ export default function App() {
         </div>
         {CONTENT[active]}
       </div>
-
       <div style={{ textAlign: "center", padding: "20px 16px",
         fontSize: 10, color: C.muted, borderTop: `1px solid ${C.border}` }}>
         For educational purposes only · Not financial advice
@@ -2623,3 +1867,9 @@ export default function App() {
     </div>
   );
 }
+
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
