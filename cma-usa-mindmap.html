@@ -3,27 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CMA USA — Exam Mindmap</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>CMA USA — Complete Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --p1:#1a5fa8;--p1-light:#e8f1fb;--p1-mid:#4d8dcf;
   --p2:#0e7c5b;--p2-light:#e3f4ee;--p2-mid:#3da882;
+  --navy:#0f2340;--gold:#c9a84c;
   --bg:#f8f6f1;--card:#fff;--text:#1c1c1e;--muted:#6b6b70;
-  --border:#e2ddd6;--accent:#c9a84c;
+  --border:#e2ddd6;--gray:#f0ede8;--warn:#e85d04;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:1.5rem 1rem}
-header{text-align:center;margin-bottom:2rem}
-header .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:.4rem}
-header h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,5vw,40px);font-weight:400;line-height:1.1}
-header p{font-size:12px;color:var(--muted);margin-top:.5rem}
-.divider{width:36px;height:2px;background:var(--accent);margin:.8rem auto;border-radius:1px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;border-bottom:3px solid var(--gold)}
+.nav-brand{font-family:'DM Serif Display',serif;color:#fff;font-size:16px;padding:14px 0;letter-spacing:.02em}
+.nav-brand span{color:var(--gold)}
+.nav-tabs{display:flex}
+.nav-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,.6);padding:14px 18px;border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;letter-spacing:.04em;text-transform:uppercase;transition:all .2s}
+.nav-tab:hover{color:#fff}
+.nav-tab.active{color:#fff;border-bottom-color:var(--gold)}
+.page{display:none;padding:2rem 1.5rem;max-width:920px;margin:0 auto}
+.page.active{display:block}
+
+/* MINDMAP */
+.mm-header{text-align:center;margin-bottom:2rem}
+.mm-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.4rem}
+.mm-header h1{font-family:'DM Serif Display',serif;font-size:clamp(24px,5vw,38px);font-weight:400;line-height:1.1}
+.mm-header p{font-size:12px;color:var(--muted);margin-top:.5rem}
+.divider{width:36px;height:2px;background:var(--gold);margin:.8rem auto;border-radius:1px}
 .filters{display:flex;justify-content:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
 .filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:all .2s}
 .filter-btn:hover{border-color:var(--text);color:var(--text)}
 .filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;max-width:860px;margin:0 auto 1.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;margin-bottom:1.5rem}
 .part-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s}
 .part-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
 .part-header{padding:15px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none}
@@ -55,10 +67,10 @@ header p{font-size:12px;color:var(--muted);margin-top:.5rem}
 .wt-fill{height:100%;border-radius:2px;transition:width .4s ease}
 .p1-fill{background:var(--p1-mid)}.p2-fill{background:var(--p2-mid)}
 
-/* Detail panel */
-.detail-panel{max-width:860px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:none}
-.detail-panel.show{display:block;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+/* DETAIL PANEL */
+.detail-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:none}
+.detail-panel.show{display:block;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .detail-head{padding:16px 20px 14px;border-bottom:1px solid var(--border)}
 .detail-badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 11px;border-radius:20px;letter-spacing:.04em;margin-bottom:6px}
 .p1-panel .detail-badge{background:var(--p1-light);color:var(--p1)}
@@ -66,16 +78,16 @@ header p{font-size:12px;color:var(--muted);margin-top:.5rem}
 .detail-title{font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:var(--text)}
 .subs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:7px;padding:14px 20px 0}
 .sub-chip{font-size:12px;padding:7px 11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);line-height:1.4}
-.sub-chip::before{content:'·  ';color:var(--accent);font-weight:700}
+.sub-chip::before{content:'·  ';color:var(--gold);font-weight:700}
 
-/* Action tabs */
-.action-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-top:14px;padding:0 20px}
-.atab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 14px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+/* ACTION TABS — 4 tabs now */
+.action-tabs{display:flex;border-bottom:1px solid var(--border);margin-top:14px;padding:0 20px;overflow-x:auto}
+.atab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 14px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
 .atab:hover{color:var(--text)}
 .atab.active{color:var(--text);border-bottom-color:var(--text)}
 
-/* AI response area */
-.ai-box{padding:16px 20px 20px;min-height:80px}
+/* AI / content box */
+.ai-box{padding:16px 20px 20px;min-height:80px;max-height:520px;overflow-y:auto}
 .ai-loading{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
 .dots span{display:inline-block;width:5px;height:5px;background:var(--muted);border-radius:50%;margin:0 2px;animation:bounce .9s infinite}
 .dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
@@ -83,57 +95,435 @@ header p{font-size:12px;color:var(--muted);margin-top:.5rem}
 .ai-content{font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap}
 .ai-content strong{font-weight:500}
 
-/* Stats */
-.stats{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+/* INLINE NOTES (inside detail panel) */
+.inote{font-size:13px;line-height:1.75;color:var(--text)}
+.inote h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin:1rem 0 .4rem;border-bottom:1px solid var(--border);padding-bottom:.3rem}
+.inote h4:first-child{margin-top:0}
+.inote ul,.inote ol{padding-left:1.1rem;margin:.35rem 0}
+.inote li{margin:.2rem 0}
+.inote .ibox{border-radius:7px;padding:.7rem .9rem;margin:.5rem 0;font-size:12.5px;line-height:1.65}
+.inote .ibox-tip{background:#e8f4fd;border-left:3px solid var(--p1)}
+.inote .ibox-warn{background:#fff3e0;border-left:3px solid var(--warn)}
+.inote .ibox-update{background:#e8f6f0;border-left:3px solid var(--p2)}
+.inote .ibox-exam{background:#fdf3e3;border-left:3px solid var(--gold)}
+.inote .ibox b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.09em;opacity:.65;margin-bottom:.25rem}
+.inote table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:12px}
+.inote th{background:var(--navy);color:#fff;padding:6px 10px;text-align:left;font-weight:500}
+.inote td{padding:5px 10px;border-bottom:1px solid var(--border)}
+.inote tr:nth-child(even) td{background:var(--gray)}
+.inote .formula{background:var(--navy);color:var(--gold);font-family:'JetBrains Mono',monospace;padding:.65rem .9rem;border-radius:7px;font-size:11.5px;margin:.5rem 0;line-height:1.6;white-space:pre-wrap}
+
+/* STATS */
+.mm-stats{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
 .stat{text-align:center}
 .stat-num{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text)}
 .stat-label{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
-footer{text-align:center;margin-top:2rem;font-size:11px;color:var(--muted)}
+footer{text-align:center;padding:2rem;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:1.5rem}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="eyebrow">IMA Certification</div>
-  <h1>CMA USA<br>Exam Mindmap</h1>
-  <div class="divider"></div>
-  <p>Click a part to expand · Select a topic for details</p>
-</header>
+<nav class="nav">
+  <div class="nav-brand">CMA USA <span>Study Hub</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('mindmap',this)">📊 Mindmap</button>
+  </div>
+</nav>
 
-<div class="filters">
-  <button class="filter-btn active" onclick="filter('all',this)">All topics</button>
-  <button class="filter-btn" onclick="filter('p1',this)">Part 1 only</button>
-  <button class="filter-btn" onclick="filter('p2',this)">Part 2 only</button>
+<!-- MINDMAP PAGE -->
+<div class="page active" id="page-mindmap">
+  <div class="mm-header">
+    <div class="mm-eyebrow">IMA Certification</div>
+    <h1>CMA USA<br>Exam Mindmap</h1>
+    <div class="divider"></div>
+    <p>Click a part to expand · Select a topic for study notes &amp; AI content</p>
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="mmFilter('all',this)">All topics</button>
+    <button class="filter-btn" onclick="mmFilter('p1',this)">Part 1 only</button>
+    <button class="filter-btn" onclick="mmFilter('p2',this)">Part 2 only</button>
+  </div>
+  <div class="grid" id="mm-grid"></div>
+
+  <div class="detail-panel" id="mm-detail">
+    <div class="detail-head">
+      <div class="detail-badge" id="d-badge"></div>
+      <div class="detail-title" id="d-title"></div>
+    </div>
+    <div class="subs-grid" id="d-subs"></div>
+    <div class="action-tabs">
+      <button class="atab active" id="tab-study"    onclick="switchTab('study',this)">Study strategy</button>
+      <button class="atab"         id="tab-practice" onclick="switchTab('practice',this)">Practice questions</button>
+      <button class="atab"         id="tab-notes"    onclick="switchTab('notes',this)">📖 Study notes</button>
+      <button class="atab"         id="tab-resources"onclick="switchTab('resources',this)">Resources</button>
+    </div>
+    <div class="ai-box" id="ai-box">
+      <div style="font-size:12px;color:var(--muted)">Select a tab above to view content for this topic.</div>
+    </div>
+  </div>
+
+  <div class="mm-stats">
+    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Exam parts</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Topic areas</div></div>
+    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">MCQ + essay Qs</div></div>
+    <div class="stat"><div class="stat-num">4h</div><div class="stat-label">Per exam</div></div>
+  </div>
 </div>
 
-<div class="grid" id="grid"></div>
-
-<div class="detail-panel" id="detail">
-  <div class="detail-head">
-    <div class="detail-badge" id="d-badge"></div>
-    <div class="detail-title" id="d-title"></div>
-  </div>
-  <div class="subs-grid" id="d-subs"></div>
-  <div class="action-tabs">
-    <button class="atab active" onclick="switchTab('study',this)">Study strategy</button>
-    <button class="atab" onclick="switchTab('practice',this)">Practice questions</button>
-    <button class="atab" onclick="switchTab('resources',this)">Resources</button>
-  </div>
-  <div class="ai-box" id="ai-box">
-    <div style="font-size:12px;color:var(--muted)">Select a tab above to generate content for this topic.</div>
-  </div>
-</div>
-
-<div class="stats">
-  <div class="stat"><div class="stat-num">2</div><div class="stat-label">Exam parts</div></div>
-  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Topic areas</div></div>
-  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">MCQ + essay Qs</div></div>
-  <div class="stat"><div class="stat-num">4h</div><div class="stat-label">Per exam</div></div>
-</div>
-<footer>Certified Management Accountant · Institute of Management Accountants (IMA)</footer>
+<footer>CMA USA Study Hub · Mindmap + Inline Study Notes · Updated June 2025 · IMA · FASB ASC · IASB</footer>
 
 <script>
-var DATA={
+/* ── PAGE NAV ── */
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── INLINE STUDY NOTES DATA ── */
+var NOTES = {
+  /* Part 1 topics */
+  'p1-0': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p>Section A = <strong>15% of Part 1 (~75 marks)</strong>. Covers US GAAP financial reporting: Balance Sheet, Income Statement, Cash Flow Statement, Comprehensive Income, and Changes in Equity.</p>
+<div class="ibox ibox-exam"><b>Exam Tip</b>Expect 3–5 MCQs plus essay sub-questions. Most MCQs test application, not just definitions.</div>
+
+<h4>Five Financial Statements (US GAAP)</h4>
+<ol><li>Statement of Financial Position (Balance Sheet)</li><li>Income Statement</li><li>Statement of Cash Flows</li><li>Statement of Comprehensive Income</li><li>Statement of Changes in Stockholders' Equity</li></ol>
+
+<h4>Balance Sheet — Key Rules</h4>
+<p><strong>Equation:</strong></p>
+<div class="formula">Assets = Liabilities + Stockholders' Equity</div>
+<p><strong>Current Asset:</strong> Converted to cash/consumed within 1 year OR one operating cycle (whichever is longer).</p>
+<div class="ibox ibox-tip"><b>Classic Trap</b>A builder's inventory (buildings taking 2+ years) is CURRENT because the operating cycle exceeds 12 months.</div>
+<p><strong>Equity components:</strong> Common Stock (par) · APIC · Retained Earnings · AOCI · Treasury Stock (deducted) · NCI</p>
+<p>Long-term debt is reclassified as current when it matures within 12 months and will be settled via current assets, OR when a covenant violation allows the lender to demand immediate repayment.</p>
+
+<h4>Revenue Recognition — ASC 606 (5-Step)</h4>
+<ol><li>Identify the <strong>contract</strong></li><li>Identify <strong>performance obligations</strong></li><li>Determine <strong>transaction price</strong></li><li>Allocate price to each obligation</li><li>Recognize revenue when obligation <strong>satisfied</strong></li></ol>
+<div class="ibox ibox-tip"><b>Example</b>Car sale + 2-year service warranty = 2 obligations. Revenue for car on delivery; service revenue spread over 24 months.</div>
+
+<h4>Lease Accounting — ASC 842</h4>
+<table><tr><th>Lease Type</th><th>Treatment</th></tr>
+<tr><td>Finance Lease</td><td>Asset + liability on balance sheet; interest expense + amortization</td></tr>
+<tr><td>Operating Lease</td><td>Right-of-use asset + lease liability on B/S; single straight-line lease expense</td></tr></table>
+<div class="ibox ibox-update"><b>2025 Note</b>ASC 842 eliminated "off-balance-sheet" operating leases. Both types now on balance sheet (effective since 2022 for private companies).</div>
+
+<h4>Inventory Valuation</h4>
+<table><tr><th>Method</th><th>Inflation: COGS</th><th>Ending Inventory</th><th>Tax Impact</th></tr>
+<tr><td>FIFO</td><td>Lower (older costs)</td><td>Higher, current</td><td>Higher profit → more tax</td></tr>
+<tr><td>LIFO</td><td>Higher (recent costs)</td><td>Lower, stale</td><td>Lower profit → less tax</td></tr>
+<tr><td>Weighted Avg</td><td>Middle</td><td>Middle</td><td>Middle</td></tr></table>
+<div class="ibox ibox-warn"><b>Critical GAAP vs IFRS</b>LIFO is NOT permitted under IFRS. US GAAP allows all three. Inventory write-down reversals: NOT allowed under GAAP, allowed under IFRS.</div>
+<div class="formula">WAC = Total Cost Available ÷ Total Units Available
+Lower of Cost or NRV (ASC 330): report at whichever is lower</div>
+
+<h4>Financial Instruments &amp; Hedging</h4>
+<table><tr><th>Security Type</th><th>Unrealized Gains/Losses</th></tr>
+<tr><td>Trading securities</td><td>Income Statement (P&amp;L)</td></tr>
+<tr><td>Available-for-sale (AFS) debt</td><td>OCI (balance sheet equity)</td></tr>
+<tr><td>Held-to-maturity (HTM)</td><td>Not recognized (amortized cost)</td></tr></table>
+<p><strong>Hedging:</strong> Protection against risk (FX, interest rate, commodity). Gain/loss on qualifying cash flow hedge → OCI until the hedged transaction affects earnings.</p>
+</div>`,
+
+  'p1-1': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>20% of Part 1 (~100 marks)</strong> — highest weight in Part 1. Covers all aspects of the planning and budgeting process.</p>
+
+<h4>Strategic Planning Process</h4>
+<ol><li>Mission &amp; vision → objectives</li><li>Environmental analysis (SWOT, PESTEL)</li><li>Strategy formulation</li><li>Strategy implementation → budgets</li><li>Monitor &amp; control</li></ol>
+
+<h4>Master Budget Components</h4>
+<table><tr><th>Operating Budgets</th><th>Financial Budgets</th></tr>
+<tr><td>Sales budget (starts here)</td><td>Capital expenditure budget</td></tr>
+<tr><td>Production budget</td><td>Cash budget</td></tr>
+<tr><td>Direct materials, DL, OH budgets</td><td>Budgeted B/S &amp; Income Stmt</td></tr>
+<tr><td>SG&amp;A budget</td><td></td></tr></table>
+<div class="ibox ibox-tip"><b>Key Rule</b>The Sales Budget drives ALL other budgets. Always start there in MCQs.</div>
+
+<h4>Static vs Flexible Budgets</h4>
+<p><strong>Static:</strong> Fixed at one output level — used for planning. <strong>Flexible:</strong> Adjusts to actual output — used for performance evaluation (isolates efficiency from volume variances).</p>
+<div class="formula">Flexible Budget = Fixed Costs + (Variable Rate × Actual Units)</div>
+
+<h4>Rolling (Continuous) Forecasts</h4>
+<p>Always maintains a fixed forward horizon (e.g., 12 months) by adding a new period as the most recent one closes. More responsive to change than annual static budgets.</p>
+
+<h4>Sensitivity &amp; Scenario Analysis</h4>
+<p><strong>Sensitivity:</strong> Change one variable, observe impact (what-if). <strong>Scenario:</strong> Change multiple variables simultaneously (best/worst/base case). <strong>Simulation (Monte Carlo):</strong> Probabilistic — thousands of random iterations.</p>
+</div>`,
+
+  'p1-2': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>20% of Part 1 (~100 marks)</strong>. Covers how to measure, evaluate, and manage organizational performance.</p>
+
+<h4>CVP &amp; Breakeven Analysis</h4>
+<div class="formula">Contribution Margin (CM) = Sales − Variable Costs
+CM Ratio = CM ÷ Sales
+Breakeven (units) = Fixed Costs ÷ CM per unit
+Breakeven ($) = Fixed Costs ÷ CM Ratio
+Margin of Safety = Actual Sales − Breakeven Sales</div>
+
+<h4>Variance Analysis</h4>
+<table><tr><th>Variance</th><th>Formula</th></tr>
+<tr><td>Sales Price</td><td>(Actual Price − Standard Price) × Actual Qty Sold</td></tr>
+<tr><td>Sales Volume</td><td>(Actual Vol − Budgeted Vol) × Standard CM</td></tr>
+<tr><td>Material Price</td><td>(Standard Price − Actual Price) × Actual Qty Purchased</td></tr>
+<tr><td>Material Quantity</td><td>(Standard Qty − Actual Qty) × Standard Price</td></tr>
+<tr><td>Labor Rate</td><td>(Standard Rate − Actual Rate) × Actual Hours</td></tr>
+<tr><td>Labor Efficiency</td><td>(Standard Hours − Actual Hours) × Standard Rate</td></tr></table>
+<div class="ibox ibox-exam"><b>Exam Tip</b>Favorable = actual better than standard. Unfavorable = actual worse. Always label F or U.</div>
+
+<h4>Responsibility Accounting</h4>
+<table><tr><th>Center</th><th>Manager Controls</th><th>Key Metric</th></tr>
+<tr><td>Cost center</td><td>Costs only</td><td>Cost variances</td></tr>
+<tr><td>Revenue center</td><td>Revenue only</td><td>Revenue variances</td></tr>
+<tr><td>Profit center</td><td>Costs &amp; revenues</td><td>Operating income</td></tr>
+<tr><td>Investment center</td><td>Costs, revenues &amp; assets</td><td>ROI, RI, EVA</td></tr></table>
+<div class="formula">ROI = Operating Income ÷ Average Operating Assets
+Residual Income (RI) = Operating Income − (Required Rate × Avg Assets)
+EVA = NOPAT − (WACC × Invested Capital)</div>
+
+<h4>Balanced Scorecard</h4>
+<p>Four perspectives: <strong>Financial</strong> (profit, ROI) · <strong>Customer</strong> (satisfaction, retention) · <strong>Internal Process</strong> (cycle time, quality) · <strong>Learning &amp; Growth</strong> (employee skills, innovation). Strategy maps link objectives across perspectives.</p>
+</div>`,
+
+  'p1-3': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>15% of Part 1 (~75 marks)</strong>. Covers costing systems and cost management techniques.</p>
+
+<h4>Job Order vs Process Costing</h4>
+<table><tr><th></th><th>Job Order</th><th>Process</th></tr>
+<tr><td>Used for</td><td>Unique, custom products</td><td>Homogeneous, mass production</td></tr>
+<tr><td>Cost tracked by</td><td>Job/batch</td><td>Department/process</td></tr>
+<tr><td>Example</td><td>Construction, consulting</td><td>Oil refining, chemicals</td></tr>
+<tr><td>Key concept</td><td>Job cost sheet</td><td>Equivalent units (FIFO or WA)</td></tr></table>
+
+<h4>Activity-Based Costing (ABC)</h4>
+<p>Assigns overhead based on activities that drive costs, not just volume. More accurate for complex, multi-product environments.</p>
+<div class="formula">Step 1: Identify activities (setups, inspections, material handling)
+Step 2: Assign costs to activity cost pools
+Step 3: Determine cost drivers for each pool
+Step 4: Calculate activity rate = Pool Cost ÷ Cost Driver Volume
+Step 5: Assign costs to products using activity rates</div>
+
+<h4>Standard Costing</h4>
+<p>Predetermined costs for materials, labor, and overhead. Variances = Standard − Actual. Used for budgeting, pricing, and performance evaluation.</p>
+
+<h4>JIT &amp; Lean Manufacturing</h4>
+<p><strong>JIT:</strong> Produce only what's needed, when needed — eliminates waste, minimizes inventory. <strong>Lean:</strong> Eliminate all non-value-added activities (8 wastes: DOWNTIME). <strong>Theory of Constraints:</strong> Identify and exploit the bottleneck; subordinate everything else to it.</p>
+
+<h4>Quality Costs</h4>
+<table><tr><th>Category</th><th>Examples</th></tr>
+<tr><td>Prevention</td><td>Training, process design, quality planning</td></tr>
+<tr><td>Appraisal</td><td>Inspection, testing, audits</td></tr>
+<tr><td>Internal failure</td><td>Scrap, rework, downtime</td></tr>
+<tr><td>External failure</td><td>Warranty claims, returns, lost customers</td></tr></table>
+</div>`,
+
+  'p1-4': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>15% of Part 1 (~75 marks)</strong>. Covers the design and evaluation of internal control systems.</p>
+
+<h4>COSO Internal Control Framework (2013)</h4>
+<p>Five components:</p>
+<ol><li><strong>Control Environment</strong> — tone at the top, integrity, ethics</li><li><strong>Risk Assessment</strong> — identify &amp; analyze risks to objectives</li><li><strong>Control Activities</strong> — policies &amp; procedures (authorizations, reconciliations)</li><li><strong>Information &amp; Communication</strong> — relevant, timely information flows</li><li><strong>Monitoring</strong> — ongoing evaluation of control effectiveness</li></ol>
+<p>17 principles across these 5 components. All must be present and functioning.</p>
+
+<h4>Segregation of Duties</h4>
+<p>No single person should control: <strong>Authorization + Recording + Custody</strong> of assets. Key separation: person who approves transactions ≠ person who records them ≠ person with physical access.</p>
+<div class="ibox ibox-warn"><b>Collusion Risk</b>Segregation of duties is ineffective when two or more people collude. Compensating controls (supervision, audits) are needed.</div>
+
+<h4>IT Controls</h4>
+<table><tr><th>Type</th><th>Examples</th></tr>
+<tr><td>IT General Controls</td><td>Access controls, change management, disaster recovery, data backup</td></tr>
+<tr><td>Application Controls</td><td>Input validation, batch totals, edit checks, output reviews</td></tr></table>
+
+<h4>Sarbanes-Oxley (SOX) — Key Sections</h4>
+<ul><li><strong>Section 302:</strong> CEO/CFO certify accuracy of financial statements</li><li><strong>Section 404:</strong> Management assesses internal controls over financial reporting; auditor attests to that assessment (public companies)</li><li><strong>Section 906:</strong> Criminal penalties for false certifications</li></ul>
+</div>`,
+
+  'p1-5': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>15% of Part 1 (~75 marks)</strong>. Covers data analytics, ERP systems, and emerging technologies in management accounting.</p>
+
+<h4>Data Governance &amp; Integrity</h4>
+<p>Data quality dimensions: <strong>Accuracy · Completeness · Consistency · Timeliness · Validity</strong>. Data governance = policies ensuring data is managed as a strategic asset. Master data management (MDM) ensures consistent definitions across systems.</p>
+
+<h4>Business Intelligence &amp; Analytics Levels</h4>
+<table><tr><th>Level</th><th>Question</th><th>Example</th></tr>
+<tr><td>Descriptive</td><td>What happened?</td><td>Sales reports, dashboards</td></tr>
+<tr><td>Diagnostic</td><td>Why did it happen?</td><td>Variance drill-down</td></tr>
+<tr><td>Predictive</td><td>What will happen?</td><td>Forecasting models</td></tr>
+<tr><td>Prescriptive</td><td>What should we do?</td><td>Optimization, recommendations</td></tr></table>
+
+<h4>ERP Systems</h4>
+<p>Integrate all business processes (finance, HR, supply chain, manufacturing) in a single database. Key benefit: eliminates data silos and provides real-time information. Risks: high implementation cost, change management, single point of failure.</p>
+
+<h4>RPA &amp; AI in Finance</h4>
+<p><strong>RPA (Robotic Process Automation):</strong> Automates repetitive, rule-based tasks (invoice processing, reconciliations) — reduces errors and cost. <strong>AI/ML:</strong> Pattern recognition, anomaly detection, predictive analytics. CMA professionals shift from data gathering to data interpretation.</p>
+
+<h4>Blockchain in Accounting</h4>
+<p>Distributed ledger — immutable, transparent, decentralized. Applications: smart contracts, supply chain tracking, audit trails. Potential to automate triple-entry accounting.</p>
+</div>`,
+
+  /* Part 2 topics */
+  'p2-0': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>20% of Part 2 (~100 marks)</strong>. Covers reading, interpreting, and evaluating financial statements.</p>
+
+<h4>Ratio Analysis Framework</h4>
+<table><tr><th>Category</th><th>Key Ratios</th></tr>
+<tr><td>Liquidity</td><td>Current Ratio = CA÷CL · Quick Ratio = (CA−Inventory)÷CL · Cash Ratio</td></tr>
+<tr><td>Solvency</td><td>Debt-to-Equity · Interest Coverage = EBIT÷Interest · Debt Ratio = Total Debt÷Assets</td></tr>
+<tr><td>Profitability</td><td>Gross Margin · Operating Margin · Net Margin · ROA · ROE</td></tr>
+<tr><td>Efficiency</td><td>Asset Turnover · Inventory Turnover · AR Days · AP Days</td></tr>
+<tr><td>Market</td><td>EPS · P/E Ratio · Dividend Yield · Book Value per Share</td></tr></table>
+
+<h4>DuPont Analysis</h4>
+<div class="formula">ROE = Net Profit Margin × Asset Turnover × Equity Multiplier
+     = (NI/Sales) × (Sales/Assets) × (Assets/Equity)
+3-factor: Profitability × Efficiency × Leverage</div>
+
+<h4>Common-Size Statements</h4>
+<p>Income statement: each line as % of <strong>Net Sales</strong>. Balance sheet: each line as % of <strong>Total Assets</strong>. Enables cross-company comparison regardless of size.</p>
+
+<h4>Earnings Quality Red Flags</h4>
+<ul><li>Revenue recognized prematurely or aggressively</li><li>Large non-recurring items disguised as recurring</li><li>Operating cash flow consistently below net income</li><li>Frequent accounting policy changes</li><li>Channel stuffing, bill-and-hold arrangements</li><li>Rising AR days without revenue growth</li></ul>
+</div>`,
+
+  'p2-1': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>20% of Part 2 (~100 marks)</strong>. Covers financing decisions, capital budgeting, and working capital management.</p>
+
+<h4>Capital Structure</h4>
+<p><strong>Modigliani-Miller (with taxes):</strong> Optimal capital structure maximizes firm value. Debt has tax shield benefit (interest is deductible); offset by financial distress costs. <strong>Trade-off Theory:</strong> Optimal D/E balances tax shield vs distress costs.</p>
+
+<h4>WACC</h4>
+<div class="formula">WACC = (E/V × Re) + (D/V × Rd × (1−T))
+E = Market value of equity · D = Market value of debt
+V = E + D · Re = cost of equity · Rd = cost of debt · T = tax rate
+Cost of Equity (CAPM): Re = Rf + β(Rm − Rf)</div>
+
+<h4>Capital Budgeting Methods</h4>
+<table><tr><th>Method</th><th>Decision Rule</th><th>Limitation</th></tr>
+<tr><td>NPV</td><td>Accept if NPV &gt; 0</td><td>Requires accurate discount rate</td></tr>
+<tr><td>IRR</td><td>Accept if IRR &gt; WACC</td><td>Multiple IRRs possible; scale ignoring</td></tr>
+<tr><td>Payback</td><td>Accept if payback &lt; target</td><td>Ignores time value &amp; post-payback CF</td></tr>
+<tr><td>Discounted Payback</td><td>Uses discounted CFs</td><td>Still ignores post-payback CFs</td></tr>
+<tr><td>PI</td><td>Accept if PI &gt; 1</td><td>Useful for capital rationing</td></tr></table>
+<div class="ibox ibox-exam"><b>Exam Rule</b>NPV is theoretically superior. When NPV and IRR conflict, always use NPV for decision making.</div>
+
+<h4>Working Capital Management</h4>
+<div class="formula">Cash Conversion Cycle = DIO + DSO − DPO
+DIO = Days Inventory Outstanding
+DSO = Days Sales Outstanding (AR days)
+DPO = Days Payable Outstanding</div>
+<p>Shorter CCC = better liquidity. Strategies: tighten credit terms, speed collections, extend payables (within relationships).</p>
+</div>`,
+
+  'p2-2': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>25% of Part 2 (~125 marks)</strong> — highest weight in Part 2. Focus on relevant cost analysis and pricing.</p>
+
+<h4>Relevant Cost Principles</h4>
+<p>Only <strong>future, differential, avoidable</strong> costs are relevant. Sunk costs and unavoidable fixed costs are ALWAYS irrelevant.</p>
+<div class="formula">Incremental Analysis: Compare only the costs/revenues that DIFFER between alternatives</div>
+
+<h4>Make-or-Buy Decision</h4>
+<div class="formula">Make cost = DM + DL + Variable OH + Avoidable Fixed OH
+Buy cost = Purchase price + any incremental costs
+Choose whichever is lower — also consider qualitative factors (quality, supply security)</div>
+
+<h4>Pricing Decisions</h4>
+<table><tr><th>Method</th><th>Formula</th></tr>
+<tr><td>Cost-plus</td><td>Price = Cost × (1 + markup%)</td></tr>
+<tr><td>Target costing</td><td>Target Cost = Market Price − Desired Profit</td></tr>
+<tr><td>Variable cost pricing</td><td>Price ≥ Variable Cost (short-run floor)</td></tr>
+<tr><td>Transfer pricing</td><td>Min price = Variable Cost + Opportunity Cost</td></tr></table>
+
+<h4>Product Mix — Theory of Constraints</h4>
+<div class="formula">When one resource is constrained:
+Rank products by CM per unit of scarce resource
+Allocate constrained resource to highest CM/unit first</div>
+
+<h4>Decision Trees &amp; Expected Value</h4>
+<div class="formula">Expected Value = Σ (Probability × Outcome)
+Choose alternative with highest expected value (or lowest expected cost)</div>
+</div>`,
+
+  'p2-3': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>10% of Part 2 (~50 marks)</strong>. Covers identification, measurement, and mitigation of business risks.</p>
+
+<h4>ERM Framework (COSO)</h4>
+<p>Enterprise Risk Management aligns risk appetite with strategy. Eight components: Internal Environment · Objective Setting · Event Identification · Risk Assessment · Risk Response · Control Activities · Information &amp; Communication · Monitoring.</p>
+
+<h4>Risk Response Strategies</h4>
+<table><tr><th>Response</th><th>Description</th></tr>
+<tr><td>Avoid</td><td>Exit the activity (eliminate risk)</td></tr>
+<tr><td>Reduce/Mitigate</td><td>Controls to lower probability or impact</td></tr>
+<tr><td>Share/Transfer</td><td>Insurance, outsourcing, hedging</td></tr>
+<tr><td>Accept</td><td>Bear the risk (within risk appetite)</td></tr></table>
+
+<h4>Hedging Instruments</h4>
+<table><tr><th>Instrument</th><th>Description</th></tr>
+<tr><td>Forward contract</td><td>OTC; locked-in price for future delivery; no exchange</td></tr>
+<tr><td>Futures contract</td><td>Exchange-traded; standardized; marked-to-market daily</td></tr>
+<tr><td>Options</td><td>Right (not obligation) to buy (call) or sell (put) at strike price</td></tr>
+<tr><td>Swaps</td><td>Exchange cash flows (interest rate swap: fixed ↔ floating)</td></tr></table>
+<div class="ibox ibox-tip"><b>Hedging Example</b>Indian exporter receiving USD in 3 months fears USD weakening → enters forward contract to sell USD at today's rate → locks in INR amount regardless of FX movement.</div>
+</div>`,
+
+  'p2-4': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>10% of Part 2 (~50 marks)</strong>. Covers capital budgeting under uncertainty and project evaluation.</p>
+
+<h4>Capital Budgeting Under Uncertainty</h4>
+<ul><li><strong>Sensitivity analysis:</strong> Change one variable (sales price, volume, cost) — identify which has greatest impact on NPV</li><li><strong>Scenario analysis:</strong> Best/base/worst case with multiple variable changes</li><li><strong>Monte Carlo simulation:</strong> Probabilistic; models thousands of random scenarios</li><li><strong>Risk-adjusted discount rate:</strong> Use higher WACC for riskier projects</li></ul>
+
+<h4>Real Options</h4>
+<p>Strategic flexibility embedded in investment decisions. Types:</p>
+<ul><li><strong>Option to expand</strong> — invest more if project succeeds</li><li><strong>Option to abandon</strong> — exit if project fails</li><li><strong>Option to delay</strong> — wait for better information</li><li><strong>Option to switch</strong> — change inputs or outputs</li></ul>
+<p>Real options add value beyond standard NPV — especially in volatile, uncertain environments.</p>
+
+<h4>Post-Audit of Capital Investments</h4>
+<p>Compare actual cash flows to projections. Benefits: improve future estimates, hold managers accountable, identify underperforming assets for divestiture. Risk: managers may bias estimates to avoid unfavorable audits.</p>
+
+<h4>Lease vs Buy</h4>
+<div class="formula">NAL (Net Advantage to Leasing) = PV of Lease Payments (after-tax) vs. Cost of Owning
+If NAL > 0 → lease preferred
+Consider: tax benefits, maintenance responsibility, flexibility, balance sheet impact</div>
+</div>`,
+
+  'p2-5': `<div class="inote">
+<h4>Overview &amp; Exam Weight</h4>
+<p><strong>15% of Part 2 (~75 marks)</strong>. Covers IMA's ethical standards and their application in practice.</p>
+
+<h4>IMA Statement of Ethical Professional Practice</h4>
+<p>Four core principles (overarching):</p>
+<ul><li><strong>Honesty</strong> — truthful in all communications</li><li><strong>Fairness</strong> — impartial, unbiased judgment</li><li><strong>Objectivity</strong> — communicate information fairly</li><li><strong>Responsibility</strong> — act in accordance with standards</li></ul>
+<p>Four standards (specific obligations):</p>
+<table><tr><th>Standard</th><th>Key Requirements</th></tr>
+<tr><td>Competence</td><td>Maintain skills, perform duties professionally, provide accurate information</td></tr>
+<tr><td>Confidentiality</td><td>Don't disclose confidential info except legally obligated; don't use info for personal gain</td></tr>
+<tr><td>Integrity</td><td>Avoid conflicts of interest; refuse gifts that influence decisions; communicate unfavorable news</td></tr>
+<tr><td>Credibility</td><td>Report information fairly, disclose limitations; don't suppress material information</td></tr></table>
+
+<h4>Conflict of Interest</h4>
+<p>When personal interests conflict with professional duties. <strong>Best solution: Avoid the conflict</strong> — recuse yourself from the decision. If unavoidable: disclose fully and transparently.</p>
+<div class="ibox ibox-tip"><b>Real Example</b>A CFO approving a loan to a company where their spouse holds equity = clear conflict of interest. Should recuse from that decision entirely.</div>
+
+<h4>Whistleblowing &amp; Escalation</h4>
+<p>When ethical issue identified: (1) Discuss with immediate supervisor. (2) If unresolved, escalate to next level. (3) Use confidential ethics hotline if internal channels fail. (4) If illegal activity, may need to notify regulatory authorities. Do NOT discuss outside the organization unless legally required.</p>
+
+<h4>IMA's Resolution Process</h4>
+<ol><li>Consult IMA's published guidance</li><li>Consult your own attorney</li><li>Escalate within organization per ethics policy</li><li>If still unresolved, resign and submit confidential report to IMA Ethics Hotline</li></ol>
+</div>`
+};
+
+/* ── MINDMAP DATA ── */
+var DATA = {
   p1:{label:'Part 1',cls:'p1',fillCls:'p1-fill',name:'Financial planning, performance & analytics',icon:'📊',
     topics:[
       {n:'External financial reporting',wt:15,subs:['Balance sheet, income stmt, cash flow','Revenue recognition (ASC 606)','Lease accounting (ASC 842)','Inventory valuation methods','Financial instruments & hedging']},
@@ -156,21 +546,21 @@ var DATA={
   }
 };
 
-var activeFilter='all', activeTopic=null, activeTab='study', cache={};
+var mmFilter_active='all', activeTopic=null, activeTab='study', cache={};
 
-function filter(f,btn){
-  activeFilter=f;
+function mmFilter(f,btn){
+  mmFilter_active=f;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   activeTopic=null;
-  document.getElementById('detail').classList.remove('show');
-  render();
+  document.getElementById('mm-detail').classList.remove('show');
+  renderMM();
 }
 
-function render(){
-  var grid=document.getElementById('grid');
+function renderMM(){
+  var grid=document.getElementById('mm-grid');
   grid.innerHTML='';
-  var keys=activeFilter==='all'?['p1','p2']:activeFilter==='p1'?['p1']:['p2'];
+  var keys=mmFilter_active==='all'?['p1','p2']:mmFilter_active==='p1'?['p1']:['p2'];
   grid.style.gridTemplateColumns=keys.length===1?'minmax(300px,520px)':'repeat(auto-fit,minmax(300px,1fr))';
   grid.style.justifyContent=keys.length===1?'center':'';
   keys.forEach(function(pk){
@@ -179,16 +569,16 @@ function render(){
     card.className='part-card '+p.cls;
     card.id='card-'+pk;
     card.innerHTML=
-      '<div class="part-header" onclick="toggleCard(\''+pk+'\')">'+
-        '<div class="part-icon">'+p.icon+'</div>'+
-        '<div class="part-info"><div class="part-label">'+p.label+'</div><div class="part-name">'+p.name+'</div></div>'+
-        '<span class="part-chevron">›</span>'+
-      '</div>'+
-      '<div class="topics-body">'+
+      '<div class="part-header" onclick="toggleCard(\''+pk+'\')">' +
+        '<div class="part-icon">'+p.icon+'</div>' +
+        '<div class="part-info"><div class="part-label">'+p.label+'</div><div class="part-name">'+p.name+'</div></div>' +
+        '<span class="part-chevron">›</span>' +
+      '</div>' +
+      '<div class="topics-body">' +
         p.topics.map(function(t,i){
-          return '<div class="topic-row" id="tr-'+pk+'-'+i+'" onclick="selectTopic(\''+pk+'\','+i+')">'+
-            '<div class="topic-top"><span class="topic-name">'+t.n+'</span><span class="topic-wt">'+t.wt+'%</span></div>'+
-            '<div class="wt-track"><div class="wt-fill '+p.fillCls+'" style="width:'+t.wt+'%"></div></div>'+
+          return '<div class="topic-row" id="tr-'+pk+'-'+i+'" onclick="selectTopic(\''+pk+'\','+i+')">' +
+            '<div class="topic-top"><span class="topic-name">'+t.n+'</span><span class="topic-wt">'+t.wt+'%</span></div>' +
+            '<div class="wt-track"><div class="wt-fill '+p.fillCls+'" style="width:'+t.wt+'%"></div></div>' +
           '</div>';
         }).join('')+
       '</div>';
@@ -202,7 +592,7 @@ function toggleCard(pk){
   document.querySelectorAll('.part-card').forEach(c=>c.classList.remove('open'));
   if(!wasOpen) card.classList.add('open');
   activeTopic=null;
-  document.getElementById('detail').classList.remove('show');
+  document.getElementById('mm-detail').classList.remove('show');
 }
 
 function selectTopic(pk,i){
@@ -215,60 +605,63 @@ function selectTopic(pk,i){
   document.querySelectorAll('.topic-row').forEach(r=>r.classList.remove('active'));
   var row=document.getElementById('tr-'+pk+'-'+i);
   if(row) row.classList.add('active');
-
-  var p=DATA[pk], t=p.topics[i];
-  var det=document.getElementById('detail');
+  var p=DATA[pk],t=p.topics[i];
+  var det=document.getElementById('mm-detail');
   det.className='detail-panel show '+(pk==='p1'?'p1-panel':'p2-panel');
   document.getElementById('d-badge').textContent=p.label+' · '+t.wt+'% of exam';
   document.getElementById('d-title').textContent=t.n;
   document.getElementById('d-subs').innerHTML=t.subs.map(s=>'<div class="sub-chip">'+s+'</div>').join('');
-
-  // reset tabs
+  /* reset to study strategy tab */
   document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
-  document.querySelector('.atab').classList.add('active');
+  document.getElementById('tab-study').classList.add('active');
   activeTab='study';
-  document.getElementById('ai-box').innerHTML='<div style="font-size:12px;color:var(--muted)">Select a tab above to generate content for this topic.</div>';
-
+  callAI('study', pk+'-'+i+'-study');
   det.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function switchTab(tab, btn){
+function switchTab(tab,btn){
   if(!activeTopic) return;
   activeTab=tab;
   document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+
+  /* Notes tab — serve inline, no API */
+  if(tab==='notes'){
+    var key=activeTopic.pk+'-'+activeTopic.i;
+    var html=NOTES[key];
+    if(html){
+      document.getElementById('ai-box').innerHTML=html;
+    } else {
+      document.getElementById('ai-box').innerHTML='<div class="inote"><p style="color:var(--muted);font-size:13px">Detailed notes for this topic are coming soon.</p></div>';
+    }
+    return;
+  }
+
   var cacheKey=activeTopic.pk+'-'+activeTopic.i+'-'+tab;
   if(cache[cacheKey]){
     document.getElementById('ai-box').innerHTML='<div class="ai-content">'+cache[cacheKey]+'</div>';
     return;
   }
-  callAI(tab, cacheKey);
+  callAI(tab,cacheKey);
 }
 
-async function callAI(tab, cacheKey){
-  var p=DATA[activeTopic.pk], t=p.topics[activeTopic.i];
+async function callAI(tab,cacheKey){
+  var p=DATA[activeTopic.pk],t=p.topics[activeTopic.i];
   var prompts={
-    study: 'You are a CMA exam coach. For the CMA '+p.label+' topic "'+t.n+'" ('+t.wt+'% of exam), give a concise study strategy in 5-6 bullet points. Cover: what to prioritise, common pitfalls, how to approach practice questions. Be specific and practical. Use • for bullets.',
-    practice: 'You are a CMA exam question writer. Write 3 exam-style multiple-choice questions for CMA '+p.label+' topic "'+t.n+'". For each: write the question, 4 options (A-D), mark the correct answer, and give a 1-sentence explanation. Format clearly.',
-    resources: 'You are a CMA exam advisor. For CMA '+p.label+' topic "'+t.n+'", recommend the best study resources. Include: top prep providers (Gleim, Wiley, Hock, Surgent), specific chapters to focus on, free online resources, and estimated study hours for this topic. Be concise and specific.'
+    study:'You are a CMA exam coach. For the CMA '+p.label+' topic "'+t.n+'" ('+t.wt+'% of exam), give a concise study strategy in 5-6 bullet points. Cover: what to prioritise, common pitfalls, how to approach practice questions. Be specific and practical. Use • for bullets.',
+    practice:'You are a CMA exam question writer. Write 3 exam-style multiple-choice questions for CMA '+p.label+' topic "'+t.n+'". For each: write the question, 4 options (A-D), mark the correct answer, and give a 1-sentence explanation. Format clearly.',
+    resources:'You are a CMA exam advisor. For CMA '+p.label+' topic "'+t.n+'", recommend the best study resources. Include: top prep providers (Gleim, Wiley, Hock, Surgent), specific chapters to focus on, free online resources, and estimated study hours. Be concise and specific.'
   };
-
   var box=document.getElementById('ai-box');
-  box.innerHTML='<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div><span>Generating...</span></div>';
-
+  box.innerHTML='<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div><span>Generating…</span></div>';
   try{
     var res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{role:'user',content:prompts[tab]}]
-      })
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompts[tab]}]})
     });
     var data=await res.json();
     var text=(data.content&&data.content[0]&&data.content[0].text)||'No response received.';
-    // Simple formatting
     text=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
     cache[cacheKey]=text;
     box.innerHTML='<div class="ai-content">'+text+'</div>';
@@ -277,7 +670,7 @@ async function callAI(tab, cacheKey){
   }
 }
 
-render();
+renderMM();
 </script>
 </body>
 </html>
