@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMA USA — Exam Mindmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p1:#1a5fa8;--p1-light:#e8f1fb;--p1-mid:#4d8dcf;
+  --p2:#0e7c5b;--p2-light:#e3f4ee;--p2-mid:#3da882;
+  --bg:#f8f6f1;--card:#fff;--text:#1c1c1e;--muted:#6b6b70;
+  --border:#e2ddd6;--accent:#c9a84c;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:1.5rem 1rem}
+header{text-align:center;margin-bottom:2rem}
+header .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:.4rem}
+header h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,5vw,40px);font-weight:400;line-height:1.1}
+header p{font-size:12px;color:var(--muted);margin-top:.5rem}
+.divider{width:36px;height:2px;background:var(--accent);margin:.8rem auto;border-radius:1px}
+.filters{display:flex;justify-content:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:all .2s}
+.filter-btn:hover{border-color:var(--text);color:var(--text)}
+.filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;max-width:860px;margin:0 auto 1.5rem}
+.part-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s}
+.part-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.part-header{padding:15px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none}
+.part-card.p1 .part-header{background:var(--p1-light);border-bottom:1px solid #c5d9f0}
+.part-card.p2 .part-header{background:var(--p2-light);border-bottom:1px solid #b0dccb}
+.part-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.part-card.p1 .part-icon{background:var(--p1);color:#fff}
+.part-card.p2 .part-icon{background:var(--p2);color:#fff}
+.part-info{flex:1}
+.part-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.part-card.p1 .part-label{color:var(--p1)}
+.part-card.p2 .part-label{color:var(--p2)}
+.part-name{font-size:12px;font-weight:500;color:var(--text);line-height:1.3}
+.part-chevron{font-size:18px;color:var(--muted);transition:transform .25s}
+.part-card.open .part-chevron{transform:rotate(90deg)}
+.topics-body{display:none;padding:12px}
+.part-card.open .topics-body{display:block}
+.topic-row{padding:9px 11px;border-radius:9px;cursor:pointer;transition:background .15s;margin-bottom:5px;border:1px solid transparent}
+.topic-row:hover{background:var(--bg)}
+.topic-row.active{border-color:var(--border);background:var(--bg)}
+.part-card.p1 .topic-row.active{border-color:#c5d9f0;background:var(--p1-light)}
+.part-card.p2 .topic-row.active{border-color:#b0dccb;background:var(--p2-light)}
+.topic-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.topic-name{font-size:12px;font-weight:500;color:var(--text)}
+.topic-wt{font-size:11px;font-weight:500}
+.part-card.p1 .topic-wt{color:var(--p1)}
+.part-card.p2 .topic-wt{color:var(--p2)}
+.wt-track{width:100%;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.wt-fill{height:100%;border-radius:2px;transition:width .4s ease}
+.p1-fill{background:var(--p1-mid)}.p2-fill{background:var(--p2-mid)}
+
+/* Detail panel */
+.detail-panel{max-width:860px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:none}
+.detail-panel.show{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.detail-head{padding:16px 20px 14px;border-bottom:1px solid var(--border)}
+.detail-badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 11px;border-radius:20px;letter-spacing:.04em;margin-bottom:6px}
+.p1-panel .detail-badge{background:var(--p1-light);color:var(--p1)}
+.p2-panel .detail-badge{background:var(--p2-light);color:var(--p2)}
+.detail-title{font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:var(--text)}
+.subs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:7px;padding:14px 20px 0}
+.sub-chip{font-size:12px;padding:7px 11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);line-height:1.4}
+.sub-chip::before{content:'·  ';color:var(--accent);font-weight:700}
+
+/* Action tabs */
+.action-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-top:14px;padding:0 20px}
+.atab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 14px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.atab:hover{color:var(--text)}
+.atab.active{color:var(--text);border-bottom-color:var(--text)}
+
+/* AI response area */
+.ai-box{padding:16px 20px 20px;min-height:80px}
+.ai-loading{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.dots span{display:inline-block;width:5px;height:5px;background:var(--muted);border-radius:50%;margin:0 2px;animation:bounce .9s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+.ai-content{font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap}
+.ai-content strong{font-weight:500}
+
+/* Stats */
+.stats{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text)}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+footer{text-align:center;margin-top:2rem;font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">IMA Certification</div>
+  <h1>CMA USA<br>Exam Mindmap</h1>
+  <div class="divider"></div>
+  <p>Click a part to expand · Select a topic for details</p>
+</header>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filter('all',this)">All topics</button>
+  <button class="filter-btn" onclick="filter('p1',this)">Part 1 only</button>
+  <button class="filter-btn" onclick="filter('p2',this)">Part 2 only</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="detail-panel" id="detail">
+  <div class="detail-head">
+    <div class="detail-badge" id="d-badge"></div>
+    <div class="detail-title" id="d-title"></div>
+  </div>
+  <div class="subs-grid" id="d-subs"></div>
+  <div class="action-tabs">
+    <button class="atab active" onclick="switchTab('study',this)">Study strategy</button>
+    <button class="atab" onclick="switchTab('practice',this)">Practice questions</button>
+    <button class="atab" onclick="switchTab('resources',this)">Resources</button>
+  </div>
+  <div class="ai-box" id="ai-box">
+    <div style="font-size:12px;color:var(--muted)">Select a tab above to generate content for this topic.</div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">Exam parts</div></div>
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Topic areas</div></div>
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">MCQ + essay Qs</div></div>
+  <div class="stat"><div class="stat-num">4h</div><div class="stat-label">Per exam</div></div>
+</div>
+<footer>Certified Management Accountant · Institute of Management Accountants (IMA)</footer>
+
+<script>
+var DATA={
+  p1:{label:'Part 1',cls:'p1',fillCls:'p1-fill',name:'Financial planning, performance & analytics',icon:'📊',
+    topics:[
+      {n:'External financial reporting',wt:15,subs:['Balance sheet, income stmt, cash flow','Revenue recognition (ASC 606)','Lease accounting (ASC 842)','Inventory valuation methods','Financial instruments & hedging']},
+      {n:'Planning, budgeting & forecasting',wt:20,subs:['Strategic planning process','Master budget components','Flexible vs static budgets','Rolling forecasts','Sensitivity & scenario analysis']},
+      {n:'Performance management',wt:20,subs:['CVP & breakeven analysis','Variance analysis (price, volume, mix)','Responsibility accounting','Balanced scorecard','KPIs & non-financial measures']},
+      {n:'Cost management',wt:15,subs:['Job order vs process costing','Activity-based costing (ABC)','Standard costing & variances','JIT & lean manufacturing','Quality cost analysis']},
+      {n:'Internal controls',wt:15,subs:['COSO framework','Control environment & risk assessment','Segregation of duties','IT general & application controls','Sarbanes-Oxley compliance']},
+      {n:'Technology & analytics',wt:15,subs:['Data governance & integrity','Business intelligence & dashboards','ERP systems & automation','Robotic process automation','Blockchain & emerging tech']}
+    ]
+  },
+  p2:{label:'Part 2',cls:'p2',fillCls:'p2-fill',name:'Strategic financial management',icon:'📈',
+    topics:[
+      {n:'Financial statement analysis',wt:20,subs:['Ratio analysis (liquidity, solvency, profitability)','DuPont decomposition','Common-size statements','Earnings quality & red flags','Cross-company & trend analysis']},
+      {n:'Corporate finance',wt:20,subs:['Capital structure (D/E tradeoff)','WACC calculation','Capital budgeting (NPV, IRR, payback)','Dividend policy','Working capital management']},
+      {n:'Decision analysis',wt:25,subs:['Relevant costs & incremental analysis','Make-or-buy & outsourcing','Pricing decisions (cost-plus, target)','Product mix under constraints','Decision trees & expected value']},
+      {n:'Risk management',wt:10,subs:['Enterprise risk management (ERM)','Hedging (forwards, futures, options)','FX & interest rate risk','Operational risk','Insurance & risk transfer']},
+      {n:'Investment decisions',wt:10,subs:['Capital budgeting under uncertainty','Real options analysis','Post-audit of investments','International capital budgeting','Lease vs buy analysis']},
+      {n:'Professional ethics',wt:15,subs:['IMA Statement of Ethical Practice','Confidentiality & integrity','Conflict of interest','Whistleblowing & reporting','Global ethics standards']}
+    ]
+  }
+};
+
+var activeFilter='all', activeTopic=null, activeTab='study', cache={};
+
+function filter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  activeTopic=null;
+  document.getElementById('detail').classList.remove('show');
+  render();
+}
+
+function render(){
+  var grid=document.getElementById('grid');
+  grid.innerHTML='';
+  var keys=activeFilter==='all'?['p1','p2']:activeFilter==='p1'?['p1']:['p2'];
+  grid.style.gridTemplateColumns=keys.length===1?'minmax(300px,520px)':'repeat(auto-fit,minmax(300px,1fr))';
+  grid.style.justifyContent=keys.length===1?'center':'';
+  keys.forEach(function(pk){
+    var p=DATA[pk];
+    var card=document.createElement('div');
+    card.className='part-card '+p.cls;
+    card.id='card-'+pk;
+    card.innerHTML=
+      '<div class="part-header" onclick="toggleCard(\''+pk+'\')">'+
+        '<div class="part-icon">'+p.icon+'</div>'+
+        '<div class="part-info"><div class="part-label">'+p.label+'</div><div class="part-name">'+p.name+'</div></div>'+
+        '<span class="part-chevron">›</span>'+
+      '</div>'+
+      '<div class="topics-body">'+
+        p.topics.map(function(t,i){
+          return '<div class="topic-row" id="tr-'+pk+'-'+i+'" onclick="selectTopic(\''+pk+'\','+i+')">'+
+            '<div class="topic-top"><span class="topic-name">'+t.n+'</span><span class="topic-wt">'+t.wt+'%</span></div>'+
+            '<div class="wt-track"><div class="wt-fill '+p.fillCls+'" style="width:'+t.wt+'%"></div></div>'+
+          '</div>';
+        }).join('')+
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+function toggleCard(pk){
+  var card=document.getElementById('card-'+pk);
+  var wasOpen=card.classList.contains('open');
+  document.querySelectorAll('.part-card').forEach(c=>c.classList.remove('open'));
+  if(!wasOpen) card.classList.add('open');
+  activeTopic=null;
+  document.getElementById('detail').classList.remove('show');
+}
+
+function selectTopic(pk,i){
+  activeTopic={pk:pk,i:i};
+  var card=document.getElementById('card-'+pk);
+  if(!card.classList.contains('open')){
+    document.querySelectorAll('.part-card').forEach(c=>c.classList.remove('open'));
+    card.classList.add('open');
+  }
+  document.querySelectorAll('.topic-row').forEach(r=>r.classList.remove('active'));
+  var row=document.getElementById('tr-'+pk+'-'+i);
+  if(row) row.classList.add('active');
+
+  var p=DATA[pk], t=p.topics[i];
+  var det=document.getElementById('detail');
+  det.className='detail-panel show '+(pk==='p1'?'p1-panel':'p2-panel');
+  document.getElementById('d-badge').textContent=p.label+' · '+t.wt+'% of exam';
+  document.getElementById('d-title').textContent=t.n;
+  document.getElementById('d-subs').innerHTML=t.subs.map(s=>'<div class="sub-chip">'+s+'</div>').join('');
+
+  // reset tabs
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.atab').classList.add('active');
+  activeTab='study';
+  document.getElementById('ai-box').innerHTML='<div style="font-size:12px;color:var(--muted)">Select a tab above to generate content for this topic.</div>';
+
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function switchTab(tab, btn){
+  if(!activeTopic) return;
+  activeTab=tab;
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  var cacheKey=activeTopic.pk+'-'+activeTopic.i+'-'+tab;
+  if(cache[cacheKey]){
+    document.getElementById('ai-box').innerHTML='<div class="ai-content">'+cache[cacheKey]+'</div>';
+    return;
+  }
+  callAI(tab, cacheKey);
+}
+
+async function callAI(tab, cacheKey){
+  var p=DATA[activeTopic.pk], t=p.topics[activeTopic.i];
+  var prompts={
+    study: 'You are a CMA exam coach. For the CMA '+p.label+' topic "'+t.n+'" ('+t.wt+'% of exam), give a concise study strategy in 5-6 bullet points. Cover: what to prioritise, common pitfalls, how to approach practice questions. Be specific and practical. Use • for bullets.',
+    practice: 'You are a CMA exam question writer. Write 3 exam-style multiple-choice questions for CMA '+p.label+' topic "'+t.n+'". For each: write the question, 4 options (A-D), mark the correct answer, and give a 1-sentence explanation. Format clearly.',
+    resources: 'You are a CMA exam advisor. For CMA '+p.label+' topic "'+t.n+'", recommend the best study resources. Include: top prep providers (Gleim, Wiley, Hock, Surgent), specific chapters to focus on, free online resources, and estimated study hours for this topic. Be concise and specific.'
+  };
+
+  var box=document.getElementById('ai-box');
+  box.innerHTML='<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div><span>Generating...</span></div>';
+
+  try{
+    var res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:prompts[tab]}]
+      })
+    });
+    var data=await res.json();
+    var text=(data.content&&data.content[0]&&data.content[0].text)||'No response received.';
+    // Simple formatting
+    text=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    cache[cacheKey]=text;
+    box.innerHTML='<div class="ai-content">'+text+'</div>';
+  }catch(e){
+    box.innerHTML='<div style="font-size:12px;color:#c0392b">Error loading content. Please try again.</div>';
+  }
+}
+
+render();
+</script>
+</body>
+</html>
