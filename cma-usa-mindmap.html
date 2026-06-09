@@ -3,674 +3,796 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CMA USA — Complete Study Hub</title>
+<title>CMA USA — Complete Study Hub 2024</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --p1:#1a5fa8;--p1-light:#e8f1fb;--p1-mid:#4d8dcf;
-  --p2:#0e7c5b;--p2-light:#e3f4ee;--p2-mid:#3da882;
+  --p1:#1a5fa8;--p1l:#e8f1fb;--p1m:#4d8dcf;
+  --p2:#0e7c5b;--p2l:#e3f4ee;--p2m:#3da882;
   --navy:#0f2340;--gold:#c9a84c;
   --bg:#f8f6f1;--card:#fff;--text:#1c1c1e;--muted:#6b6b70;
   --border:#e2ddd6;--gray:#f0ede8;--warn:#e85d04;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:100;border-bottom:3px solid var(--gold)}
-.nav-brand{font-family:'DM Serif Display',serif;color:#fff;font-size:16px;padding:14px 0;letter-spacing:.02em}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text)}
+.nav{background:var(--navy);display:flex;align-items:center;padding:0 1.5rem;position:sticky;top:0;z-index:100;border-bottom:3px solid var(--gold)}
+.nav-brand{font-family:"DM Serif Display",serif;color:#fff;font-size:15px;padding:13px 0;flex:1}
 .nav-brand span{color:var(--gold)}
-.nav-tabs{display:flex}
-.nav-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,.6);padding:14px 18px;border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;letter-spacing:.04em;text-transform:uppercase;transition:all .2s}
-.nav-tab:hover{color:#fff}
-.nav-tab.active{color:#fff;border-bottom-color:var(--gold)}
-.page{display:none;padding:2rem 1.5rem;max-width:920px;margin:0 auto}
-.page.active{display:block}
-
-/* MINDMAP */
-.mm-header{text-align:center;margin-bottom:2rem}
-.mm-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.4rem}
-.mm-header h1{font-family:'DM Serif Display',serif;font-size:clamp(24px,5vw,38px);font-weight:400;line-height:1.1}
-.mm-header p{font-size:12px;color:var(--muted);margin-top:.5rem}
-.divider{width:36px;height:2px;background:var(--gold);margin:.8rem auto;border-radius:1px}
-.filters{display:flex;justify-content:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
-.filter-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:all .2s}
-.filter-btn:hover{border-color:var(--text);color:var(--text)}
-.filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;margin-bottom:1.5rem}
-.part-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s}
-.part-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
-.part-header{padding:15px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none}
-.part-card.p1 .part-header{background:var(--p1-light);border-bottom:1px solid #c5d9f0}
-.part-card.p2 .part-header{background:var(--p2-light);border-bottom:1px solid #b0dccb}
-.part-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.part-card.p1 .part-icon{background:var(--p1);color:#fff}
-.part-card.p2 .part-icon{background:var(--p2);color:#fff}
-.part-info{flex:1}
-.part-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
-.part-card.p1 .part-label{color:var(--p1)}
-.part-card.p2 .part-label{color:var(--p2)}
-.part-name{font-size:12px;font-weight:500;color:var(--text);line-height:1.3}
-.part-chevron{font-size:18px;color:var(--muted);transition:transform .25s}
-.part-card.open .part-chevron{transform:rotate(90deg)}
-.topics-body{display:none;padding:12px}
-.part-card.open .topics-body{display:block}
-.topic-row{padding:9px 11px;border-radius:9px;cursor:pointer;transition:background .15s;margin-bottom:5px;border:1px solid transparent}
-.topic-row:hover{background:var(--bg)}
-.topic-row.active{border-color:var(--border);background:var(--bg)}
-.part-card.p1 .topic-row.active{border-color:#c5d9f0;background:var(--p1-light)}
-.part-card.p2 .topic-row.active{border-color:#b0dccb;background:var(--p2-light)}
-.topic-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
-.topic-name{font-size:12px;font-weight:500;color:var(--text)}
-.topic-wt{font-size:11px;font-weight:500}
-.part-card.p1 .topic-wt{color:var(--p1)}
-.part-card.p2 .topic-wt{color:var(--p2)}
-.wt-track{width:100%;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
-.wt-fill{height:100%;border-radius:2px;transition:width .4s ease}
-.p1-fill{background:var(--p1-mid)}.p2-fill{background:var(--p2-mid)}
-
-/* DETAIL PANEL */
-.detail-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:none}
-.detail-panel.show{display:block;animation:fadeUp .2s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.detail-head{padding:16px 20px 14px;border-bottom:1px solid var(--border)}
-.detail-badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 11px;border-radius:20px;letter-spacing:.04em;margin-bottom:6px}
-.p1-panel .detail-badge{background:var(--p1-light);color:var(--p1)}
-.p2-panel .detail-badge{background:var(--p2-light);color:var(--p2)}
-.detail-title{font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:var(--text)}
-.subs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:7px;padding:14px 20px 0}
-.sub-chip{font-size:12px;padding:7px 11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);line-height:1.4}
-.sub-chip::before{content:'·  ';color:var(--gold);font-weight:700}
-
-/* ACTION TABS — 4 tabs now */
-.action-tabs{display:flex;border-bottom:1px solid var(--border);margin-top:14px;padding:0 20px;overflow-x:auto}
-.atab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:8px 14px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
-.atab:hover{color:var(--text)}
-.atab.active{color:var(--text);border-bottom-color:var(--text)}
-
-/* AI / content box */
-.ai-box{padding:16px 20px 20px;min-height:80px;max-height:520px;overflow-y:auto}
-.ai-loading{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
-.dots span{display:inline-block;width:5px;height:5px;background:var(--muted);border-radius:50%;margin:0 2px;animation:bounce .9s infinite}
+.nav-right{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.06em}
+.mm-hdr{text-align:center;padding:2rem 1.5rem 1rem}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.4rem}
+.mm-hdr h1{font-family:"DM Serif Display",serif;font-size:clamp(22px,5vw,36px);font-weight:400;line-height:1.1}
+.mm-hdr p{font-size:12px;color:var(--muted);margin-top:.4rem}
+.divider{width:36px;height:2px;background:var(--gold);margin:.7rem auto;border-radius:1px}
+.filters{display:flex;justify-content:center;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap;padding:0 1.5rem}
+.fb{font-size:12px;font-weight:500;padding:4px 13px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:all .2s}
+.fb:hover{border-color:var(--text);color:var(--text)}
+.fb.active{background:var(--text);color:#fff;border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.1rem;margin:0 auto 1.25rem;padding:0 1.5rem;max-width:940px}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s}
+.pc:hover{box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.ph{padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none}
+.pc.p1 .ph{background:var(--p1l);border-bottom:1px solid #c5d9f0}
+.pc.p2 .ph{background:var(--p2l);border-bottom:1px solid #b0dccb}
+.pi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.pc.p1 .pi{background:var(--p1);color:#fff}
+.pc.p2 .pi{background:var(--p2);color:#fff}
+.pinfo{flex:1}
+.plabel{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1px}
+.pc.p1 .plabel{color:var(--p1)}.pc.p2 .plabel{color:var(--p2)}
+.pname{font-size:12px;font-weight:500;line-height:1.3}
+.pchev{font-size:17px;color:var(--muted);transition:transform .22s}
+.pc.open .pchev{transform:rotate(90deg)}
+.tb{display:none;padding:10px}
+.pc.open .tb{display:block}
+.tr{padding:8px 10px;border-radius:9px;cursor:pointer;transition:background .15s;margin-bottom:4px;border:1px solid transparent}
+.tr:hover{background:var(--bg)}
+.tr.active{border-color:var(--border);background:var(--bg)}
+.pc.p1 .tr.active{border-color:#c5d9f0;background:var(--p1l)}
+.pc.p2 .tr.active{border-color:#b0dccb;background:var(--p2l)}
+.ttop{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+.tnl{font-size:12px;font-weight:500}
+.twt{font-size:11px;font-weight:500}
+.pc.p1 .twt{color:var(--p1)}.pc.p2 .twt{color:var(--p2)}
+.wt-bar{width:100%;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.wf{height:100%;border-radius:2px;transition:width .4s}
+.p1f{background:var(--p1m)}.p2f{background:var(--p2m)}
+.det-wrap{max-width:940px;margin:0 auto 2rem;padding:0 1.5rem}
+.det{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:none}
+.det.show{display:block;animation:fu .2s ease}
+@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.dhead{padding:14px 18px 12px;border-bottom:1px solid var(--border)}
+.dbadge{display:inline-block;font-size:11px;font-weight:500;padding:3px 11px;border-radius:20px;letter-spacing:.04em;margin-bottom:5px}
+.p1-panel .dbadge{background:var(--p1l);color:var(--p1)}
+.p2-panel .dbadge{background:var(--p2l);color:var(--p2)}
+.dtitle{font-family:"DM Serif Display",serif;font-size:18px;font-weight:400}
+.chips-section{padding:12px 18px 0}
+.chips-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:12px}
+.chip{font-size:12px;padding:6px 11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;transition:all .18s;user-select:none;line-height:1.35}
+.chip::before{content:"·  ";color:var(--gold);font-weight:700}
+.p1-panel .chip:hover{border-color:var(--p1m);background:var(--p1l);color:var(--p1)}
+.p2-panel .chip:hover{border-color:var(--p2m);background:var(--p2l);color:var(--p2)}
+.chip.ac{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip.ac::before{color:var(--gold)}
+.snp{display:none;border-top:1px solid var(--border);background:var(--gray);padding:13px 18px 16px}
+.snp.show{display:block;animation:fu .18s ease}
+.snp-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.snp-lbl{font-size:11px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;flex:1}
+.snp-los{font-size:10px;color:var(--muted);background:var(--card);border:1px solid var(--border);padding:2px 8px;border-radius:10px}
+.snp-close{font-size:11px;color:var(--muted);cursor:pointer;padding:2px 9px;border:1px solid var(--border);border-radius:10px;background:var(--card)}
+.snp-close:hover{background:var(--border)}
+.nc{font-size:13px;line-height:1.75;color:var(--text)}
+.nc h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin:1rem 0 .35rem;border-bottom:1px solid var(--border);padding-bottom:.2rem}
+.nc h4:first-child{margin-top:0}
+.nc ul,.nc ol{padding-left:1.1rem;margin:.3rem 0}
+.nc li{margin:.2rem 0}
+.nc .nb{border-radius:7px;padding:.6rem .9rem;margin:.45rem 0;font-size:12.5px;line-height:1.6}
+.nc .nt{background:#e8f4fd;border-left:3px solid var(--p1)}
+.nc .nw{background:#fff3e0;border-left:3px solid var(--warn)}
+.nc .nu{background:#e8f6f0;border-left:3px solid var(--p2)}
+.nc .ne{background:#fdf3e3;border-left:3px solid var(--gold)}
+.nc .nb b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.09em;opacity:.65;margin-bottom:.2rem}
+.nc table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:12px}
+.nc th{background:var(--navy);color:#fff;padding:6px 10px;text-align:left;font-weight:500}
+.nc td{padding:5px 10px;border-bottom:1px solid var(--border)}
+.nc tr:nth-child(even) td{background:#e8e4de}
+.nc .f{background:var(--navy);color:var(--gold);font-family:"JetBrains Mono",monospace;padding:.6rem .9rem;border-radius:7px;font-size:11.5px;margin:.45rem 0;line-height:1.6;white-space:pre-wrap}
+.atabs{display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0 18px;overflow-x:auto}
+.at{font-size:12px;font-weight:500;padding:8px 13px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.at:hover{color:var(--text)}
+.at.active{color:var(--text);border-bottom-color:var(--text)}
+.aib{padding:14px 18px 18px;min-height:70px;max-height:480px;overflow-y:auto}
+.ail{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.dots span{display:inline-block;width:5px;height:5px;background:var(--muted);border-radius:50%;margin:0 2px;animation:bx .9s infinite}
 .dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
-@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
-.ai-content{font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap}
-.ai-content strong{font-weight:500}
-
-/* INLINE NOTES (inside detail panel) */
-.inote{font-size:13px;line-height:1.75;color:var(--text)}
-.inote h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--navy);margin:1rem 0 .4rem;border-bottom:1px solid var(--border);padding-bottom:.3rem}
-.inote h4:first-child{margin-top:0}
-.inote ul,.inote ol{padding-left:1.1rem;margin:.35rem 0}
-.inote li{margin:.2rem 0}
-.inote .ibox{border-radius:7px;padding:.7rem .9rem;margin:.5rem 0;font-size:12.5px;line-height:1.65}
-.inote .ibox-tip{background:#e8f4fd;border-left:3px solid var(--p1)}
-.inote .ibox-warn{background:#fff3e0;border-left:3px solid var(--warn)}
-.inote .ibox-update{background:#e8f6f0;border-left:3px solid var(--p2)}
-.inote .ibox-exam{background:#fdf3e3;border-left:3px solid var(--gold)}
-.inote .ibox b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.09em;opacity:.65;margin-bottom:.25rem}
-.inote table{width:100%;border-collapse:collapse;margin:.6rem 0;font-size:12px}
-.inote th{background:var(--navy);color:#fff;padding:6px 10px;text-align:left;font-weight:500}
-.inote td{padding:5px 10px;border-bottom:1px solid var(--border)}
-.inote tr:nth-child(even) td{background:var(--gray)}
-.inote .formula{background:var(--navy);color:var(--gold);font-family:'JetBrains Mono',monospace;padding:.65rem .9rem;border-radius:7px;font-size:11.5px;margin:.5rem 0;line-height:1.6;white-space:pre-wrap}
-
-/* STATS */
-.mm-stats{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
-.stat{text-align:center}
-.stat-num{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text)}
-.stat-label{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
-footer{text-align:center;padding:2rem;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:1.5rem}
+@keyframes bx{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+.aic{font-size:13px;line-height:1.75;white-space:pre-wrap}
+.aic strong{font-weight:500}
+.stats{display:flex;justify-content:center;gap:2rem;margin:1.5rem 0;flex-wrap:wrap}
+.sn{font-family:"DM Serif Display",serif;font-size:24px;text-align:center}
+.sl{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:1px;text-align:center}
+footer{text-align:center;padding:1.5rem;font-size:11px;color:var(--muted);border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
-
 <nav class="nav">
   <div class="nav-brand">CMA USA <span>Study Hub</span></div>
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('mindmap',this)">📊 Mindmap</button>
-  </div>
+  <div class="nav-right">2024 IMA LOS · ALL SUB-TOPICS COVERED</div>
 </nav>
-
-<!-- MINDMAP PAGE -->
-<div class="page active" id="page-mindmap">
-  <div class="mm-header">
-    <div class="mm-eyebrow">IMA Certification</div>
-    <h1>CMA USA<br>Exam Mindmap</h1>
-    <div class="divider"></div>
-    <p>Click a part to expand · Select a topic for study notes &amp; AI content</p>
-  </div>
-  <div class="filters">
-    <button class="filter-btn active" onclick="mmFilter('all',this)">All topics</button>
-    <button class="filter-btn" onclick="mmFilter('p1',this)">Part 1 only</button>
-    <button class="filter-btn" onclick="mmFilter('p2',this)">Part 2 only</button>
-  </div>
-  <div class="grid" id="mm-grid"></div>
-
-  <div class="detail-panel" id="mm-detail">
-    <div class="detail-head">
-      <div class="detail-badge" id="d-badge"></div>
-      <div class="detail-title" id="d-title"></div>
+<div class="mm-hdr">
+  <div class="eyebrow">IMA Certification · Official 2024 Learning Outcome Statements</div>
+  <h1>CMA USA — Complete Exam Hub</h1>
+  <div class="divider"></div>
+  <p>Every chip = one official LOS sub-section · Click chip for notes · AI tabs for strategy, practice Qs &amp; resources</p>
+</div>
+<div class="filters">
+  <button class="fb active" onclick="mmf('all',this)">All topics</button>
+  <button class="fb" onclick="mmf('p1',this)">Part 1 only</button>
+  <button class="fb" onclick="mmf('p2',this)">Part 2 only</button>
+</div>
+<div class="grid" id="grid"></div>
+<div class="det-wrap">
+  <div class="det" id="det">
+    <div class="dhead">
+      <div class="dbadge" id="dbadge"></div>
+      <div class="dtitle" id="dtitle"></div>
     </div>
-    <div class="subs-grid" id="d-subs"></div>
-    <div class="action-tabs">
-      <button class="atab active" id="tab-study"    onclick="switchTab('study',this)">Study strategy</button>
-      <button class="atab"         id="tab-practice" onclick="switchTab('practice',this)">Practice questions</button>
-      <button class="atab"         id="tab-notes"    onclick="switchTab('notes',this)">📖 Study notes</button>
-      <button class="atab"         id="tab-resources"onclick="switchTab('resources',this)">Resources</button>
+    <div class="chips-section">
+      <div class="chips-label">LOS Sub-sections — click any chip to open notes</div>
+      <div class="chips" id="dchips"></div>
     </div>
-    <div class="ai-box" id="ai-box">
-      <div style="font-size:12px;color:var(--muted)">Select a tab above to view content for this topic.</div>
+    <div class="snp" id="snp">
+      <div class="snp-top">
+        <div class="snp-lbl" id="snp-lbl"></div>
+        <button class="snp-close" onclick="closeSnp()">&#10005; close</button>
+      </div>
+      <div class="nc" id="snp-body"></div>
     </div>
-  </div>
-
-  <div class="mm-stats">
-    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Exam parts</div></div>
-    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Topic areas</div></div>
-    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">MCQ + essay Qs</div></div>
-    <div class="stat"><div class="stat-num">4h</div><div class="stat-label">Per exam</div></div>
+    <div class="atabs">
+      <button class="at active" id="at-study"    onclick="swt('study',this)">Study strategy</button>
+      <button class="at"         id="at-practice" onclick="swt('practice',this)">Practice questions</button>
+      <button class="at"         id="at-resources"onclick="swt('resources',this)">Resources</button>
+    </div>
+    <div class="aib" id="aib"><div style="font-size:12px;color:var(--muted)">Select a tab above to generate AI content.</div></div>
   </div>
 </div>
-
-<footer>CMA USA Study Hub · Mindmap + Inline Study Notes · Updated June 2025 · IMA · FASB ASC · IASB</footer>
-
+<div class="stats">
+  <div><div class="sn">2</div><div class="sl">Exam Parts</div></div>
+  <div><div class="sn">12</div><div class="sl">Sections</div></div>
+  <div><div class="sn">130</div><div class="sl">LOS Sub-topics</div></div>
+  <div><div class="sn">500+</div><div class="sl">MCQ + Essays</div></div>
+</div>
+<footer>CMA USA Study Hub &middot; Full 2024 IMA LOS Coverage &middot; Updated June 2025 &middot; FASB ASC &middot; IASB IFRS</footer>
 <script>
-/* ── PAGE NAV ── */
-function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  btn.classList.add('active');
-}
 
-/* ── INLINE STUDY NOTES DATA ── */
-var NOTES = {
-  /* Part 1 topics */
-  'p1-0': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p>Section A = <strong>15% of Part 1 (~75 marks)</strong>. Covers US GAAP financial reporting: Balance Sheet, Income Statement, Cash Flow Statement, Comprehensive Income, and Changes in Equity.</p>
-<div class="ibox ibox-exam"><b>Exam Tip</b>Expect 3–5 MCQs plus essay sub-questions. Most MCQs test application, not just definitions.</div>
+var DATA={
+p1:{label:"Part 1",cls:"p1",ff:"p1f",name:"Financial planning, performance & analytics",icon:"📊",
+ topics:[
+  {n:"External financial reporting",wt:15,los:"A",subs:[
+   "Financial statements — BS, IS, CF, equity (A.1a-g)",
+   "Consolidated financial statements (A.1h-k)",
+   "Integrated reporting & six capitals (A.1l-p)",
+   "Accounts receivable & CECL model (A.2a-b)",
+   "Inventory: costs, methods & NRV (A.2c-i)",
+   "Debt & equity securities: trading/AFS/HTM (A.2j-k)",
+   "Depreciation methods & impairment (A.2l-n)",
+   "Warranties & deferred income taxes (A.2o-s)",
+   "Lease accounting — ASC 842 (A.2t-u)",
+   "Equity transactions & stock dividends (A.2v-w)",
+   "Revenue recognition — ASC 606 (A.2x-z)",
+   "Income measurement & discontinued ops (A.2aa-ee)",
+   "GAAP vs IFRS — 6 key differences (A.2ff)"]},
+  {n:"Planning, budgeting & forecasting",wt:20,los:"B",subs:[
+   "Strategic planning process (B.1a-g)",
+   "Porter's strategies, SWOT, BCG, PEST (B.1h-i)",
+   "Budgeting concepts & budgetary slack (B.2)",
+   "Forecasting: regression & learning curves (B.3)",
+   "Budget methodologies: ZBB, ABB, rolling (B.4)",
+   "Annual profit plan & supporting schedules (B.5)",
+   "Pro forma statements & external financing (B.6)"]},
+  {n:"Performance management",wt:20,los:"C",subs:[
+   "Cost & variance measures — DM, DL, OH (C.1a-m)",
+   "Sales mix, yield & overhead variances (C.1n-r)",
+   "Flexible budgets & management by exception (C.1e-i)",
+   "Responsibility centers: cost/revenue/profit/investment (C.2a-d)",
+   "Transfer pricing — all methods (C.2h-l)",
+   "Segment reporting & common cost allocation (C.2e-g)",
+   "ROI, residual income & EVA (C.3e-i)",
+   "Balanced scorecard & strategy maps (C.3m-q)",
+   "KPIs, CSFs & non-financial measures (C.3l,r)"]},
+  {n:"Cost management",wt:15,los:"D",subs:[
+   "Cost behaviour: fixed, variable & mixed (D.1a)",
+   "Variable costing vs absorption costing (D.1f-i)",
+   "Joint products, by-products & split-off (D.1j-l)",
+   "Job order & process costing (D.2a-f)",
+   "Activity-based costing (ABC) (D.2g-i)",
+   "Life-cycle costing (D.2j)",
+   "Overhead allocation & rates (D.3a-n)",
+   "Service dept cost allocation methods (D.3o-p)",
+   "Supply chain: JIT, MRP & capacity (D.4)",
+   "Value chain & business process improvement (D.5a-h)",
+   "Benchmarking & continuous improvement (D.5g-j)",
+   "Quality costs: prevention to external failure (D.5k-l)"]},
+  {n:"Internal controls",wt:15,los:"E",subs:[
+   "Corporate governance & board responsibilities (E.1d-f)",
+   "COSO Internal Control framework (E.1u)",
+   "Control objectives & risk types (E.1a-c,n)",
+   "Segregation of duties & control activities (E.1i-m)",
+   "Preventive vs detective controls (E.1o)",
+   "SOX, PCAOB & top-down audit approach (E.1p-s)",
+   "Foreign Corrupt Practices Act (E.1t)",
+   "IT threats, access controls & encryption (E.2a-j)",
+   "Business continuity & disaster recovery (E.2m-n)"]},
+  {n:"Technology & analytics",wt:15,los:"F",subs:[
+   "AIS cycles & accounting information systems (F.1a-b)",
+   "ERP systems — benefits & risks (F.1d-e)",
+   "Relational database, data warehouse & EPM (F.1f-h)",
+   "Data governance & integrity (F.2)",
+   "Technology transformation: RPA, AI & blockchain (F.3)",
+   "Analytics: descriptive to prescriptive (F.3)",
+   "Data visualisation & statistical analysis (F.3)"]}
+ ]},
+p2:{label:"Part 2",cls:"p2",ff:"p2f",name:"Strategic financial management",icon:"📈",
+ topics:[
+  {n:"Financial statement analysis",wt:20,los:"A",subs:[
+   "Comparative & trend analysis (A.1)",
+   "Common-size statements — vertical & horizontal (A.1)",
+   "Liquidity ratios: current, quick, cash (A.2)",
+   "Solvency & leverage ratios (A.2)",
+   "Profitability ratios: margins, ROA, ROE (A.2)",
+   "Activity & efficiency ratios (A.2)",
+   "Market ratios: P/E, EPS, dividend yield, P/B (A.2)",
+   "DuPont decomposition — 3 & 5 factor (A.3)",
+   "Segment profitability analysis (A.3)",
+   "FX impact & inflation effect on ratios (A.4)",
+   "Earnings quality, red flags & accruals ratio (A.4)",
+   "Accounting changes, book vs market value (A.4)"]},
+  {n:"Corporate finance",wt:20,los:"B",subs:[
+   "Financial risk & return: systematic vs unsystematic (B.1)",
+   "CAPM, beta & required rate of return (B.1)",
+   "Capital structure & MM theory (B.2)",
+   "Operating leverage vs financial leverage — DOL/DFL (B.2)",
+   "WACC calculation (B.2)",
+   "Raising capital: bonds, preferred & common stock (B.3)",
+   "Bond pricing, YTM & duration (B.3)",
+   "Dividend policy & share repurchases (B.4)",
+   "Working capital management & CCC (B.4)",
+   "Corporate restructuring: M&A, spin-offs & LBOs (B.5)",
+   "International finance: PPP, IRP & FX exposure (B.6)"]},
+  {n:"Business decision analysis",wt:25,los:"C",subs:[
+   "CVP analysis & breakeven calculations (C.1)",
+   "Operating leverage & margin of safety (C.1)",
+   "Relevant costs & incremental analysis (C.2)",
+   "Make-or-buy & special orders (C.2)",
+   "Pricing: cost-plus, target & marginal (C.3)",
+   "Price elasticity of demand (C.3)",
+   "Product mix under constraints — TOC (C.4)",
+   "Decision trees & expected value (C.5)",
+   "Marginal analysis: short-run vs long-run (C.6)"]},
+  {n:"Enterprise risk management",wt:10,los:"D",subs:[
+   "ERM framework — COSO 2017 (D.1)",
+   "Risk identification & assessment (D.1)",
+   "Risk response strategies (D.1)",
+   "Hedging: forwards, futures & options (D.2)",
+   "FX risk & interest rate risk (D.2)",
+   "Operational risk management (D.3)",
+   "Business continuity & systemic risk (D.3)",
+   "Insurance & risk transfer (D.4)"]},
+  {n:"Capital investment decisions",wt:10,los:"E",subs:[
+   "Capital budgeting: NPV, IRR, payback & PI (E.1)",
+   "Risk analysis in capital investment (E.2)",
+   "Real options analysis (E.3)",
+   "Post-audit of investments (E.4)",
+   "International capital budgeting (E.5)",
+   "Lease vs buy analysis (E.6)"]},
+  {n:"Professional ethics",wt:15,los:"F",subs:[
+   "IMA Statement: 4 principles & 4 standards (F.1)",
+   "Competence & continuing education (F.1)",
+   "Confidentiality obligations (F.1)",
+   "Integrity & conflict of interest (F.1)",
+   "Credibility & reporting responsibilities (F.1)",
+   "Fraud triangle & types of business fraud (F.2)",
+   "Whistleblowing & escalation process (F.2)",
+   "Corporate governance & ethical leadership (F.3)",
+   "Global ethics & ESG considerations (F.3)"]}
+ ]}
+};
+var N={
+/* ══ P1-A ══ */
+"p1-0-0":`<h4>Five Financial Statements</h4><p><strong>Balance Sheet</strong> — position at a point in time. <strong>Income Statement</strong> — performance over a period. <strong>Cash Flow Statement</strong> — actual cash in/out (indirect method: start with net income, add back non-cash items, adjust working capital). <strong>Comprehensive Income</strong> — NI + OCI. <strong>Changes in Equity</strong> — reconciles opening to closing equity.</p><div class="f">Assets = Liabilities + Stockholders' Equity
+Net Income + OCI = Comprehensive Income</div><h4>Limitations</h4><ul><li>Historical cost — may not reflect fair value</li><li>Omits internally generated intangibles (brand, human capital)</li><li>Heavy use of estimates → subjectivity</li><li>No forward-looking information</li></ul><div class="nb ne"><b>LOS A.1 a-g</b>Know users (investors, creditors, management, SEC), purposes, all five statement components, limitations, and the relationships linking them together.</div>`,
 
-<h4>Five Financial Statements (US GAAP)</h4>
-<ol><li>Statement of Financial Position (Balance Sheet)</li><li>Income Statement</li><li>Statement of Cash Flows</li><li>Statement of Comprehensive Income</li><li>Statement of Changes in Stockholders' Equity</li></ol>
+"p1-0-1":`<h4>Consolidated Financial Statements</h4><p>Required when a parent controls one or more subsidiaries. Combines as if a single entity — eliminates all intercompany transactions.</p><h4>Two Consolidation Models</h4><table><tr><th>Model</th><th>Basis of Control</th><th>When Used</th></tr><tr><td>Voting Interest Model</td><td>Owns &gt;50% of voting shares</td><td>Standard majority ownership</td></tr><tr><td>Variable Interest Entity (VIE)</td><td>Economic exposure + power to direct activities</td><td>Control without majority ownership (SPEs, trusts)</td></tr></table><h4>Three Consolidation Methods</h4><table><tr><th>Method</th><th>Ownership</th><th>Treatment</th></tr><tr><td>Full consolidation</td><td>&gt;50%</td><td>100% of assets/liabilities; NCI shown separately in equity</td></tr><tr><td>Equity method</td><td>20–50% (significant influence)</td><td>Investment = single line; share of earnings recognized</td></tr><tr><td>Proportionate consolidation</td><td>Joint ventures (mainly IFRS)</td><td>Proportionate share of JV assets/liabilities</td></tr></table><h4>Intracompany Eliminations Required</h4><ul><li>Intercompany sales and purchases</li><li>Intercompany receivables and payables</li><li>Unrealized profits in ending inventory</li><li>Intercompany dividends</li></ul>`,
 
-<h4>Balance Sheet — Key Rules</h4>
-<p><strong>Equation:</strong></p>
-<div class="formula">Assets = Liabilities + Stockholders' Equity</div>
-<p><strong>Current Asset:</strong> Converted to cash/consumed within 1 year OR one operating cycle (whichever is longer).</p>
-<div class="ibox ibox-tip"><b>Classic Trap</b>A builder's inventory (buildings taking 2+ years) is CURRENT because the operating cycle exceeds 12 months.</div>
-<p><strong>Equity components:</strong> Common Stock (par) · APIC · Retained Earnings · AOCI · Treasury Stock (deducted) · NCI</p>
-<p>Long-term debt is reclassified as current when it matures within 12 months and will be settled via current assets, OR when a covenant violation allows the lender to demand immediate repayment.</p>
+"p1-0-2":`<h4>Integrated Reporting (&lt;IR&gt;)</h4><p>Framework by IIRC (now IFRS Foundation). Communicates how an organization creates value over time — beyond financial results.</p><h4>Six Capitals</h4><table><tr><th>Capital</th><th>Examples</th></tr><tr><td>Financial</td><td>Funds available for production</td></tr><tr><td>Manufactured</td><td>Buildings, equipment, infrastructure</td></tr><tr><td>Intellectual</td><td>Patents, IP, systems, know-how</td></tr><tr><td>Human</td><td>Skills, experience, motivation</td></tr><tr><td>Social &amp; Relationship</td><td>Brand, community trust, stakeholder relationships</td></tr><tr><td>Natural</td><td>Water, land, air, biodiversity</td></tr></table><h4>Eight IR Elements</h4><ol><li>Organizational overview &amp; external environment</li><li>Governance</li><li>Business model</li><li>Risks and opportunities</li><li>Strategy &amp; resource allocation</li><li>Performance</li><li>Outlook</li><li>Basis of preparation &amp; presentation</li></ol><div class="nb nu"><b>2024 LOS A.1 l-p</b>Know definition, primary purpose (value creation over time), six capitals, and all eight elements. Benefits: holistic view, long-term focus. Challenges: subjectivity, implementation cost.</div>`,
 
-<h4>Revenue Recognition — ASC 606 (5-Step)</h4>
-<ol><li>Identify the <strong>contract</strong></li><li>Identify <strong>performance obligations</strong></li><li>Determine <strong>transaction price</strong></li><li>Allocate price to each obligation</li><li>Recognize revenue when obligation <strong>satisfied</strong></li></ol>
-<div class="ibox ibox-tip"><b>Example</b>Car sale + 2-year service warranty = 2 obligations. Revenue for car on delivery; service revenue spread over 24 months.</div>
+"p1-0-3":`<h4>Accounts Receivable Valuation</h4><div class="f">NRV = Gross AR − Allowance for Doubtful Accounts</div><h4>Allowance Methods</h4><ul><li><strong>% of Sales:</strong> Apply % to credit sales → income statement focus</li><li><strong>Aging Analysis / % of AR:</strong> Apply % by age bucket → balance sheet focus, more accurate</li></ul><div class="nb nu"><b>CECL Model — ASU 2016-13 (currently in force)</b>Current Expected Credit Loss replaces incurred-loss model. Now requires LIFETIME expected losses using forward-looking economic data. Results in higher allowances. Public companies: effective 2020. Private: effective 2023.</div><h4>Factoring</h4><table><tr><th></th><th>With Recourse</th><th>Without Recourse</th></tr><tr><td>Bad debt risk</td><td>Stays with seller</td><td>Transfers to factor</td></tr><tr><td>Factor fee</td><td>Lower</td><td>Higher</td></tr><tr><td>B/S treatment</td><td>May be recorded as borrowing</td><td>Sale — AR removed from B/S</td></tr></table><p><strong>Pledging ≠ Factoring.</strong> Pledging = AR as collateral, control NOT transferred, stays on B/S.</p>`,
 
-<h4>Lease Accounting — ASC 842</h4>
-<table><tr><th>Lease Type</th><th>Treatment</th></tr>
-<tr><td>Finance Lease</td><td>Asset + liability on balance sheet; interest expense + amortization</td></tr>
-<tr><td>Operating Lease</td><td>Right-of-use asset + lease liability on B/S; single straight-line lease expense</td></tr></table>
-<div class="ibox ibox-update"><b>2025 Note</b>ASC 842 eliminated "off-balance-sheet" operating leases. Both types now on balance sheet (effective since 2022 for private companies).</div>
+"p1-0-4":`<h4>Inventory Valuation</h4><h4>Cost Inclusions</h4><ul><li>Purchase price net of trade discounts</li><li>Freight-in, insurance in transit, import duties</li><li>Conversion costs (DL + mfg OH) for WIP/FG</li><li>Excluded: selling costs, abnormal waste</li></ul><h4>FOB Terms</h4><table><tr><th>Term</th><th>Title transfers at</th><th>In-transit belongs to</th></tr><tr><td>FOB Shipping Point</td><td>Seller's dock</td><td>Buyer</td></tr><tr><td>FOB Destination</td><td>Buyer's location</td><td>Seller</td></tr></table><h4>Cost Flow Methods — Inflation Impact</h4><table><tr><th>Method</th><th>COGS</th><th>Ending Inv</th><th>Net Effect</th></tr><tr><td>FIFO</td><td>Lower (older costs)</td><td>Higher, current</td><td>Higher profit, more tax</td></tr><tr><td>LIFO</td><td>Higher (recent costs)</td><td>Lower, stale</td><td>Lower profit, less tax</td></tr><tr><td>Weighted Avg</td><td>Blended</td><td>Blended</td><td>Middle ground</td></tr></table><div class="f">WAC per unit = Total Cost Available ÷ Total Units Available
+Lower of Cost or NRV: report at whichever is lower
+NRV = Estimated selling price − Costs to complete and sell</div><div class="nb nw"><b>GAAP vs IFRS</b>LIFO permitted under US GAAP. LIFO PROHIBITED under IFRS. Inventory write-down reversal: NOT allowed GAAP; allowed IFRS up to original cost.</div>`,
 
-<h4>Inventory Valuation</h4>
-<table><tr><th>Method</th><th>Inflation: COGS</th><th>Ending Inventory</th><th>Tax Impact</th></tr>
-<tr><td>FIFO</td><td>Lower (older costs)</td><td>Higher, current</td><td>Higher profit → more tax</td></tr>
-<tr><td>LIFO</td><td>Higher (recent costs)</td><td>Lower, stale</td><td>Lower profit → less tax</td></tr>
-<tr><td>Weighted Avg</td><td>Middle</td><td>Middle</td><td>Middle</td></tr></table>
-<div class="ibox ibox-warn"><b>Critical GAAP vs IFRS</b>LIFO is NOT permitted under IFRS. US GAAP allows all three. Inventory write-down reversals: NOT allowed under GAAP, allowed under IFRS.</div>
-<div class="formula">WAC = Total Cost Available ÷ Total Units Available
-Lower of Cost or NRV (ASC 330): report at whichever is lower</div>
+"p1-0-5":`<h4>Debt &amp; Equity Securities</h4><table><tr><th>Category</th><th>Measurement</th><th>Unrealized G/L → Where</th></tr><tr><td>Trading (debt)</td><td>Fair value</td><td>Income Statement</td></tr><tr><td>Available-for-Sale (AFS) debt</td><td>Fair value</td><td>OCI → AOCI (equity)</td></tr><tr><td>Held-to-Maturity (HTM) debt</td><td>Amortized cost</td><td>Not recognized</td></tr><tr><td>Equity securities (ASU 2016-01)</td><td>Fair value</td><td>Income Statement (no AFS for equity)</td></tr></table><div class="nb nw"><b>Reclassification</b>HTM → AFS: recognize unrealized G/L in OCI. AFS → HTM: OCI balance amortized over remaining life. Avoid "tainting" HTM portfolio with frequent sales.</div><h4>Hedging</h4><table><tr><th>Hedge Type</th><th>Hedges</th><th>G/L recognized in</th></tr><tr><td>Fair Value Hedge</td><td>FV of asset/liability</td><td>Income Statement</td></tr><tr><td>Cash Flow Hedge</td><td>Variability of future CFs</td><td>OCI → reclassify when item affects P&amp;L</td></tr><tr><td>Net Investment Hedge</td><td>Foreign subsidiary</td><td>OCI (CTA)</td></tr></table>`,
 
-<h4>Financial Instruments &amp; Hedging</h4>
-<table><tr><th>Security Type</th><th>Unrealized Gains/Losses</th></tr>
-<tr><td>Trading securities</td><td>Income Statement (P&amp;L)</td></tr>
-<tr><td>Available-for-sale (AFS) debt</td><td>OCI (balance sheet equity)</td></tr>
-<tr><td>Held-to-maturity (HTM)</td><td>Not recognized (amortized cost)</td></tr></table>
-<p><strong>Hedging:</strong> Protection against risk (FX, interest rate, commodity). Gain/loss on qualifying cash flow hedge → OCI until the hedged transaction affects earnings.</p>
-</div>`,
+"p1-0-6":`<h4>Depreciation Methods</h4><table><tr><th>Method</th><th>Formula</th><th>Pattern</th></tr><tr><td>Straight-line (SL)</td><td>(Cost − Salvage) ÷ Useful life</td><td>Equal each year</td></tr><tr><td>Double-declining balance (DDB)</td><td>2 × SL rate × Book value</td><td>Accelerated (higher early)</td></tr><tr><td>Sum-of-years digits (SYD)</td><td>(Cost−Salvage) × Remaining yrs ÷ SYD</td><td>Accelerated (less extreme)</td></tr><tr><td>Units of production</td><td>(Cost−Salvage) ÷ Total units × Units used</td><td>Matches actual usage</td></tr></table><h4>Impairment — Long-lived Assets (ASC 360)</h4><ol><li>Trigger event (market decline, obsolescence, adverse change)</li><li>Recoverability test: if carrying value &gt; undiscounted future CFs → impaired</li><li>Impairment loss = Carrying value − Fair value</li><li>Write asset down; loss on income statement</li></ol><h4>Goodwill Impairment (ASC 350)</h4><p>Annual test. Qualitative assessment first. If needed: compare reporting unit carrying value to fair value. Loss = excess carrying value over fair value. Goodwill impairment CANNOT be reversed under GAAP.</p><div class="nb nw"><b>GAAP vs IFRS</b>IFRS allows impairment reversal (except goodwill). GAAP does NOT permit reversal of any impairment loss.</div>`,
 
-  'p1-1': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>20% of Part 1 (~100 marks)</strong> — highest weight in Part 1. Covers all aspects of the planning and budgeting process.</p>
+"p1-0-7":`<h4>Warranty Accounting</h4><table><tr><th>Type</th><th>Treatment</th></tr><tr><td>Assurance warranty</td><td>Accrue estimated cost at time of sale as liability. NOT a separate performance obligation.</td></tr><tr><td>Service warranty (extended)</td><td>Separate performance obligation under ASC 606. Defer revenue; recognize over warranty period.</td></tr></table><h4>Deferred Income Taxes (ASC 740)</h4><div class="f">Temporary difference = item treated differently for tax vs book (reverses over time)
+Permanent difference = never reverses (tax-exempt interest, fines)
 
-<h4>Strategic Planning Process</h4>
-<ol><li>Mission &amp; vision → objectives</li><li>Environmental analysis (SWOT, PESTEL)</li><li>Strategy formulation</li><li>Strategy implementation → budgets</li><li>Monitor &amp; control</li></ol>
+DTA (Deferred Tax Asset):  tax paid now, recognized in income later
+  Examples: warranty expense, bad debt allowance, unearned revenue
+DTL (Deferred Tax Liability): income recognized now, tax paid later
+  Examples: accelerated depreciation, installment sales</div><div class="nb ne"><b>Valuation allowance</b>Required against DTA when "more likely than not" that some/all of the DTA will NOT be realized (insufficient future taxable income).</div>`,
 
-<h4>Master Budget Components</h4>
-<table><tr><th>Operating Budgets</th><th>Financial Budgets</th></tr>
-<tr><td>Sales budget (starts here)</td><td>Capital expenditure budget</td></tr>
-<tr><td>Production budget</td><td>Cash budget</td></tr>
-<tr><td>Direct materials, DL, OH budgets</td><td>Budgeted B/S &amp; Income Stmt</td></tr>
-<tr><td>SG&amp;A budget</td><td></td></tr></table>
-<div class="ibox ibox-tip"><b>Key Rule</b>The Sales Budget drives ALL other budgets. Always start there in MCQs.</div>
+"p1-0-8":`<h4>Lease Accounting — ASC 842</h4><div class="nb nu"><b>Key change</b>Operating leases now ON the balance sheet as ROU asset + lease liability. Eliminated off-balance-sheet treatment. Effective: public 2019, private 2022.</div><table><tr><th></th><th>Finance Lease</th><th>Operating Lease</th></tr><tr><td>Balance sheet</td><td>ROU asset + lease liability</td><td>ROU asset + lease liability</td></tr><tr><td>Income statement</td><td>Amortization + interest (front-loaded total expense)</td><td>Single straight-line lease expense</td></tr><tr><td>Cash flow</td><td>Principal → Financing; Interest → Operating</td><td>Full payment → Operating</td></tr></table><h4>Finance Lease Tests (any ONE = finance lease)</h4><ul><li>Ownership transfers to lessee at end of term</li><li>Purchase option lessee is reasonably certain to exercise</li><li>Lease term ≥ major part of economic life (≥75% guideline)</li><li>PV of payments ≥ substantially all of fair value (≥90% guideline)</li><li>Specialized asset — no alternative use to lessor at end</li></ul><div class="nb nw"><b>IFRS 16</b>Single model — ALL leases treated like finance leases. No operating lease category for lessees.</div>`,
 
-<h4>Static vs Flexible Budgets</h4>
-<p><strong>Static:</strong> Fixed at one output level — used for planning. <strong>Flexible:</strong> Adjusts to actual output — used for performance evaluation (isolates efficiency from volume variances).</p>
-<div class="formula">Flexible Budget = Fixed Costs + (Variable Rate × Actual Units)</div>
+"p1-0-9":`<h4>Equity Transactions</h4><h4>Paid-in Capital vs Retained Earnings</h4><table><tr><th>Transaction</th><th>Effect</th></tr><tr><td>Issue shares above par</td><td>Common Stock (par) ↑ + APIC ↑</td></tr><tr><td>Repurchase treasury stock</td><td>Treasury Stock ↑ (deducted from equity)</td></tr><tr><td>Net income</td><td>Retained Earnings ↑</td></tr><tr><td>Declare cash dividend</td><td>Retained Earnings ↓</td></tr></table><h4>Stock Dividends vs Stock Splits</h4><table><tr><th></th><th>Small Stock Div (&lt;20-25%)</th><th>Large Stock Div (&gt;25%)</th><th>Stock Split</th></tr><tr><td>Retained Earnings</td><td>Decrease at market value</td><td>Decrease at par value</td><td>No change</td></tr><tr><td>APIC</td><td>Increase</td><td>No change</td><td>No change</td></tr><tr><td>Total equity</td><td>No change</td><td>No change</td><td>No change</td></tr><tr><td>Shares outstanding</td><td>Increase</td><td>Increase</td><td>Increase (e.g. 2:1)</td></tr></table>`,
 
-<h4>Rolling (Continuous) Forecasts</h4>
-<p>Always maintains a fixed forward horizon (e.g., 12 months) by adding a new period as the most recent one closes. More responsive to change than annual static budgets.</p>
+"p1-0-10":`<h4>Revenue Recognition — ASC 606 (5-Step Model)</h4><ol><li>Identify the <strong>contract</strong> with the customer</li><li>Identify distinct <strong>performance obligations</strong></li><li>Determine the <strong>transaction price</strong> (include variable consideration only when highly probable no significant reversal)</li><li>Allocate price to each PO based on standalone selling prices</li><li>Recognize revenue when (or as) each PO is <strong>satisfied</strong></li></ol><div class="nb nt"><b>Over time vs point in time</b>Over time if: customer simultaneously receives/consumes benefit; entity creates asset controlled by customer; or no alternative use + right to payment for performance to date. Otherwise: point in time (delivery).</div><h4>Matching Principle</h4><p>Expenses recognized in the SAME period as the revenues they help generate. COGS matched to sales in the same period. Period costs (SG&amp;A, R&amp;D) expensed as incurred.</p>`,
 
-<h4>Sensitivity &amp; Scenario Analysis</h4>
-<p><strong>Sensitivity:</strong> Change one variable, observe impact (what-if). <strong>Scenario:</strong> Change multiple variables simultaneously (best/worst/base case). <strong>Simulation (Monte Carlo):</strong> Probabilistic — thousands of random iterations.</p>
-</div>`,
+"p1-0-11":`<h4>Income Measurement</h4><div class="f">Gain/Loss on disposal = Proceeds − Book value (Cost − Acc. depreciation)
+Comprehensive Income = Net Income + OCI</div><h4>OCI Items (US GAAP)</h4><ul><li>Unrealized G/L on AFS debt securities</li><li>Cash flow hedge gains/losses</li><li>Foreign currency translation adjustments</li><li>Pension actuarial gains/losses and prior service cost</li></ul><h4>Discontinued Operations</h4><p>Held-for-sale criteria (ALL required): management committed; available for immediate sale; active buyer search; sale probable within 1 year; plan unlikely to be withdrawn. Shown separately net of tax. Prior periods restated.</p><h4>Subsequent Events (ASC 855)</h4><table><tr><th>Type</th><th>Condition</th><th>Treatment</th></tr><tr><td>Recognized (adjusting)</td><td>Conditions existed at B/S date</td><td>Adjust financial statements</td></tr><tr><td>Non-recognized</td><td>New conditions arose after B/S date</td><td>Disclose only</td></tr></table>`,
 
-  'p1-2': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>20% of Part 1 (~100 marks)</strong>. Covers how to measure, evaluate, and manage organizational performance.</p>
+"p1-0-12":`<h4>GAAP vs IFRS — 6 Key Difference Categories (LOS A.2ff)</h4><table><tr><th>Category</th><th>US GAAP</th><th>IFRS</th></tr><tr><td>Inventory (LIFO)</td><td>✓ Permitted</td><td>✗ Prohibited</td></tr><tr><td>Inventory write-down reversal</td><td>✗ Not allowed</td><td>✓ Allowed up to original cost</td></tr><tr><td>R&amp;D costs</td><td>Expense all R&amp;D</td><td>Research = expense; Development = capitalize if criteria met</td></tr><tr><td>PP&amp;E revaluation</td><td>✗ Cost model only</td><td>✓ Revaluation model allowed</td></tr><tr><td>Impairment reversal</td><td>✗ Not permitted</td><td>✓ Permitted except goodwill</td></tr><tr><td>Borrowing costs</td><td>Capitalize for qualifying assets</td><td>Capitalize for qualifying assets (converged)</td></tr><tr><td>Leases</td><td>ASC 842: two categories (finance + operating)</td><td>IFRS 16: single model</td></tr><tr><td>Intangibles — development costs</td><td>Expense all development</td><td>Capitalize when 6 criteria met</td></tr></table><div class="nb ne"><b>Nature</b>GAAP = Rules-based (FASB). IFRS = Principles-based (IASB). Used in 140+ countries. LIFO and PP&amp;E revaluation are the most-tested differences.</div>`,
 
-<h4>CVP &amp; Breakeven Analysis</h4>
-<div class="formula">Contribution Margin (CM) = Sales − Variable Costs
+/* ══ P1-B ══ */
+"p1-1-0":`<h4>Strategic Planning Process</h4><ol><li>Define mission &amp; vision</li><li>Set strategic objectives (3–5 year horizon)</li><li>External &amp; internal analysis</li><li>Strategy formulation</li><li>Translate to operating plans → master budget</li><li>Monitor, evaluate &amp; control</li></ol><h4>Characteristics of Successful Strategic Plans</h4><ul><li>Clear, measurable objectives</li><li>Congruent with mission and resources</li><li>Communicated throughout the organization</li><li>Flexible — allows revision when assumptions change</li><li>Accountability for results</li></ul><div class="nb nt"><b>Strategic planning time frame</b>Typically 3–5 years. Long-range plan bridges strategic plan and annual master budget.</div>`,
+
+"p1-1-1":`<h4>Strategic Planning Tools</h4><table><tr><th>Tool</th><th>Purpose</th></tr><tr><td>SWOT</td><td>Internal strengths/weaknesses + External opportunities/threats</td></tr><tr><td>PEST / PESTEL</td><td>Political, Economic, Social, Technological, Environmental, Legal factors</td></tr><tr><td>Porter's Five Forces</td><td>Industry attractiveness: competitive rivalry, new entrants, substitutes, buyer power, supplier power</td></tr><tr><td>BCG Growth-Share Matrix</td><td>Stars (high growth/share), Cash Cows (low growth/high share), Question Marks, Dogs — portfolio allocation</td></tr><tr><td>Scenario planning</td><td>Develop best/base/worst-case strategic options</td></tr><tr><td>Competitive analysis</td><td>Benchmarking against key competitors</td></tr></table><h4>Porter's Generic Strategies</h4><ul><li><strong>Cost leadership:</strong> Lowest cost producer — compete on price</li><li><strong>Differentiation:</strong> Unique product/service commanding premium</li><li><strong>Focus:</strong> Narrow market segment (cost focus or differentiation focus)</li></ul>`,
+
+"p1-1-2":`<h4>Budgeting Concepts</h4><p>Budgets coordinate activities, allocate resources, set targets, and measure performance.</p><h4>Budgetary Slack</h4><p>Managers deliberately understate revenues or overstate costs to make targets easier. Harms goal congruence and resource allocation. Reduced by: ZBB, participative budgeting with accountability, rolling forecasts.</p><h4>Standards Used in Budgeting</h4><table><tr><th>Type</th><th>Description</th><th>Use</th></tr><tr><td>Ideal (theoretical)</td><td>Perfect efficiency — never achieved</td><td>Motivational benchmark</td></tr><tr><td>Currently attainable</td><td>Achievable with reasonable effort</td><td>Most common for budgets</td></tr><tr><td>Authoritative</td><td>Set by top management (top-down)</td><td>Faster; may cause resentment</td></tr><tr><td>Participative</td><td>Set with manager input (bottom-up)</td><td>Better buy-in; risk of slack</td></tr></table>`,
+
+"p1-1-3":`<h4>Forecasting Techniques</h4><h4>Regression Analysis</h4><div class="f">Simple regression: y = a + bx
+y = total cost (dependent)  a = fixed cost  b = variable cost per unit  x = activity level
+R² = coefficient of determination (% of variation explained; higher = better fit)
+
+Multiple regression: y = a + b₁x₁ + b₂x₂ + ...  (multiple independent variables)</div><h4>Learning Curve Analysis</h4><p>As cumulative output doubles, average time per unit falls by a constant percentage.</p><div class="f">Cumulative average time model:
+Avg time = Initial time × (Cumulative units) ^ (log of learning rate ÷ log 2)
+Example: 80% curve — double output → avg time = 80% of previous avg</div><p><strong>Benefits:</strong> Improves labour cost forecasts for complex new production. <strong>Shortcomings:</strong> Only applies to repetitive tasks; assumes stable processes.</p>`,
+
+"p1-1-4":`<h4>Budget Methodologies</h4><table><tr><th>Method</th><th>Description</th><th>Key Benefit</th><th>Key Limitation</th></tr><tr><td>Annual/Master</td><td>Comprehensive 1-year plan</td><td>Coordination of all activities</td><td>May become stale mid-year</td></tr><tr><td>Zero-based (ZBB)</td><td>Justify every dollar from zero</td><td>Eliminates waste; challenges status quo</td><td>Very time-consuming</td></tr><tr><td>Activity-based (ABB)</td><td>Budget based on activities &amp; cost drivers</td><td>More accurate overhead budgeting</td><td>Complex to build and maintain</td></tr><tr><td>Rolling/continuous</td><td>Always maintains a forward horizon (e.g. 12 months)</td><td>More responsive; reduces year-end games</td><td>Ongoing time commitment</td></tr><tr><td>Flexible</td><td>Adjusts to actual output level</td><td>Fair performance evaluation</td><td>Used after period, not for planning</td></tr><tr><td>Project</td><td>One-time project with specific timeline</td><td>Controls specific project spend</td><td>Scope creep risk</td></tr></table>`,
+
+"p1-1-5":`<h4>Annual Profit Plan — Master Budget Sequence</h4><div class="nb nt"><b>Golden Rule</b>Sales Budget drives ALL other budgets. Always start there.</div><div class="f">Sales Budget → Production Budget → DM / DL / OH Budgets
+→ COGS Budget → SG&A Budget → Operating Budget
+→ CapEx Budget → Cash Budget
+→ Pro Forma IS → Pro Forma BS</div><div class="f">Production Budget:
+Units to produce = Budgeted Sales + Desired Ending Inventory − Beginning Inventory
+
+Cash Budget:
+Opening cash + Collections − Disbursements = Closing cash
+(Borrow if below minimum cash; repay if excess)</div>`,
+
+"p1-1-6":`<h4>Pro Forma Statements &amp; External Financing</h4><ul><li><strong>Pro forma IS:</strong> Revenue − projected costs = projected net income</li><li><strong>Pro forma BS:</strong> Uses projected IS + CapEx budget + cash budget</li><li><strong>Pro forma CFS:</strong> Derived from changes in pro forma IS and BS</li></ul><div class="f">Required External Financing (REF):
+REF = Projected asset growth − Spontaneous liability growth − Retained earnings addition
+Spontaneous liabilities = AP, accruals that grow automatically with sales</div><p>Medium/long-term cash forecasts consider: sales growth assumptions, working capital ratios, capex plans, debt maturity schedules, dividend policy, macroeconomic assumptions.</p>`,
+
+/* ══ P1-C ══ */
+"p1-2-0":`<h4>Standard Cost Variances — DM, DL, OH</h4><table><tr><th>Variance</th><th>Formula</th></tr><tr><td>DM Price</td><td>(SP − AP) × AQ purchased</td></tr><tr><td>DM Quantity (Usage)</td><td>(SQ allowed − AQ used) × SP</td></tr><tr><td>DL Rate</td><td>(SR − AR) × AH worked</td></tr><tr><td>DL Efficiency</td><td>(SH allowed − AH worked) × SR</td></tr><tr><td>Variable OH Spending</td><td>Budgeted VOH − Actual VOH</td></tr><tr><td>Variable OH Efficiency</td><td>(SH allowed − AH worked) × Std VOH rate</td></tr></table><p>F = Favorable (actual better than standard). U = Unfavorable. SP=Std Price, AP=Actual Price, SQ=Std Qty, AQ=Actual Qty, SR=Std Rate, AR=Actual Rate, SH=Std Hours, AH=Actual Hours.</p><div class="nb ne"><b>Management by exception</b>Investigate variances exceeding threshold (% or $ amount). Even small but consistent unfavorable trends signal systemic issues.</div>`,
+
+"p1-2-1":`<h4>Sales Mix, Yield &amp; Overhead Variances</h4><div class="f">Sales Price Variance = (AP − SP) × AQ sold
+Sales Volume Variance = (AQ sold − BQ) × Std CM per unit
+Sales Mix Variance = (Actual mix% − Budgeted mix%) × Total actual units × Std CM
+Sales Quantity Variance = (Total actual units − Total budgeted units) × Wtd avg Std CM
+
+Fixed OH Spending Variance = Budgeted Fixed OH − Actual Fixed OH
+Fixed OH Volume Variance = Applied Fixed OH − Budgeted Fixed OH
+  = (Actual output − Budgeted output) × Std fixed OH rate</div><div class="nb ne"><b>Volume variance</b>Favorable when actual production &gt; budgeted — fixed costs spread over more units. Unfavorable when underutilized capacity.</div>`,
+
+"p1-2-2":`<h4>Flexible Budgets &amp; Management by Exception</h4><div class="f">Flexible Budget Cost = Fixed Costs + (Variable Rate × Actual Output)
+
+Activity Variance = Flexible Budget − Static Budget   (pure volume effect)
+Spending Variance = Actual Cost − Flexible Budget     (efficiency / price effect)
+Total Variance = Actual Cost − Static Budget</div><div class="nb nt"><b>When to use</b>Static budget for planning before the period. Flexible budget for performance evaluation after the period — removes volume effect to isolate efficiency.</div><p><strong>Management by exception:</strong> Report only items outside acceptable thresholds to management. Prevents information overload; focuses attention on significant deviations.</p>`,
+
+"p1-2-3":`<h4>Responsibility Centers</h4><table><tr><th>Center</th><th>Controls</th><th>Primary Metric</th></tr><tr><td>Cost center</td><td>Costs only</td><td>Cost variances vs budget</td></tr><tr><td>Revenue center</td><td>Revenue only</td><td>Revenue vs quota</td></tr><tr><td>Profit center</td><td>Costs &amp; revenues</td><td>Operating income / CM</td></tr><tr><td>Investment center</td><td>Costs, revenues &amp; assets</td><td>ROI, Residual Income, EVA</td></tr></table><div class="nb ne"><b>Controllability principle</b>Managers evaluated only on items they can control. Allocated fixed costs outside their control should be excluded from performance measurement.</div>`,
+
+"p1-2-4":`<h4>Transfer Pricing Methods</h4><table><tr><th>Method</th><th>Price</th><th>When Best</th></tr><tr><td>Variable cost</td><td>VC per unit</td><td>Excess capacity; selling div has no opportunity cost</td></tr><tr><td>Full (absorption) cost</td><td>VC + allocated fixed cost</td><td>Simple but may distort make-vs-buy decisions</td></tr><tr><td>Market price</td><td>External market price</td><td>Competitive external market exists</td></tr><tr><td>Negotiated</td><td>Between VC and market price</td><td>Both divisions have bargaining power</td></tr><tr><td>Dual-rate</td><td>Buyer: VC; Seller: full cost or market</td><td>Avoid suboptimal decisions; complex</td></tr></table><div class="f">Min transfer price = Variable Cost + Opportunity Cost (CM foregone on lost external sales)
+Max transfer price = External market price (what buyer would pay outside)</div>`,
+
+"p1-2-5":`<h4>Segment Reporting &amp; Common Cost Allocation</h4><p>Segments: product lines, geographic areas, business units, customer groups.</p><h4>Common Cost Allocation</h4><ul><li><strong>Stand-alone:</strong> Each segment's standalone cost as % of total — allocate proportionally</li><li><strong>Incremental:</strong> First segment gets its standalone cost; each subsequent segment gets only the incremental increase</li></ul><div class="nb nw"><b>Key issue</b>Allocated common costs can make profitable segments appear unprofitable. Always evaluate segment performance on Contribution Margin (before allocated common costs) first.</div><p>Transfer pricing in multinational companies also affected by: tariffs, exchange rates, tax treaties, currency restrictions, expropriation risk.</p>`,
+
+"p1-2-6":`<h4>ROI, Residual Income &amp; EVA</h4><div class="f">ROI = Operating Income ÷ Average Operating Assets
+    = Profit Margin × Asset Turnover
+    = (NI ÷ Sales) × (Sales ÷ Assets)
+
+Residual Income (RI) = Operating Income − (Required Rate × Avg Operating Assets)
+
+EVA = NOPAT − (WACC × Invested Capital)
+NOPAT = Net Operating Profit After Tax (add back interest × (1−T))</div><div class="nb nt"><b>ROI vs RI</b>ROI causes managers to reject positive-NPV projects that dilute their existing ROI. RI avoids this — accept any project where RI &gt; 0 (return exceeds required rate). EVA most comprehensive: uses WACC and adjusts for accounting distortions.</div>`,
+
+"p1-2-7":`<h4>Balanced Scorecard &amp; Strategy Maps</h4><table><tr><th>Perspective</th><th>Question</th><th>Sample KPIs</th></tr><tr><td>Financial</td><td>How do shareholders see us?</td><td>ROI, EVA, revenue growth, gross margin</td></tr><tr><td>Customer</td><td>How do customers see us?</td><td>NPS, CSAT, market share, retention rate</td></tr><tr><td>Internal Process</td><td>What must we excel at?</td><td>Cycle time, defect rate, on-time delivery</td></tr><tr><td>Learning &amp; Growth</td><td>Can we improve?</td><td>Training hours, innovation rate, staff turnover</td></tr></table><h4>Strategy Map</h4><p>Cause-effect diagram linking BSC perspectives: Learning &amp; Growth → Internal Process → Customer → Financial. Cascades strategic intent into measurable operational objectives.</p>`,
+
+"p1-2-8":`<h4>KPIs, CSFs &amp; Non-Financial Measures</h4><p><strong>Critical Success Factors (CSFs):</strong> The few key areas where performance is essential to achieve the strategy. Identified from strategic plan.</p><p><strong>KPIs:</strong> Quantifiable measures of CSF performance. Must be SMART: Specific, Measurable, Attainable, Relevant, Time-bound.</p><table><tr><th>Category</th><th>Indicator Type</th><th>Examples</th></tr><tr><td>Financial</td><td>Lagging</td><td>Revenue, margin, ROI, cash flow</td></tr><tr><td>Customer</td><td>Leading</td><td>NPS, satisfaction, churn rate</td></tr><tr><td>Operational</td><td>Leading</td><td>Cycle time, defect rate, utilization</td></tr><tr><td>People</td><td>Leading</td><td>Turnover, training hours, absenteeism</td></tr></table>`,
+
+/* ══ P1-D ══ */
+"p1-3-0":`<h4>Cost Behaviour</h4><table><tr><th>Type</th><th>Behaviour</th><th>Examples</th></tr><tr><td>Fixed</td><td>Constant in total; varies per unit</td><td>Rent, insurance, depreciation, salaries</td></tr><tr><td>Variable</td><td>Constant per unit; varies in total</td><td>DM, DL, sales commission, packaging</td></tr><tr><td>Mixed (semi-variable)</td><td>Fixed base + variable component</td><td>Electricity, phone, maintenance contracts</td></tr><tr><td>Step-fixed</td><td>Fixed within range; jumps at capacity point</td><td>Supervisory salaries, equipment leases</td></tr></table><div class="f">High-Low Method (separates mixed costs):
+Variable rate = (High cost − Low cost) ÷ (High activity − Low activity)
+Fixed cost = Total cost at any point − (Variable rate × Activity level)</div>`,
+
+"p1-3-1":`<h4>Variable Costing vs Absorption Costing</h4><table><tr><th></th><th>Variable Costing</th><th>Absorption Costing</th></tr><tr><td>Fixed mfg OH treatment</td><td>Period cost — expensed immediately</td><td>Product cost — in inventory until sold</td></tr><tr><td>Inventory value</td><td>Lower (excludes fixed OH)</td><td>Higher (includes fixed OH)</td></tr><tr><td>Required by GAAP?</td><td>No — internal use only</td><td>Yes — external reporting</td></tr></table><div class="f">Production > Sales: Absorption income > Variable income
+  (Fixed OH deferred in ending inventory under absorption)
+Production < Sales: Variable income > Absorption income
+  (Deferred fixed OH released from prior period inventory)
+Production = Sales: Same income under both methods</div><div class="nb ne"><b>Why it matters</b>Variable costing better for CVP and internal decisions. Absorption required for GAAP external reporting and tax.</div>`,
+
+"p1-3-2":`<h4>Joint Products, By-products &amp; Split-off</h4><p><strong>Split-off point:</strong> Where joint products become separately identifiable. Joint costs allocated only UP TO split-off point. Separable costs allocated directly after split-off.</p><h4>Joint Cost Allocation Methods</h4><table><tr><th>Method</th><th>Basis</th><th>Best When</th></tr><tr><td>Physical measure</td><td>Weight, volume, or units</td><td>Products not easily valued at split-off</td></tr><tr><td>Sales value at split-off</td><td>Market price at split-off point</td><td>Active market exists at split-off</td></tr><tr><td>Net realizable value (NRV)</td><td>Final selling price − Separable costs</td><td>No market at split-off; processed further</td></tr><tr><td>Constant gross margin %</td><td>All products earn same gross margin</td><td>Simplicity; may distort</td></tr></table><p><strong>By-products:</strong> Minor value; either (a) offset against joint cost, or (b) recognized as revenue when sold.</p>`,
+
+"p1-3-3":`<h4>Job Order &amp; Process Costing</h4><table><tr><th></th><th>Job Order</th><th>Process Costing</th></tr><tr><td>Used for</td><td>Unique custom products</td><td>Homogeneous mass production</td></tr><tr><td>Cost tracked by</td><td>Job / batch / contract</td><td>Department / process / period</td></tr><tr><td>Key document</td><td>Job cost sheet</td><td>Production cost report</td></tr><tr><td>Examples</td><td>Construction, consulting, printing</td><td>Oil refining, chemicals, food processing</td></tr></table><div class="f">Process Costing — Equivalent Units:
+WA method:   EU = Units completed + (Ending WIP × % complete)
+FIFO method: EU = Units completed − (Beg WIP × % already done) + (End WIP × % complete)</div>`,
+
+"p1-3-4":`<h4>Activity-Based Costing (ABC)</h4><div class="f">Step 1: Identify activities (setups, inspections, purchase orders, machine runs)
+Step 2: Assign costs → activity cost pools
+Step 3: Identify cost driver for each pool
+Step 4: Activity rate = Pool cost ÷ Total cost driver volume
+Step 5: Product cost = Σ (Activity rate × Product's driver consumption)</div><table><tr><th>Activity Level</th><th>Examples</th></tr><tr><td>Unit-level</td><td>Machine hours, DL hours, material $</td></tr><tr><td>Batch-level</td><td>Setups, purchase orders, quality inspections per batch</td></tr><tr><td>Product-level</td><td>Engineering changes, product design, product-level advertising</td></tr><tr><td>Facility-level</td><td>Rent, depreciation — cannot assign to products meaningfully</td></tr></table><div class="nb ne"><b>When ABC adds most value</b>High overhead relative to direct costs; diverse product mix; significant variation in volume/complexity across products.</div>`,
+
+"p1-3-5":`<h4>Life-cycle Costing</h4><p>Tracks costs across the entire product life: R&amp;D → design → manufacturing → marketing → after-sale service → disposal.</p><p><strong>Strategic insight:</strong> 80%+ of a product's total life-cycle costs are locked in at the design stage. Cost reduction is most effective before production begins — not during manufacturing.</p><div class="f">Target costing (design-phase cost management):
+Target cost = Competitive market price − Desired profit margin
+Forces engineers to design to cost, not cost to design</div>`,
+
+"p1-3-6":`<h4>Overhead Allocation</h4><div class="f">Predetermined OH rate = Budgeted OH ÷ Budgeted activity base (DLH, machine hrs, etc.)
+Applied OH = Predetermined rate × Actual activity
+Over-applied = Applied OH > Actual OH  (credit to COGS or prorate)
+Under-applied = Applied OH < Actual OH  (debit to COGS or prorate)</div><h4>Activity-Based vs Traditional OH Rates</h4><ul><li>Traditional: one plant-wide or departmental rate — simple but may distort for diverse products</li><li>ABC: multiple rates per activity — more accurate, especially for overhead-heavy operations</li></ul><h4>Regression to Estimate Fixed Costs</h4><p>Regress total OH against activity level → intercept = fixed cost estimate; slope = variable rate. More statistically rigorous than high-low method.</p>`,
+
+"p1-3-7":`<h4>Service Dept Cost Allocation Methods</h4><table><tr><th>Method</th><th>Description</th><th>Accuracy</th></tr><tr><td>Direct method</td><td>Allocate service depts directly to production depts; ignore services BETWEEN service depts</td><td>Least accurate</td></tr><tr><td>Step-down method</td><td>Allocate service depts in sequence — once allocated, not allocated back to prior depts</td><td>Moderate</td></tr><tr><td>Reciprocal method</td><td>Fully recognizes mutual services between service depts; uses simultaneous equations</td><td>Most accurate</td></tr></table>`,
+
+"p1-3-8":`<h4>Supply Chain: JIT, MRP &amp; Capacity</h4><p><strong>JIT:</strong> Produce only what is needed, when needed. Zero inventory goal. Pull system — demand-driven. Requires reliable suppliers, zero-defect quality, tight scheduling.</p><p><strong>MRP (Material Requirements Planning):</strong> Push system — schedules production based on forecast demand. Determines what, how much, and when to order materials.</p><h4>Capacity Concepts</h4><table><tr><th>Type</th><th>Description</th></tr><tr><td>Theoretical</td><td>100% efficiency — impossible in practice</td></tr><tr><td>Practical</td><td>Theoretical less unavoidable downtime (maintenance, changeovers)</td></tr><tr><td>Normal</td><td>Expected average over multiple years — used for standard OH rates</td></tr><tr><td>Master budget</td><td>Expected capacity for the specific budget period</td></tr></table>`,
+
+"p1-3-9":`<h4>Value Chain &amp; Business Process Improvement</h4><p><strong>Value chain:</strong> Primary activities (inbound logistics, operations, outbound logistics, marketing &amp; sales, service) + Support activities (firm infrastructure, HR, technology, procurement). Map to identify cost drivers and differentiation opportunities.</p><p><strong>Value-added vs non-value-added activities:</strong> Value-added = customers willing to pay for it. Non-value-added = eliminate (waiting, rework, movement, inspection).</p><p><strong>BPR (Business Process Reengineering):</strong> Radical redesign of processes for dramatic improvement — not incremental.</p><p><strong>Best practice analysis:</strong> Identify industry leaders and adapt their processes.</p>`,
+
+"p1-3-10":`<h4>Benchmarking &amp; Continuous Improvement</h4><h4>Types of Benchmarking</h4><ul><li><strong>Internal:</strong> Best-performing unit within the organization</li><li><strong>Competitive:</strong> Direct competitors</li><li><strong>Functional:</strong> Best-in-class in a specific function (e.g., logistics)</li><li><strong>Generic:</strong> Best practices regardless of industry</li></ul><h4>Continuous Improvement (Kaizen)</h4><p>Small, incremental, ongoing improvements driven by employees at all levels. Links to ideal standards — set targets slightly above current performance to drive improvement. PDCA cycle: Plan → Do → Check → Act.</p>`,
+
+"p1-3-11":`<h4>Quality Costs — Four Categories</h4><table><tr><th>Category</th><th>Type</th><th>Examples</th></tr><tr><td>Prevention</td><td>Good — proactive</td><td>Training, process design, supplier qualification, quality planning</td></tr><tr><td>Appraisal</td><td>Good — detective</td><td>Inspection, testing, statistical process control, audits</td></tr><tr><td>Internal failure</td><td>Bad — before delivery</td><td>Scrap, rework, downtime, re-inspection</td></tr><tr><td>External failure</td><td>Worst — after delivery</td><td>Warranty, returns, recalls, product liability, lost customers</td></tr></table><div class="nb ne"><b>Key insight</b>$1 spent on Prevention saves many times more in External Failure costs. Total quality cost is minimized NOT at zero defects but at the optimal investment in prevention/appraisal.</div>`,
+
+/* ══ P1-E ══ */
+"p1-4-0":`<h4>Corporate Governance &amp; Board Responsibilities</h4><p>Governance hierarchy: Articles of incorporation → Bylaws → Policies → Procedures.</p><h4>Key Roles</h4><table><tr><th>Role</th><th>Key Responsibilities</th></tr><tr><td>Board of Directors</td><td>Fiduciary duty to shareholders; hire/fire CEO; approve major transactions; oversee risk, audit, and executive compensation</td></tr><tr><td>Audit Committee</td><td>Must be independent directors; appoints and oversees external auditor; reviews financial reporting and internal controls</td></tr><tr><td>CEO</td><td>Day-to-day management; sets strategy; SOX 302 certification of financial statements</td></tr><tr><td>CFO</td><td>Financial reporting; SOX 302 certification; ICFR assessment</td></tr></table>`,
+
+"p1-4-1":`<h4>COSO Internal Control — Integrated Framework (2013)</h4><table><tr><th>Component</th><th>Focus</th><th>Principles</th></tr><tr><td>Control Environment</td><td>Tone at top; ethics; accountability; HR policies</td><td>5</td></tr><tr><td>Risk Assessment</td><td>Identify &amp; analyze risks; consider fraud risk explicitly</td><td>4</td></tr><tr><td>Control Activities</td><td>Authorizations, reconciliations, physical controls, IT controls</td><td>3</td></tr><tr><td>Information &amp; Communication</td><td>Quality information; internal &amp; external communication</td><td>3</td></tr><tr><td>Monitoring</td><td>Ongoing &amp; separate evaluations; report deficiencies</td><td>2</td></tr></table><p>Total: <strong>17 principles</strong>. All must be present and functioning for effective internal control.</p><h4>Three Control Objectives</h4><ol><li>Effectiveness &amp; efficiency of operations</li><li>Reliability of financial reporting</li><li>Compliance with applicable laws &amp; regulations</li></ol>`,
+
+"p1-4-2":`<h4>Control Objectives &amp; Risk Types</h4><h4>Types of Risk</h4><table><tr><th>Risk Type</th><th>Definition</th></tr><tr><td>Inherent risk</td><td>Risk before any controls — exists in the nature of the transaction/account</td></tr><tr><td>Control risk</td><td>Risk that internal controls fail to prevent or detect a misstatement</td></tr><tr><td>Detection risk</td><td>Risk that auditors fail to detect a remaining misstatement</td></tr></table><p><strong>Audit risk = Inherent risk × Control risk × Detection risk.</strong> Auditors adjust detection risk by varying extent of testing.</p><div class="nb ne"><b>Reasonable assurance</b>Internal controls provide reasonable (not absolute) assurance. Limitations: human error, collusion, management override, cost-benefit constraints.</div>`,
+
+"p1-4-3":`<h4>Segregation of Duties &amp; Control Activities</h4><p>No single person controls all three for the same asset: <strong>Authorization + Recording + Custody</strong>.</p><h4>Four Functional Responsibilities to Separate</h4><ol><li>Authority to execute transactions</li><li>Recording transactions in the books</li><li>Custody of assets involved</li><li>Periodic reconciliation of assets to records</li></ol><div class="nb nw"><b>Collusion risk</b>SoD is ineffective when two+ people collude. Compensating controls: management review, surprise audits, mandatory vacations, data analytics for anomalies.</div><h4>Other Control Activities</h4><ul><li>Pre-numbered documents (checks, invoices, purchase orders)</li><li>Independent bank reconciliations</li><li>Dual authorization for large payments</li><li>Physical inventory counts</li></ul>`,
+
+"p1-4-4":`<h4>Preventive vs Detective Controls</h4><table><tr><th>Type</th><th>When Operates</th><th>Examples</th></tr><tr><td>Preventive</td><td>Before the event — stops errors/fraud</td><td>Passwords, approval requirements, edit checks, SoD, pre-numbered docs</td></tr><tr><td>Detective</td><td>After the event — identifies what went wrong</td><td>Bank reconciliations, variance analysis, audits, exception reports, physical counts</td></tr><tr><td>Corrective</td><td>After detection — fixes the problem</td><td>Error correction, backup restoration, process changes</td></tr></table>`,
+
+"p1-4-5":`<h4>SOX, PCAOB &amp; Top-Down Audit</h4><table><tr><th>SOX Section</th><th>Requirement</th></tr><tr><td>302</td><td>CEO &amp; CFO certify accuracy of financial statements &amp; disclosures (quarterly &amp; annual)</td></tr><tr><td>404(a)</td><td>Management assesses effectiveness of ICFR annually</td></tr><tr><td>404(b)</td><td>External auditor attests to management's ICFR assessment (public companies)</td></tr><tr><td>301</td><td>Audit committee must be independent; selects external auditor</td></tr><tr><td>906</td><td>Criminal penalties: up to $5M fine, 20 years prison for false certifications</td></tr></table><h4>PCAOB &amp; Top-Down Approach</h4><p>PCAOB AS 2201 requires auditors to use a top-down, risk-based approach: start at entity level → identify significant accounts → evaluate relevant controls → test from top down. Preferred over bottom-up (less efficient).</p>`,
+
+"p1-4-6":`<h4>Foreign Corrupt Practices Act (FCPA)</h4><p>US law prohibiting US companies and persons from bribing foreign government officials to obtain or retain business.</p><h4>Two Key Provisions</h4><ul><li><strong>Anti-bribery:</strong> Prohibits offering/giving anything of value to foreign officials to influence business decisions</li><li><strong>Books &amp; records:</strong> Companies must maintain accurate books and adequate internal controls — even if no bribery occurred</li></ul><p><strong>Penalties:</strong> Up to $2M per violation for companies; up to $100K + 5 years prison per violation for individuals.</p><div class="nb nw"><b>Note</b>Facilitation payments (small payments to speed up routine government actions) were previously exempt — this exemption is increasingly scrutinized.</div>`,
+
+"p1-4-7":`<h4>IT Threats, Access Controls &amp; Encryption</h4><h4>Threats to Information Systems</h4><ul><li>Input manipulation, program alteration, direct file alteration</li><li>Data theft, sabotage, viruses, Trojan horses, ransomware</li><li>Phishing, social engineering, insider threats</li></ul><h4>IT General Controls</h4><ul><li>Logical access: passwords, MFA, role-based access control</li><li>Physical access: server room locks, badge access, CCTV</li><li>Change management: test before deployment, approval workflow</li><li>Operations: job scheduling, error logging, capacity monitoring</li></ul><h4>Data Encryption &amp; Network Security</h4><p>Encryption converts data to ciphertext — essential for internet transmissions (far greater risk than secured private lines). <strong>Firewall:</strong> Filters traffic between trusted/untrusted networks — blocks unauthorized access.</p>`,
+
+"p1-4-8":`<h4>Business Continuity &amp; Disaster Recovery</h4><p><strong>Business Continuity Plan (BCP):</strong> Ensures critical business functions continue during and after a disruption. Broader than IT — covers people, facilities, communications, supply chain.</p><p><strong>Disaster Recovery Plan (DRP):</strong> IT-focused — how to recover systems and data after a disaster.</p><h4>Recovery Site Options</h4><table><tr><th>Site Type</th><th>Description</th><th>Recovery Time</th></tr><tr><td>Hot site</td><td>Fully equipped live mirror — switch over immediately</td><td>Minutes to hours</td></tr><tr><td>Warm site</td><td>Partially equipped — needs some configuration</td><td>Hours to days</td></tr><tr><td>Cold site</td><td>Empty facility — must install everything from scratch</td><td>Days to weeks</td></tr></table><p>Regular backups stored at secure remote location. BCP tested periodically through tabletop exercises and simulations.</p>`,
+
+/* ══ P1-F ══ */
+"p1-5-0":`<h4>AIS Cycles</h4><ul><li><strong>Revenue to cash:</strong> Sales order → invoice → AR → cash receipt</li><li><strong>Expenditure:</strong> Purchase order → receiving → AP → payment</li><li><strong>Production:</strong> Planning → DM requisition → WIP → FG</li><li><strong>HR &amp; payroll:</strong> Time recording → payroll calculation → disbursement</li><li><strong>Financing:</strong> Debt issuance, repayment, equity transactions</li><li><strong>PP&amp;E:</strong> Acquisition, depreciation, disposal</li><li><strong>General ledger &amp; reporting:</strong> Journal entries, closing, financial statements</li></ul><p>AIS identifies the role of accounting information in each cycle and control points at each stage.</p>`,
+
+"p1-5-1":`<h4>ERP Systems</h4><p>Single integrated database covering all AIS cycles. Eliminates data silos; real-time single version of truth across Finance, HR, Supply Chain, Manufacturing, CRM.</p><h4>Benefits</h4><ul><li>Real-time integrated data across all functions</li><li>Automates routine transactions (AP, AR, payroll)</li><li>Enforces controls through system-level rules</li><li>Enables management reporting and analytics</li></ul><h4>Risks &amp; Challenges</h4><ul><li>Very high implementation cost and time (18–36 months)</li><li>Significant change management required</li><li>Single point of failure — system downtime affects all functions</li><li>Configuration errors can create new control weaknesses</li></ul>`,
+
+"p1-5-2":`<h4>Relational Database, Data Warehouse &amp; EPM</h4><ul><li><strong>Relational database:</strong> Tables linked by keys; DBMS manages data access and integrity</li><li><strong>Data warehouse:</strong> Central repository integrating historical data from multiple operational systems for analysis</li><li><strong>Data mart:</strong> Subject-specific subset of data warehouse (e.g., finance data mart)</li><li><strong>EPM / CPM / BPM:</strong> Enterprise/Corporate/Business Performance Management software — financial consolidation, budgeting, forecasting, dashboards</li></ul><div class="nb nu"><b>OLTP vs OLAP</b>OLTP: Online Transaction Processing — daily operational transactions (fast, write-heavy). OLAP: Online Analytical Processing — complex historical queries (read-heavy, slow). Data warehouse = OLAP.</div>`,
+
+"p1-5-3":`<h4>Data Governance &amp; Integrity</h4><h4>Data Quality Dimensions</h4><ul><li><strong>Accuracy</strong> — data correctly reflects reality</li><li><strong>Completeness</strong> — no missing records or fields</li><li><strong>Consistency</strong> — same definition across all systems</li><li><strong>Timeliness</strong> — available when needed for decisions</li><li><strong>Validity</strong> — conforms to defined rules and formats</li></ul><h4>Data Governance Roles</h4><ul><li><strong>Data Owner:</strong> Accountable for the data asset</li><li><strong>Data Steward:</strong> Operational responsibility for data quality</li><li><strong>Data User:</strong> Consumes data for business decisions</li></ul><p><strong>Master Data Management (MDM):</strong> Ensures one single consistent definition of key entities (customers, products, suppliers) across all systems — prevents "customer 123" meaning different things in different databases.</p>`,
+
+"p1-5-4":`<h4>Technology Transformation: RPA, AI &amp; Blockchain</h4><h4>RPA (Robotic Process Automation)</h4><p>Software bots automate repetitive, rule-based tasks without changing underlying systems. Finance use cases: invoice processing, bank reconciliations, financial close, regulatory reporting. Reduces errors and frees staff for higher-value work.</p><h4>AI &amp; Machine Learning in Finance</h4><ul><li>Anomaly detection — flags unusual journal entries or transactions</li><li>Predictive forecasting — cash flow, revenue, demand</li><li>NLP — extracts data from contracts and unstructured documents</li><li>Smart automation — adapts to patterns without explicit programming</li></ul><h4>Blockchain</h4><p>Distributed immutable ledger. Applications: smart contracts (auto-execute on conditions), supply chain traceability, audit trails, triple-entry accounting. Limitations: scalability, energy consumption, regulatory uncertainty.</p>`,
+
+"p1-5-5":`<h4>Analytics: Descriptive to Prescriptive</h4><table><tr><th>Level</th><th>Question</th><th>Tools / Examples</th></tr><tr><td>Descriptive</td><td>What happened?</td><td>KPI dashboards, variance reports, sales summaries</td></tr><tr><td>Diagnostic</td><td>Why did it happen?</td><td>Drill-down analysis, root cause, correlation</td></tr><tr><td>Predictive</td><td>What will happen?</td><td>Regression models, time series, ML forecasting</td></tr><tr><td>Prescriptive</td><td>What should we do?</td><td>Optimization algorithms, simulation, AI recommendations</td></tr></table><p>CMA role is shifting from descriptive (what happened) to prescriptive (what to do about it) — adding strategic value through data interpretation.</p>`,
+
+"p1-5-6":`<h4>Data Visualisation &amp; Statistical Analysis</h4><h4>Chart Selection</h4><table><tr><th>Chart Type</th><th>Best For</th></tr><tr><td>Bar / column</td><td>Comparing categories at a point in time</td></tr><tr><td>Line</td><td>Trends over time</td></tr><tr><td>Scatter plot</td><td>Correlation between two variables</td></tr><tr><td>Waterfall</td><td>Sequential changes building to a total (variance analysis)</td></tr><tr><td>Pie / donut</td><td>Part-to-whole (use sparingly — max 5 slices)</td></tr></table><h4>Key Statistics (assumed knowledge)</h4><ul><li>Mean, median, mode (central tendency)</li><li>Range, variance, standard deviation (dispersion)</li><li>Normal distribution and z-scores</li><li>Correlation coefficient (r): −1 to +1; r² = proportion of variance explained</li></ul>`,
+
+/* ══ P2-A ══ */
+"p2-0-0":`<h4>Comparative &amp; Trend Analysis</h4><p><strong>Horizontal analysis:</strong> Compare each line item to prior year as a % change.</p><p><strong>Trend analysis:</strong> Track ratios over 3–5 years to identify direction and inflection points. Single-year ratios can mislead — trends reveal the real story.</p><div class="f">% Change = (Current Year − Base Year) ÷ Base Year × 100</div><div class="nb nu"><b>Financial trend analysis (LOS A.1)</b>Look for: consistent margin compression, deteriorating working capital ratios, growing revenue without matching cash flow improvement, rising leverage while coverage falls. These patterns signal risk before the numbers look catastrophic.</div>`,
+
+"p2-0-1":`<h4>Common-Size Statements</h4><p><strong>Vertical analysis (common-size):</strong></p><ul><li>Income statement: every line as % of <strong>Net Sales</strong></li><li>Balance sheet: every line as % of <strong>Total Assets</strong></li></ul><p>Enables comparison between companies of very different sizes — removes scale distortion. Also useful for tracking a company's structural changes over time.</p><div class="f">Common-size gross margin % = Gross Profit ÷ Net Sales × 100
+Declining common-size COGS% = improving production efficiency or better pricing</div>`,
+
+"p2-0-2":`<h4>Liquidity Ratios</h4><table><tr><th>Ratio</th><th>Formula</th><th>Signal</th></tr><tr><td>Current Ratio</td><td>CA ÷ CL</td><td>&gt;1 = can cover ST obligations; &gt;2 = comfortable; very high may signal idle assets</td></tr><tr><td>Quick Ratio (Acid-test)</td><td>(CA − Inventory − Prepayments) ÷ CL</td><td>Excludes less-liquid items; better short-term stress test</td></tr><tr><td>Cash Ratio</td><td>(Cash + ST investments) ÷ CL</td><td>Most conservative; how much CL covered by pure cash</td></tr></table><div class="nb ne"><b>Context matters</b>A grocery chain with fast inventory turnover can operate safely with a current ratio below 1. Always compare to industry benchmarks, not absolute thresholds.</div>`,
+
+"p2-0-3":`<h4>Solvency &amp; Leverage Ratios</h4><table><tr><th>Ratio</th><th>Formula</th><th>Signal</th></tr><tr><td>Debt-to-Equity (D/E)</td><td>Total Debt ÷ Total Equity</td><td>Higher = more leveraged; more financial risk</td></tr><tr><td>Debt Ratio</td><td>Total Liabilities ÷ Total Assets</td><td>&gt;0.5 = majority debt-financed</td></tr><tr><td>Interest Coverage (TIE)</td><td>EBIT ÷ Interest Expense</td><td>&lt;3 = potentially struggling; &gt;5 = comfortable</td></tr><tr><td>Debt Service Coverage</td><td>(EBIT + Dep) ÷ (Interest + Principal)</td><td>Used by lenders; &gt;1.25 typically required</td></tr><tr><td>Equity Multiplier</td><td>Total Assets ÷ Total Equity</td><td>Used in DuPont; higher = more leverage</td></tr></table>`,
+
+"p2-0-4":`<h4>Profitability Ratios</h4><table><tr><th>Ratio</th><th>Formula</th><th>Measures</th></tr><tr><td>Gross Profit Margin</td><td>Gross Profit ÷ Net Sales</td><td>Pricing power &amp; production efficiency</td></tr><tr><td>Operating Margin (EBIT%)</td><td>EBIT ÷ Net Sales</td><td>Core operating profitability before financing</td></tr><tr><td>Net Profit Margin</td><td>Net Income ÷ Net Sales</td><td>Overall profitability after all costs &amp; taxes</td></tr><tr><td>Return on Assets (ROA)</td><td>Net Income ÷ Avg Total Assets</td><td>How efficiently assets generate profit</td></tr><tr><td>Return on Equity (ROE)</td><td>Net Income ÷ Avg Total Equity</td><td>Return to shareholders</td></tr><tr><td>ROIC</td><td>NOPAT ÷ (Equity + LT Debt)</td><td>Return on all invested capital; compare to WACC</td></tr></table>`,
+
+"p2-0-5":`<h4>Activity &amp; Efficiency Ratios</h4><table><tr><th>Ratio</th><th>Formula</th><th>Better When</th></tr><tr><td>Asset Turnover</td><td>Net Sales ÷ Avg Total Assets</td><td>Higher (more revenue per $ of assets)</td></tr><tr><td>Inventory Turnover</td><td>COGS ÷ Avg Inventory</td><td>Higher (faster-moving stock)</td></tr><tr><td>Days Inventory Outstanding (DIO)</td><td>365 ÷ Inventory Turnover</td><td>Lower</td></tr><tr><td>AR Turnover</td><td>Net Credit Sales ÷ Avg AR</td><td>Higher</td></tr><tr><td>Days Sales Outstanding (DSO)</td><td>365 ÷ AR Turnover</td><td>Lower (faster collection)</td></tr><tr><td>AP Turnover</td><td>COGS ÷ Avg AP</td><td>Context-dependent</td></tr><tr><td>Days Payable Outstanding (DPO)</td><td>365 ÷ AP Turnover</td><td>Higher (longer to pay suppliers = free financing)</td></tr></table>`,
+
+"p2-0-6":`<h4>Market Ratios</h4><table><tr><th>Ratio</th><th>Formula</th><th>Meaning</th></tr><tr><td>EPS (Basic)</td><td>(Net Income − Preferred Div) ÷ Wtd avg common shares</td><td>Earnings per common share</td></tr><tr><td>P/E Ratio</td><td>Market price per share ÷ EPS</td><td>How much investors pay per $1 of earnings; growth premium</td></tr><tr><td>Dividend Yield</td><td>Annual DPS ÷ Market price per share</td><td>Income return on share investment</td></tr><tr><td>Payout Ratio</td><td>DPS ÷ EPS  (or Dividends ÷ Net Income)</td><td>% of earnings paid as dividends</td></tr><tr><td>Book Value per Share</td><td>Total equity ÷ Shares outstanding</td><td>Net asset value per share</td></tr><tr><td>Price-to-Book (P/B)</td><td>Market price per share ÷ Book value per share</td><td>&gt;1 = market values intangibles and future growth</td></tr></table>`,
+
+"p2-0-7":`<h4>DuPont Decomposition</h4><div class="f">3-Factor DuPont:
+ROE = Net Profit Margin × Asset Turnover × Equity Multiplier
+    = (NI ÷ Sales) × (Sales ÷ Assets) × (Assets ÷ Equity)
+      Profitability    Efficiency       Leverage
+
+5-Factor DuPont:
+ROE = Tax burden × Interest burden × EBIT margin × Asset turnover × Leverage
+    = (NI÷EBT) × (EBT÷EBIT) × (EBIT÷Sales) × (Sales÷Assets) × (Assets÷Equity)</div><div class="nb ne"><b>Why DuPont matters</b>Two companies with the same ROE can have very different risk profiles. DuPont reveals the SOURCE: better margins (quality), faster asset use (efficiency), or more debt leverage (risk).</div>`,
+
+"p2-0-8":`<h4>Segment Profitability Analysis</h4><p>Evaluate by product line, geographic segment, or customer group. Use <strong>controllable segment margin</strong> (before allocated corporate costs) for fair performance evaluation.</p><div class="nb nu"><b>ASU 2023-07 — Segment Disclosures (effective 2024)</b>Public companies must now disclose significant expense categories and amounts for each reportable segment. Enhances analyst ability to evaluate segment profitability. This is an active standard — may appear on recent CMA exams.</div>`,
+
+"p2-0-9":`<h4>FX Impact &amp; Inflation Effect on Ratios</h4><h4>FX Effects</h4><p>For multinationals: stronger home currency → lower reported foreign revenue and assets. Analyze "constant currency" results to see underlying performance vs FX impact. Translation exposure distorts year-over-year comparisons.</p><h4>Inflation Effects on Ratios</h4><ul><li>FIFO firms: inventory at current costs → higher reported profits → higher taxes → less cash</li><li>LIFO firms: ending inventory understated → current ratio understated; inventory turnover overstated</li><li>Fixed assets: historical cost understates replacement cost → ROA overstated (denominator too low)</li><li>Depreciation understated in inflationary periods → profits overstated</li></ul>`,
+
+"p2-0-10":`<h4>Earnings Quality, Red Flags &amp; Accruals Ratio</h4><p>High-quality earnings: <strong>sustainable + cash-backed + based on real economic activity</strong>.</p><h4>Red Flags</h4><ul><li>Operating CF consistently below net income (accruals not converting to cash)</li><li>Revenue growing but AR days worsening (premature recognition risk)</li><li>Gross margins improving while industry margins decline</li><li>Recurring "non-recurring" charges appearing every year</li><li>Bill-and-hold arrangements, channel stuffing</li><li>Big bath accounting — large write-offs in a bad year to inflate future years</li><li>Frequent auditor changes, restatements, or going-concern opinions</li></ul><div class="f">Accruals Ratio = (Net Income − Operating CF) ÷ Avg Total Assets
+Higher ratio = more accrual-based = lower earnings quality
+Compare over time and vs peers</div>`,
+
+"p2-0-11":`<h4>Accounting Changes &amp; Book vs Market Value</h4><h4>Types of Accounting Changes</h4><table><tr><th>Type</th><th>Treatment</th><th>Example</th></tr><tr><td>Change in accounting principle</td><td>Retrospective — restate all prior periods</td><td>FIFO → Weighted Average inventory</td></tr><tr><td>Change in accounting estimate</td><td>Prospective — apply going forward only</td><td>Change in useful life of asset</td></tr><tr><td>Correction of error</td><td>Retrospective — restate prior periods + opening equity</td><td>Revenue recorded in wrong period</td></tr></table><h4>Book Value vs Market Value vs Economic Profit</h4><ul><li><strong>Book value:</strong> Historical cost less depreciation — backward-looking</li><li><strong>Market value:</strong> What investors will pay — reflects future earnings expectations</li><li><strong>Economic profit (EVA):</strong> Accounting profit minus cost of ALL capital including equity. Positive EVA = true wealth creation.</li></ul>`,
+
+/* ══ P2-B ══ */
+"p2-1-0":`<h4>Financial Risk &amp; Return</h4><table><tr><th>Risk Type</th><th>Description</th><th>Diversifiable?</th></tr><tr><td>Systematic (market)</td><td>Economy-wide: inflation, recession, interest rates</td><td>No — unavoidable</td></tr><tr><td>Unsystematic (specific)</td><td>Firm or industry-specific: management, competition</td><td>Yes — eliminated by diversification</td></tr><tr><td>Credit risk</td><td>Risk of counterparty default</td><td>Partially</td></tr><tr><td>Liquidity risk</td><td>Unable to meet obligations as they fall due</td><td>Partially</td></tr><tr><td>FX risk</td><td>Exchange rate movements</td><td>Hedging possible</td></tr><tr><td>Interest rate risk</td><td>Bond price risk + reinvestment risk</td><td>Hedging possible</td></tr></table><div class="nb ne"><b>Risk-return tradeoff</b>Investors require higher expected returns to compensate for higher risk. Systematic risk is the ONLY risk that commands a return premium — unsystematic risk can be diversified away at no cost.</div>`,
+
+"p2-1-1":`<h4>CAPM, Beta &amp; Required Rate of Return</h4><div class="f">CAPM: Re = Rf + β × (Rm − Rf)
+Re = required return on equity
+Rf = risk-free rate (T-bill / T-bond yield)
+β  = beta (sensitivity to market movements; market β = 1.0)
+(Rm − Rf) = market risk premium (equity risk premium; historically ~5–7%)
+
+Beta interpretation:
+β > 1.0 → more volatile than market (e.g., tech stocks)
+β < 1.0 → less volatile (e.g., utilities, consumer staples)
+β = 0    → uncorrelated with market (T-bills)
+β < 0    → moves opposite to market (rare; some gold stocks)</div><div class="nb nt"><b>Portfolio diversification</b>Adding assets with low correlation reduces unsystematic risk. Systematic risk remains regardless of diversification. The efficient frontier shows optimal portfolios.</div>`,
+
+"p2-1-2":`<h4>Capital Structure &amp; MM Theory</h4><h4>Key Theories</h4><table><tr><th>Theory</th><th>Prediction</th></tr><tr><td>MM (no taxes)</td><td>Capital structure irrelevant — firm value unchanged by D/E mix</td></tr><tr><td>MM (with taxes)</td><td>Debt adds value through tax shield; borrow as much as possible</td></tr><tr><td>Trade-off</td><td>Optimal D/E balances tax shield vs financial distress costs</td></tr><tr><td>Pecking order</td><td>Prefer: internal funds → debt → equity (to avoid signaling undervaluation)</td></tr><tr><td>Signaling</td><td>Debt issuance signals management confidence in future cash flows</td></tr></table><div class="f">Value of levered firm = Value of unlevered firm + (Tax rate × Debt)
+Annual tax shield = Interest × Tax rate</div>`,
+
+"p2-1-3":`<h4>Operating Leverage vs Financial Leverage</h4><div class="f">Degree of Operating Leverage (DOL):
+DOL = CM ÷ Operating Income
+    = % change in EBIT ÷ % change in Sales
+
+Degree of Financial Leverage (DFL):
+DFL = EBIT ÷ (EBIT − Interest)
+    = % change in EPS ÷ % change in EBIT
+
+Combined Leverage (DTL):
+DTL = DOL × DFL
+    = % change in EPS ÷ % change in Sales</div><div class="nb nw"><b>Risk implication</b>High DOL (high fixed costs) → sales change creates larger EBIT change. High DFL (high debt) → EBIT change amplified into EPS change. Combined leverage amplifies both gains and losses.</div>`,
+
+"p2-1-4":`<h4>WACC Calculation</h4><div class="f">WACC = (E/V × Re) + (D/V × Rd × (1−T)) + (P/V × Rp)
+E = market value of equity     D = market value of debt     P = preferred stock
+V = E + D + P                  T = marginal corporate tax rate
+Re = cost of equity (CAPM)     Rd = pre-tax cost of debt    Rp = cost of preferred</div><div class="nb ne"><b>4 common mistakes</b>(1) Use MARKET values not book values for weights. (2) Rd must be after-tax. (3) Use MARGINAL tax rate. (4) WACC is the hurdle rate only for average-risk projects — adjust up/down for riskier/safer projects.</div>`,
+
+"p2-1-5":`<h4>Raising Capital: Debt, Equity &amp; Financial Markets</h4><h4>Debt Financing</h4><ul><li>Bank loans, bonds, notes payable, commercial paper, revolving credit</li><li>Advantages: tax-deductible interest, no dilution, cheaper than equity</li><li>Disadvantages: fixed obligation, covenant restrictions, bankruptcy risk</li></ul><h4>Equity Financing</h4><ul><li>Common stock (IPO, seasoned equity offering, rights offering), preferred stock</li><li>Advantages: no mandatory payments, no maturity date</li><li>Disadvantages: ownership dilution, more expensive, dividends not tax-deductible</li></ul><h4>Financial Markets</h4><ul><li>Primary market: new securities issued (IPO, bond issuance → issuer receives funds)</li><li>Secondary market: existing securities traded (NYSE, NASDAQ → issuer receives nothing)</li><li>Money market: short-term debt ≤1 year (T-bills, commercial paper, CDs)</li><li>Capital market: long-term debt and equity</li></ul>`,
+
+"p2-1-6":`<h4>Bond Pricing, YTM &amp; Duration</h4><div class="f">Bond price = Σ[C ÷ (1+r)^t] + [F ÷ (1+r)^n]
+C = coupon payment   F = face value   r = periodic yield   n = periods
+
+YTM: discount rate that makes PV of all CFs = current market price
+
+Premium bond: coupon rate > YTM → price > par (above par)
+Discount bond: coupon rate < YTM → price < par (below par)
+Par bond: coupon rate = YTM → price = par</div><h4>Duration &amp; Interest Rate Sensitivity</h4><div class="f">Modified Duration ≈ % change in bond price for 1% change in yield
+ΔPrice ≈ −Modified Duration × ΔYield × Price
+Longer maturity &amp; lower coupon → higher duration → more interest rate sensitive</div><h4>Preferred Stock</h4><p>Fixed dividend perpetuity: P = D ÷ Rp. Preference over common in dividends and liquidation. Typically no voting rights. Cumulative preferred: unpaid dividends accumulate before common dividends.</p>`,
+
+"p2-1-7":`<h4>Dividend Policy &amp; Share Repurchases</h4><table><tr><th>Theory</th><th>View</th></tr><tr><td>MM Irrelevance</td><td>Dividend policy does not affect firm value in perfect markets</td></tr><tr><td>Bird-in-hand</td><td>Dividends (certain) preferred over capital gains (uncertain) → dividends increase value</td></tr><tr><td>Tax preference</td><td>Capital gains taxed lower → retain earnings preferred → value increases</td></tr><tr><td>Signaling</td><td>Dividend increase = management confidence; cut = distress signal</td></tr><tr><td>Residual</td><td>Pay dividends only after all positive-NPV investments are funded</td></tr></table><h4>Share Repurchases vs Dividends</h4><p>Both return cash to shareholders. Repurchases: more flexible (no expectation set), signal undervaluation, EPS accretive (fewer shares), better tax efficiency in many jurisdictions.</p>`,
+
+"p2-1-8":`<h4>Working Capital Management &amp; CCC</h4><div class="f">Cash Conversion Cycle = DIO + DSO − DPO
+DIO = 365 ÷ Inventory Turnover
+DSO = 365 ÷ AR Turnover
+DPO = 365 ÷ AP Turnover
+Shorter CCC = less cash tied up = better liquidity</div><h4>Strategies</h4><ul><li>Reduce DIO: JIT, better demand forecasting, faster production cycles</li><li>Reduce DSO: tighten credit standards, early payment discounts, active collections</li><li>Increase DPO: negotiate longer payment terms with suppliers (carefully — relationship risk)</li></ul>`,
+
+"p2-1-9":`<h4>Corporate Restructuring: M&amp;A, Spin-offs &amp; LBOs</h4><h4>M&amp;A Types</h4><ul><li><strong>Horizontal:</strong> Same industry/product line — market power, cost synergies</li><li><strong>Vertical:</strong> Supply chain integration — control, margin capture</li><li><strong>Conglomerate:</strong> Unrelated businesses — diversification, financial synergies</li></ul><h4>Divestitures</h4><ul><li><strong>Divestiture:</strong> Sell a business unit to another company</li><li><strong>Spin-off:</strong> Distribute subsidiary shares to existing shareholders — new independent company</li><li><strong>Carve-out:</strong> IPO of subsidiary while parent retains majority stake</li></ul><h4>Leveraged Buyout (LBO)</h4><p>Acquire target using primarily debt secured by target's assets. PE firm typical buyer. Requires strong, stable cash flows to service high debt load. Exit: IPO, sale, or recapitalization.</p>`,
+
+"p2-1-10":`<h4>International Finance: PPP, IRP &amp; FX Exposure</h4><h4>Purchasing Power Parity (PPP)</h4><div class="f">Expected spot rate = Current spot × (1 + Domestic inflation) ÷ (1 + Foreign inflation)
+Higher inflation country → currency depreciates to maintain purchasing power parity</div><h4>Interest Rate Parity (IRP)</h4><div class="f">Forward rate ÷ Spot rate = (1 + Domestic rate) ÷ (1 + Foreign rate)
+Higher interest rate country → currency at forward discount (prevents arbitrage)</div><h4>FX Exposure Types</h4><ul><li><strong>Transaction:</strong> Specific AR/AP denominated in foreign currency — hedge with forwards/options</li><li><strong>Translation:</strong> Consolidating foreign subsidiary financials — recognized in OCI (CTA)</li><li><strong>Economic (operating):</strong> Long-term impact on firm's competitive position from FX movements</li></ul>`,
+
+/* ══ P2-C ══ */
+"p2-2-0":`<h4>CVP Analysis &amp; Breakeven</h4><div class="f">CM = Sales − Variable Costs
+CM per unit = Selling price − Variable cost per unit
 CM Ratio = CM ÷ Sales
+
 Breakeven (units) = Fixed Costs ÷ CM per unit
-Breakeven ($) = Fixed Costs ÷ CM Ratio
-Margin of Safety = Actual Sales − Breakeven Sales</div>
+Breakeven ($)     = Fixed Costs ÷ CM Ratio
+Target profit units = (Fixed Costs + Target Profit) ÷ CM per unit
+Target profit ($)   = (Fixed Costs + Target Profit) ÷ CM Ratio</div><div class="nb ne"><b>CVP Assumptions</b>Linear cost/revenue; constant selling price and variable cost per unit; fixed costs constant within relevant range; single product or constant sales mix; production = sales.</div>`,
 
-<h4>Variance Analysis</h4>
-<table><tr><th>Variance</th><th>Formula</th></tr>
-<tr><td>Sales Price</td><td>(Actual Price − Standard Price) × Actual Qty Sold</td></tr>
-<tr><td>Sales Volume</td><td>(Actual Vol − Budgeted Vol) × Standard CM</td></tr>
-<tr><td>Material Price</td><td>(Standard Price − Actual Price) × Actual Qty Purchased</td></tr>
-<tr><td>Material Quantity</td><td>(Standard Qty − Actual Qty) × Standard Price</td></tr>
-<tr><td>Labor Rate</td><td>(Standard Rate − Actual Rate) × Actual Hours</td></tr>
-<tr><td>Labor Efficiency</td><td>(Standard Hours − Actual Hours) × Standard Rate</td></tr></table>
-<div class="ibox ibox-exam"><b>Exam Tip</b>Favorable = actual better than standard. Unfavorable = actual worse. Always label F or U.</div>
+"p2-2-1":`<h4>Operating Leverage &amp; Margin of Safety</h4><div class="f">Margin of Safety (units) = Actual Sales − Breakeven Sales
+Margin of Safety % = (Actual − Breakeven) ÷ Actual Sales × 100
 
-<h4>Responsibility Accounting</h4>
-<table><tr><th>Center</th><th>Manager Controls</th><th>Key Metric</th></tr>
-<tr><td>Cost center</td><td>Costs only</td><td>Cost variances</td></tr>
-<tr><td>Revenue center</td><td>Revenue only</td><td>Revenue variances</td></tr>
-<tr><td>Profit center</td><td>Costs &amp; revenues</td><td>Operating income</td></tr>
-<tr><td>Investment center</td><td>Costs, revenues &amp; assets</td><td>ROI, RI, EVA</td></tr></table>
-<div class="formula">ROI = Operating Income ÷ Average Operating Assets
-Residual Income (RI) = Operating Income − (Required Rate × Avg Assets)
-EVA = NOPAT − (WACC × Invested Capital)</div>
+Degree of Operating Leverage (DOL) = CM ÷ Operating Income
+  = % change in EBIT ÷ % change in Sales</div><div class="nb ne"><b>What DOL tells you</b>If DOL = 4: a 10% increase in sales produces a 40% increase in EBIT. The same applies on the downside — a 10% sales decline = 40% EBIT decline. High fixed costs = high risk &amp; high reward.</div>`,
 
-<h4>Balanced Scorecard</h4>
-<p>Four perspectives: <strong>Financial</strong> (profit, ROI) · <strong>Customer</strong> (satisfaction, retention) · <strong>Internal Process</strong> (cycle time, quality) · <strong>Learning &amp; Growth</strong> (employee skills, innovation). Strategy maps link objectives across perspectives.</p>
-</div>`,
+"p2-2-2":`<h4>Relevant Costs &amp; Incremental Analysis</h4><p><strong>Relevant:</strong> Future + Differential + Avoidable. <strong>Irrelevant — always:</strong> Sunk costs, unavoidable fixed costs, allocated costs that won't change with the decision.</p><div class="f">Incremental Analysis:
+Net advantage of Option A = (Revenue A − Revenue B) − (Cost A − Cost B)
+Only include items that DIFFER between alternatives</div><p><strong>Opportunity cost:</strong> Benefit foregone from the best alternative use of a resource. Always relevant. Most commonly overlooked cost in CMA exam scenarios.</p><div class="nb ne"><b>Sunk cost trap</b>Already spent and unrecoverable — NEVER relevant to future decisions. Example: $50K spent on market research for a product → irrelevant to whether to launch the product now.</div>`,
 
-  'p1-3': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>15% of Part 1 (~75 marks)</strong>. Covers costing systems and cost management techniques.</p>
+"p2-2-3":`<h4>Make-or-Buy &amp; Special Orders</h4><h4>Make-or-Buy</h4><div class="f">Make cost = DM + DL + Variable OH + Avoidable Fixed OH
+Buy cost  = Purchase price + incremental freight and handling
+Choose the lower cost option (also consider qualitative factors)</div><h4>Special Order Decision</h4><p>Accept a special order if revenue from the order exceeds its incremental costs.</p><div class="f">Minimum acceptable price = Variable cost per unit + Opportunity cost per unit
+Opportunity cost = 0 if idle capacity available
+Opportunity cost > 0 if regular sales must be displaced to fill order</div><div class="nb nw"><b>Qualitative factors</b>Also consider: quality control, supply reliability, IP protection, workforce impact, strategic flexibility, effect on regular customers' pricing expectations.</div>`,
 
-<h4>Job Order vs Process Costing</h4>
-<table><tr><th></th><th>Job Order</th><th>Process</th></tr>
-<tr><td>Used for</td><td>Unique, custom products</td><td>Homogeneous, mass production</td></tr>
-<tr><td>Cost tracked by</td><td>Job/batch</td><td>Department/process</td></tr>
-<tr><td>Example</td><td>Construction, consulting</td><td>Oil refining, chemicals</td></tr>
-<tr><td>Key concept</td><td>Job cost sheet</td><td>Equivalent units (FIFO or WA)</td></tr></table>
+"p2-2-4":`<h4>Pricing: Cost-Plus, Target &amp; Marginal</h4><table><tr><th>Method</th><th>Formula</th><th>When Used</th></tr><tr><td>Cost-plus (markup)</td><td>Price = Total cost × (1 + markup%)</td><td>Cost certainty, regulated industries, government contracts</td></tr><tr><td>Target costing</td><td>Target cost = Market price − Desired profit</td><td>Competitive markets; design phase to engineer cost out</td></tr><tr><td>Variable cost floor</td><td>Min price = Variable cost per unit</td><td>Short-run minimum; excess capacity; special orders</td></tr><tr><td>Contribution margin pricing</td><td>Price = VC + desired CM per unit</td><td>Flexible pricing analysis</td></tr><tr><td>Transfer pricing</td><td>Min = VC + opportunity cost</td><td>Intra-company transactions</td></tr></table>`,
 
-<h4>Activity-Based Costing (ABC)</h4>
-<p>Assigns overhead based on activities that drive costs, not just volume. More accurate for complex, multi-product environments.</p>
-<div class="formula">Step 1: Identify activities (setups, inspections, material handling)
-Step 2: Assign costs to activity cost pools
-Step 3: Determine cost drivers for each pool
-Step 4: Calculate activity rate = Pool Cost ÷ Cost Driver Volume
-Step 5: Assign costs to products using activity rates</div>
+"p2-2-5":`<h4>Price Elasticity of Demand</h4><div class="f">PED = % change in quantity demanded ÷ % change in price
 
-<h4>Standard Costing</h4>
-<p>Predetermined costs for materials, labor, and overhead. Variances = Standard − Actual. Used for budgeting, pricing, and performance evaluation.</p>
+|PED| > 1 → Elastic: price rise → revenue falls  (luxury goods, many substitutes)
+|PED| < 1 → Inelastic: price rise → revenue rises (necessities, few substitutes)
+|PED| = 1 → Unit elastic: revenue unchanged
 
-<h4>JIT &amp; Lean Manufacturing</h4>
-<p><strong>JIT:</strong> Produce only what's needed, when needed — eliminates waste, minimizes inventory. <strong>Lean:</strong> Eliminate all non-value-added activities (8 wastes: DOWNTIME). <strong>Theory of Constraints:</strong> Identify and exploit the bottleneck; subordinate everything else to it.</p>
+Revenue-maximizing price: set where |PED| = 1 (MR = 0)
+Profit-maximizing price:  set where MC = MR</div><div class="nb nu"><b>New in 2024 LOS (C.3)</b>Price elasticity of demand is explicitly added to Section C. Understand how elasticity affects optimal pricing strategy, and how to identify elastic vs inelastic demand from context clues.</div>`,
 
-<h4>Quality Costs</h4>
-<table><tr><th>Category</th><th>Examples</th></tr>
-<tr><td>Prevention</td><td>Training, process design, quality planning</td></tr>
-<tr><td>Appraisal</td><td>Inspection, testing, audits</td></tr>
-<tr><td>Internal failure</td><td>Scrap, rework, downtime</td></tr>
-<tr><td>External failure</td><td>Warranty claims, returns, lost customers</td></tr></table>
-</div>`,
+"p2-2-6":`<h4>Product Mix Under Constraints (TOC)</h4><p>When one resource is the bottleneck, maximize <strong>CM per unit of constrained resource</strong> — not total CM per unit.</p><div class="f">CM per unit of bottleneck = CM per unit ÷ Units of bottleneck required
+Rank products highest to lowest; produce maximum of highest first</div><div class="nb ne"><b>Classic exam example</b>Machine hours limited. Product A: CM $40, needs 2 hrs → $20/hr. Product B: CM $30, needs 1 hr → $30/hr. Prioritize B despite lower CM per unit — it generates more CM per constrained hour.</div><h4>Theory of Constraints (TOC) 5 Steps</h4><ol><li>Identify the constraint (bottleneck)</li><li>Exploit the constraint — maximize its throughput</li><li>Subordinate everything else to the constraint</li><li>Elevate the constraint — invest to add capacity</li><li>Repeat — a new constraint will emerge</li></ol>`,
 
-  'p1-4': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>15% of Part 1 (~75 marks)</strong>. Covers the design and evaluation of internal control systems.</p>
+"p2-2-7":`<h4>Decision Trees &amp; Expected Value</h4><div class="f">Expected Value (EV) = Σ (Probability × Outcome)
 
-<h4>COSO Internal Control Framework (2013)</h4>
-<p>Five components:</p>
-<ol><li><strong>Control Environment</strong> — tone at the top, integrity, ethics</li><li><strong>Risk Assessment</strong> — identify &amp; analyze risks to objectives</li><li><strong>Control Activities</strong> — policies &amp; procedures (authorizations, reconciliations)</li><li><strong>Information &amp; Communication</strong> — relevant, timely information flows</li><li><strong>Monitoring</strong> — ongoing evaluation of control effectiveness</li></ol>
-<p>17 principles across these 5 components. All must be present and functioning.</p>
+Decision tree: work RIGHT to LEFT (rollback method)
+  At chance nodes → calculate EV of all branches
+  At decision nodes → choose the highest EV option
 
-<h4>Segregation of Duties</h4>
-<p>No single person should control: <strong>Authorization + Recording + Custody</strong> of assets. Key separation: person who approves transactions ≠ person who records them ≠ person with physical access.</p>
-<div class="ibox ibox-warn"><b>Collusion Risk</b>Segregation of duties is ineffective when two or more people collude. Compensating controls (supervision, audits) are needed.</div>
+EVPI = EV with perfect information − EV without perfect information
+     = Maximum amount worth paying for perfect information</div><div class="nb ne"><b>Exam rules</b>Probabilities must sum to 1.0 at each chance node. In multi-stage trees, multiply probabilities along branches for joint probability. EV maximization assumes risk-neutral decision maker — note this limitation in essays.</div>`,
 
-<h4>IT Controls</h4>
-<table><tr><th>Type</th><th>Examples</th></tr>
-<tr><td>IT General Controls</td><td>Access controls, change management, disaster recovery, data backup</td></tr>
-<tr><td>Application Controls</td><td>Input validation, batch totals, edit checks, output reviews</td></tr></table>
+"p2-2-8":`<h4>Marginal Analysis: Short-run vs Long-run</h4><p><strong>Short-run:</strong> At least one input is fixed. Fixed costs are sunk and irrelevant for output decisions. Operate if revenue covers variable costs (positive CM).</p><p><strong>Long-run:</strong> All costs are variable. Must recover full cost including all fixed costs to justify continued operation.</p><div class="f">Short-run shutdown point: Shut down if P < AVC (revenue doesn't even cover variable costs)
+Long-run exit point:       Exit if P < ATC (revenue doesn't cover full average total cost)
 
-<h4>Sarbanes-Oxley (SOX) — Key Sections</h4>
-<ul><li><strong>Section 302:</strong> CEO/CFO certify accuracy of financial statements</li><li><strong>Section 404:</strong> Management assesses internal controls over financial reporting; auditor attests to that assessment (public companies)</li><li><strong>Section 906:</strong> Criminal penalties for false certifications</li></ul>
-</div>`,
+Special order short-run logic: Accept if Price > Variable cost per unit (with idle capacity)
+Long-run pricing floor: Price must ≥ Full cost to remain sustainable</div>`,
 
-  'p1-5': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>15% of Part 1 (~75 marks)</strong>. Covers data analytics, ERP systems, and emerging technologies in management accounting.</p>
+/* ══ P2-D ══ */
+"p2-3-0":`<h4>ERM Framework — COSO 2017</h4><table><tr><th>Component</th><th>Focus</th></tr><tr><td>Governance &amp; Culture</td><td>Board oversight; risk culture; values and accountability</td></tr><tr><td>Strategy &amp; Objective-Setting</td><td>Risk appetite aligned with strategy; define business objectives</td></tr><tr><td>Performance</td><td>Identify, assess, prioritize, and respond to risks affecting objectives</td></tr><tr><td>Review &amp; Revision</td><td>Monitor ERM effectiveness; incorporate substantial changes</td></tr><tr><td>Information, Communication &amp; Reporting</td><td>Risk information flows up, down, and across the organization</td></tr></table><p><strong>Risk appetite:</strong> Amount of risk the organization is willing to accept in pursuit of strategy. <strong>Risk tolerance:</strong> Acceptable variation around the risk appetite.</p>`,
 
-<h4>Data Governance &amp; Integrity</h4>
-<p>Data quality dimensions: <strong>Accuracy · Completeness · Consistency · Timeliness · Validity</strong>. Data governance = policies ensuring data is managed as a strategic asset. Master data management (MDM) ensures consistent definitions across systems.</p>
+"p2-3-1":`<h4>Risk Identification &amp; Assessment</h4><h4>Identification Methods</h4><ul><li>Brainstorming and workshops with management</li><li>Scenario analysis (what-if exercises)</li><li>Process mapping to spot failure points</li><li>Historical loss data and industry benchmarks</li><li>External environment scanning (PEST)</li></ul><div class="f">Inherent risk = risk before any controls applied
+Residual risk = risk remaining AFTER controls applied
+Risk = Likelihood × Impact (plotted on risk matrix)
+Prioritize: High likelihood + High impact = immediate action required</div><h4>Risk Categories</h4><p>Strategic, operational, financial, compliance/regulatory, reputational, cyber/technology.</p>`,
 
-<h4>Business Intelligence &amp; Analytics Levels</h4>
-<table><tr><th>Level</th><th>Question</th><th>Example</th></tr>
-<tr><td>Descriptive</td><td>What happened?</td><td>Sales reports, dashboards</td></tr>
-<tr><td>Diagnostic</td><td>Why did it happen?</td><td>Variance drill-down</td></tr>
-<tr><td>Predictive</td><td>What will happen?</td><td>Forecasting models</td></tr>
-<tr><td>Prescriptive</td><td>What should we do?</td><td>Optimization, recommendations</td></tr></table>
+"p2-3-2":`<h4>Risk Response Strategies</h4><table><tr><th>Response</th><th>When to Use</th><th>Examples</th></tr><tr><td>Avoid</td><td>Risk exceeds risk appetite; unacceptable outcome</td><td>Exit the market, cancel the project, don't enter the contract</td></tr><tr><td>Reduce / Mitigate</td><td>Risk can be controlled to acceptable level</td><td>Internal controls, process changes, diversification, training</td></tr><tr><td>Share / Transfer</td><td>External party better placed to bear the risk</td><td>Insurance, outsourcing, hedging, joint ventures</td></tr><tr><td>Accept</td><td>Risk within risk appetite; cost of mitigation &gt; benefit</td><td>Self-insure; monitor only; allocate contingency budget</td></tr></table>`,
 
-<h4>ERP Systems</h4>
-<p>Integrate all business processes (finance, HR, supply chain, manufacturing) in a single database. Key benefit: eliminates data silos and provides real-time information. Risks: high implementation cost, change management, single point of failure.</p>
+"p2-3-3":`<h4>Hedging: Forwards, Futures &amp; Options</h4><table><tr><th>Instrument</th><th>Exchange-traded?</th><th>Obligation</th><th>Key Feature</th></tr><tr><td>Forward contract</td><td>No (OTC)</td><td>Both parties locked in</td><td>Customizable; no daily settlement; counterparty risk</td></tr><tr><td>Futures contract</td><td>Yes</td><td>Both parties locked in</td><td>Standardized; marked-to-market daily; cleared through exchange</td></tr><tr><td>Call option</td><td>Both</td><td>Seller only (buyer has right)</td><td>Right to BUY at strike; max loss for buyer = premium</td></tr><tr><td>Put option</td><td>Both</td><td>Seller only (buyer has right)</td><td>Right to SELL at strike; protects against price decline</td></tr><tr><td>Interest rate swap</td><td>OTC</td><td>Both parties</td><td>Exchange fixed ↔ floating interest payments; no principal exchange</td></tr></table>`,
 
-<h4>RPA &amp; AI in Finance</h4>
-<p><strong>RPA (Robotic Process Automation):</strong> Automates repetitive, rule-based tasks (invoice processing, reconciliations) — reduces errors and cost. <strong>AI/ML:</strong> Pattern recognition, anomaly detection, predictive analytics. CMA professionals shift from data gathering to data interpretation.</p>
+"p2-3-4":`<h4>FX Risk &amp; Interest Rate Risk</h4><h4>FX Risk Types</h4><ul><li><strong>Transaction:</strong> Specific AR/AP in foreign currency — hedge with forwards or options</li><li><strong>Translation:</strong> Consolidating foreign subsidiary — OCI (cumulative translation adjustment)</li><li><strong>Economic (operating):</strong> Long-term competitive position affected by FX movements</li></ul><h4>Interest Rate Risk</h4><ul><li><strong>Price risk:</strong> Bond prices fall when rates rise (inverse relationship)</li><li><strong>Reinvestment risk:</strong> Falling rates → lower returns when coupons are reinvested</li></ul><div class="f">Interest rate swap: company pays fixed, receives floating (or vice versa)
+Duration: measures bond price sensitivity to rate changes
+Modified duration ≈ % change in price for 1% change in yield</div>`,
 
-<h4>Blockchain in Accounting</h4>
-<p>Distributed ledger — immutable, transparent, decentralized. Applications: smart contracts, supply chain tracking, audit trails. Potential to automate triple-entry accounting.</p>
-</div>`,
+"p2-3-5":`<h4>Operational Risk Management</h4><p>Risk of loss from failed internal processes, people, systems, or external events (Basel II definition).</p><table><tr><th>Root Cause</th><th>Finance Examples</th></tr><tr><td>People</td><td>Fraud, processing errors, unauthorized transactions, key-person dependency</td></tr><tr><td>Processes</td><td>Inadequate controls, poor reconciliation procedures, manual overrides</td></tr><tr><td>Systems</td><td>IT failures, cybersecurity breaches, ERP errors, data corruption</td></tr><tr><td>External events</td><td>Natural disasters, regulatory changes, pandemics, supply disruptions</td></tr></table><p>Key mitigants: strong internal controls, SoD, IT security, BCP/DRP, insurance, incident reporting culture.</p>`,
 
-  /* Part 2 topics */
-  'p2-0': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>20% of Part 2 (~100 marks)</strong>. Covers reading, interpreting, and evaluating financial statements.</p>
+"p2-3-6":`<h4>Business Continuity &amp; Systemic Risk</h4><p><strong>Business Continuity Plan:</strong> Ensures critical functions continue during disruptions. Covers people, processes, facilities, technology, and communications. Must be tested regularly.</p><h4>Systemic Risk</h4><p>Risk that failure of one institution triggers cascading failures across the financial system. Contagion through interconnected counterparty exposures. Example: 2008 — Lehman Brothers collapse triggered global credit freeze.</p><div class="nb nw"><b>Regulatory response</b>Basel III raised capital and liquidity requirements for banks. Dodd-Frank created FSOC (Financial Stability Oversight Council) to monitor systemic risk in the US. CMAs at financial institutions should understand these frameworks.</div>`,
 
-<h4>Ratio Analysis Framework</h4>
-<table><tr><th>Category</th><th>Key Ratios</th></tr>
-<tr><td>Liquidity</td><td>Current Ratio = CA÷CL · Quick Ratio = (CA−Inventory)÷CL · Cash Ratio</td></tr>
-<tr><td>Solvency</td><td>Debt-to-Equity · Interest Coverage = EBIT÷Interest · Debt Ratio = Total Debt÷Assets</td></tr>
-<tr><td>Profitability</td><td>Gross Margin · Operating Margin · Net Margin · ROA · ROE</td></tr>
-<tr><td>Efficiency</td><td>Asset Turnover · Inventory Turnover · AR Days · AP Days</td></tr>
-<tr><td>Market</td><td>EPS · P/E Ratio · Dividend Yield · Book Value per Share</td></tr></table>
+"p2-3-7":`<h4>Insurance &amp; Risk Transfer</h4><div class="f">Risk retention vs transfer decision:
+If EV of loss &lt; Insurance premium → self-insure (retain)
+If EV of loss &gt; Insurance premium → transfer (buy insurance)
+Also consider: catastrophic tail risk, cash flow impact, risk tolerance</div><h4>Types of Corporate Insurance</h4><ul><li><strong>Property:</strong> Physical assets, equipment, business interruption</li><li><strong>Liability:</strong> D&amp;O, product liability, professional indemnity, employment practices</li><li><strong>Credit insurance:</strong> Protection against customer/counterparty default</li><li><strong>Key person:</strong> Loss of critical executives or personnel</li><li><strong>Cyber:</strong> Data breach, ransomware, system failure, regulatory fines</li></ul>`,
 
-<h4>DuPont Analysis</h4>
-<div class="formula">ROE = Net Profit Margin × Asset Turnover × Equity Multiplier
-     = (NI/Sales) × (Sales/Assets) × (Assets/Equity)
-3-factor: Profitability × Efficiency × Leverage</div>
+/* ══ P2-E ══ */
+"p2-4-0":`<h4>Capital Budgeting Methods</h4><table><tr><th>Method</th><th>Decision Rule</th><th>Key Limitation</th></tr><tr><td>NPV</td><td>Accept if NPV &gt; 0</td><td>Requires accurate discount rate; complex to explain</td></tr><tr><td>IRR</td><td>Accept if IRR &gt; WACC</td><td>Multiple IRRs possible; ignores project scale</td></tr><tr><td>MIRR</td><td>Accept if MIRR &gt; WACC</td><td>Fixes reinvestment rate assumption; still ignores scale</td></tr><tr><td>Payback</td><td>Accept if payback &lt; target</td><td>Ignores TVM and post-payback cash flows</td></tr><tr><td>Discounted payback</td><td>Uses discounted CFs</td><td>Still ignores post-payback CFs</td></tr><tr><td>Profitability Index (PI)</td><td>Accept if PI &gt; 1.0</td><td>Useful for capital rationing; ignores absolute size</td></tr></table><div class="nb ne"><b>Conflict resolution</b>NPV vs IRR conflict → always follow NPV. NPV measures absolute dollar wealth creation. IRR can give misleading rankings when projects differ in size or cash flow timing.</div>`,
 
-<h4>Common-Size Statements</h4>
-<p>Income statement: each line as % of <strong>Net Sales</strong>. Balance sheet: each line as % of <strong>Total Assets</strong>. Enables cross-company comparison regardless of size.</p>
+"p2-4-1":`<h4>Risk Analysis in Capital Investment</h4><table><tr><th>Technique</th><th>Approach</th><th>Output</th></tr><tr><td>Sensitivity analysis</td><td>Change one variable at a time</td><td>Which variable most affects NPV; break-even values for each</td></tr><tr><td>Scenario analysis</td><td>Best/base/worst case with multiple simultaneous changes</td><td>Range of NPV outcomes; probability-weighted expected NPV</td></tr><tr><td>Monte Carlo simulation</td><td>Probabilistic — thousands of random variable combinations</td><td>Full distribution of NPV outcomes; probability NPV &gt; 0</td></tr><tr><td>Risk-adjusted discount rate</td><td>Add risk premium to WACC for riskier projects</td><td>Single risk-adjusted NPV</td></tr><tr><td>Certainty equivalent</td><td>Adjust risky CFs to their risk-free equivalent</td><td>Conservative NPV estimate</td></tr></table>`,
 
-<h4>Earnings Quality Red Flags</h4>
-<ul><li>Revenue recognized prematurely or aggressively</li><li>Large non-recurring items disguised as recurring</li><li>Operating cash flow consistently below net income</li><li>Frequent accounting policy changes</li><li>Channel stuffing, bill-and-hold arrangements</li><li>Rising AR days without revenue growth</li></ul>
-</div>`,
+"p2-4-2":`<h4>Real Options Analysis</h4><p>Standard NPV ignores managerial flexibility embedded in investments. Real options capture the value of future strategic choices.</p><table><tr><th>Option Type</th><th>Description</th><th>Most Valuable When</th></tr><tr><td>Option to expand</td><td>Invest more if project succeeds</td><td>High demand uncertainty</td></tr><tr><td>Option to abandon</td><td>Exit if project fails; sell for salvage</td><td>High downside risk; long project life</td></tr><tr><td>Option to delay</td><td>Wait for better information before committing</td><td>Uncertainty will resolve soon; irreversible investment</td></tr><tr><td>Option to switch</td><td>Change inputs, outputs, or production technology</td><td>High input/output price volatility</td></tr></table><div class="f">True project value = Standard NPV + Value of real options
+Real option value increases with: higher volatility, longer time, higher risk-free rate</div>`,
 
-  'p2-1': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>20% of Part 2 (~100 marks)</strong>. Covers financing decisions, capital budgeting, and working capital management.</p>
+"p2-4-3":`<h4>Post-Audit of Capital Investments</h4><p>Systematic comparison of actual project cash flows and strategic outcomes vs original projections, conducted after a defined period (e.g., 2–3 years in).</p><h4>Benefits</h4><ul><li>Improves quality and accuracy of future capital budgeting estimates</li><li>Holds managers accountable — reduces optimism bias in forecasts</li><li>Identifies underperforming assets for remediation or divestiture</li><li>Reveals systematic biases (strategic misrepresentation, planning fallacy)</li></ul><h4>Risks &amp; Limitations</h4><ul><li>Managers may sandbag estimates knowing a post-audit will follow</li><li>Difficult to isolate project performance from external market factors</li><li>High cost and complexity for long-lived multi-stage projects</li></ul>`,
 
-<h4>Capital Structure</h4>
-<p><strong>Modigliani-Miller (with taxes):</strong> Optimal capital structure maximizes firm value. Debt has tax shield benefit (interest is deductible); offset by financial distress costs. <strong>Trade-off Theory:</strong> Optimal D/E balances tax shield vs distress costs.</p>
+"p2-4-4":`<h4>International Capital Budgeting</h4><p>Additional factors beyond domestic analysis:</p><ul><li><strong>Currency risk:</strong> Project CFs in foreign currency — must convert at expected FX rates</li><li><strong>Political risk:</strong> Expropriation, currency controls, sudden regulatory changes</li><li><strong>Tax differences:</strong> Foreign tax credits, withholding taxes on repatriated profits, tax treaties</li><li><strong>Country risk premium:</strong> Add basis points to discount rate for emerging market projects</li></ul><div class="f">Two approaches:
+Approach 1: Convert all foreign CFs to home currency at expected FX rates → discount at home WACC
+Approach 2: Discount foreign CFs in foreign currency at foreign WACC → convert NPV at current spot rate
+Both should give same answer if FX assumptions are consistent with IRP</div>`,
 
-<h4>WACC</h4>
-<div class="formula">WACC = (E/V × Re) + (D/V × Rd × (1−T))
-E = Market value of equity · D = Market value of debt
-V = E + D · Re = cost of equity · Rd = cost of debt · T = tax rate
-Cost of Equity (CAPM): Re = Rf + β(Rm − Rf)</div>
+"p2-4-5":`<h4>Lease vs Buy Analysis</h4><div class="f">Net Advantage to Leasing (NAL):
+NAL = Cost of asset
+    − PV of after-tax lease payments
+    − PV of lost depreciation tax shield
+    + PV of any residual value foregone by leasing
+If NAL > 0 → Lease preferred
+If NAL < 0 → Buy preferred</div><h4>Factors Favouring Leasing</h4><ul><li>Preserves capital and credit lines for core operations</li><li>Technology obsolescence risk transferred to lessor</li><li>Maintenance included in full-service (wet) leases</li><li>Flexibility at end of term (upgrade, return, buy)</li></ul><h4>Factors Favouring Buying</h4><ul><li>Ownership and full residual value retention</li><li>Greater depreciation tax shield (especially with accelerated methods)</li><li>No lease covenants or usage restrictions</li></ul>`,
 
-<h4>Capital Budgeting Methods</h4>
-<table><tr><th>Method</th><th>Decision Rule</th><th>Limitation</th></tr>
-<tr><td>NPV</td><td>Accept if NPV &gt; 0</td><td>Requires accurate discount rate</td></tr>
-<tr><td>IRR</td><td>Accept if IRR &gt; WACC</td><td>Multiple IRRs possible; scale ignoring</td></tr>
-<tr><td>Payback</td><td>Accept if payback &lt; target</td><td>Ignores time value &amp; post-payback CF</td></tr>
-<tr><td>Discounted Payback</td><td>Uses discounted CFs</td><td>Still ignores post-payback CFs</td></tr>
-<tr><td>PI</td><td>Accept if PI &gt; 1</td><td>Useful for capital rationing</td></tr></table>
-<div class="ibox ibox-exam"><b>Exam Rule</b>NPV is theoretically superior. When NPV and IRR conflict, always use NPV for decision making.</div>
+/* ══ P2-F ══ */
+"p2-5-0":`<h4>IMA Statement: 4 Principles &amp; 4 Standards</h4><h4>Four Overarching Principles</h4><ul><li><strong>Honesty</strong> — truthful in all professional and business communications</li><li><strong>Fairness</strong> — impartial, unbiased judgment; balanced presentation</li><li><strong>Objectivity</strong> — communicate information fairly regardless of personal interest</li><li><strong>Responsibility</strong> — act in accordance with all applicable standards</li></ul><h4>Four Standards (Specific Obligations)</h4><table><tr><th>Standard</th><th>Core Requirements</th></tr><tr><td>Competence</td><td>Maintain skills via CPE; perform duties professionally; provide accurate information; acknowledge limitations; seek assistance when needed</td></tr><tr><td>Confidentiality</td><td>Keep information confidential except when legally obligated; don't use for personal gain</td></tr><tr><td>Integrity</td><td>Avoid conflicts of interest; refuse gifts that influence judgment; communicate bad news too; refrain from activities that discredit the profession</td></tr><tr><td>Credibility</td><td>Report fairly; disclose all relevant information; don't suppress unfavorable information</td></tr></table>`,
 
-<h4>Working Capital Management</h4>
-<div class="formula">Cash Conversion Cycle = DIO + DSO − DPO
-DIO = Days Inventory Outstanding
-DSO = Days Sales Outstanding (AR days)
-DPO = Days Payable Outstanding</div>
-<p>Shorter CCC = better liquidity. Strategies: tighten credit terms, speed collections, extend payables (within relationships).</p>
-</div>`,
+"p2-5-1":`<h4>Competence &amp; Continuing Education</h4><p>IMA requires <strong>30 CPE hours annually</strong> (including 2 in ethics) to maintain the CMA designation.</p><p>Competence means:</p><ul><li>Maintaining professional knowledge and skills at a level required to ensure competent professional service</li><li>Performing duties in accordance with relevant laws, regulations, and technical standards</li><li>Providing decision support information and recommendations that are accurate, clear, and complete</li><li>Recognizing and communicating professional limitations or other constraints that would preclude responsible judgment</li></ul><div class="nb ne"><b>Competence includes 2025 updates</b>Current standards (ASC 606, 842, CECL, ASU 2023-07/09), emerging tech (RPA, AI, blockchain), ESG reporting frameworks (ISSB S1/S2), and analytics capabilities.</div>`,
 
-  'p2-2': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>25% of Part 2 (~125 marks)</strong> — highest weight in Part 2. Focus on relevant cost analysis and pricing.</p>
+"p2-5-2":`<h4>Confidentiality Obligations</h4><p>Must keep all confidential information secure. Do not disclose <strong>unless:</strong></p><ul><li>Legally obligated (court order, regulatory subpoena)</li><li>Required by employer's internal policies when appropriate superior is aware</li><li>Ethically required to prevent illegal activity that cannot be resolved through internal channels</li></ul><p>Must NOT use confidential information for personal advantage. Obligation continues after leaving the organization.</p><div class="nb nw"><b>Key exam trap</b>Confidentiality does NOT mean concealing unethical or illegal activity. If internal channels fail to resolve an illegal situation, external reporting may be ethically required. Confidentiality and integrity can tension — integrity wins when law is being broken.</div>`,
 
-<h4>Relevant Cost Principles</h4>
-<p>Only <strong>future, differential, avoidable</strong> costs are relevant. Sunk costs and unavoidable fixed costs are ALWAYS irrelevant.</p>
-<div class="formula">Incremental Analysis: Compare only the costs/revenues that DIFFER between alternatives</div>
+"p2-5-3":`<h4>Integrity &amp; Conflict of Interest</h4><p><strong>Conflict of interest:</strong> When personal interests conflict with professional duties — creating risk that judgment will be compromised.</p><h4>Resolution Steps</h4><ol><li><strong>Best solution: Avoid the conflict</strong> — recuse yourself from the decision entirely</li><li>If unavoidable: disclose fully and transparently to all affected parties</li><li>Obtain approval from the audit committee, board, or appropriate oversight body</li></ol><div class="nb ne"><b>IMA guidance</b>Even the APPEARANCE of a conflict undermines credibility. Proactive disclosure is always better than reactive explanation after the fact. Gifts, gratuities, or entertainment that could influence decisions must be refused.</div>`,
 
-<h4>Make-or-Buy Decision</h4>
-<div class="formula">Make cost = DM + DL + Variable OH + Avoidable Fixed OH
-Buy cost = Purchase price + any incremental costs
-Choose whichever is lower — also consider qualitative factors (quality, supply security)</div>
+"p2-5-4":`<h4>Credibility &amp; Reporting Responsibilities</h4><p>Must communicate information fairly and objectively — including when it is unfavorable to management or contradicts the preferred narrative.</p><ul><li>Disclose all relevant information that reasonable users would expect to receive</li><li>Do NOT suppress material information even under management pressure</li><li>Communicate uncertainties, assumptions, and limitations of analysis clearly</li><li>Disclose delays or deficiencies in internal controls per organizational policy</li></ul><div class="nb nw"><b>Pressure scenario</b>If pressured to falsify reports or omit material facts: escalate internally → ethics hotline → legal counsel → resign as last resort. Always document the situation.</div>`,
 
-<h4>Pricing Decisions</h4>
-<table><tr><th>Method</th><th>Formula</th></tr>
-<tr><td>Cost-plus</td><td>Price = Cost × (1 + markup%)</td></tr>
-<tr><td>Target costing</td><td>Target Cost = Market Price − Desired Profit</td></tr>
-<tr><td>Variable cost pricing</td><td>Price ≥ Variable Cost (short-run floor)</td></tr>
-<tr><td>Transfer pricing</td><td>Min price = Variable Cost + Opportunity Cost</td></tr></table>
+"p2-5-5":`<h4>Fraud Triangle &amp; Types of Business Fraud</h4><table><tr><th>Element</th><th>Description</th><th>Examples</th></tr><tr><td>Incentive / Pressure</td><td>Motivation to commit fraud</td><td>Personal debt, earnings targets, bonus pressure, fear of job loss</td></tr><tr><td>Opportunity</td><td>Ability to commit and conceal</td><td>Weak controls, ability to override systems, lack of supervision</td></tr><tr><td>Rationalization</td><td>Mental justification for the act</td><td>"I'll pay it back," "I deserve it," "No one gets hurt," "Everyone does it"</td></tr></table><h4>Types of Business Fraud</h4><ul><li><strong>Financial statement fraud:</strong> Misstating financials — most costly per incident; perpetrated by management</li><li><strong>Asset misappropriation:</strong> Theft of cash or assets — most FREQUENT (~86% of cases per ACFE)</li><li><strong>Corruption:</strong> Bribery, kickbacks, conflicts of interest</li></ul><div class="nb ne"><b>Prevention</b>Eliminate opportunity (strongest control), reduce pressure (fair compensation), communicate ethical culture to undermine rationalization.</div>`,
 
-<h4>Product Mix — Theory of Constraints</h4>
-<div class="formula">When one resource is constrained:
-Rank products by CM per unit of scarce resource
-Allocate constrained resource to highest CM/unit first</div>
+"p2-5-6":`<h4>Whistleblowing &amp; Escalation Process</h4><h4>IMA's Resolution Steps</h4><ol><li>Discuss with immediate supervisor (unless they are implicated)</li><li>If unresolved, escalate to next management level (CFO, CEO, audit committee)</li><li>Use organization's confidential ethics hotline or ombudsperson</li><li>Consult IMA's published ethical guidance and own attorney re: legal obligations</li><li>If illegal activity and internal channels exhausted → consider reporting to regulatory authorities</li><li>Last resort: resign and document the situation thoroughly</li></ol><div class="nb nw"><b>Critical rule</b>Do NOT discuss the situation outside the organization except when legally required. Confidentiality must be maintained during escalation.</div><p><strong>Dodd-Frank/SEC Whistleblower:</strong> Financial rewards (10–30% of sanctions over $1M) and strong anti-retaliation protections for reporting securities violations directly to the SEC.</p>`,
 
-<h4>Decision Trees &amp; Expected Value</h4>
-<div class="formula">Expected Value = Σ (Probability × Outcome)
-Choose alternative with highest expected value (or lowest expected cost)</div>
-</div>`,
+"p2-5-7":`<h4>Corporate Governance &amp; Ethical Leadership</h4><p><strong>Tone at the top</strong> — the most powerful determinant of an organization's ethical culture. Leaders who model ethical behavior create psychological safety for employees to raise concerns without fear of retaliation.</p><h4>Characteristics of Ethical Culture</h4><ul><li>Clear code of conduct, regularly reinforced</li><li>Mandatory ethics training for all staff</li><li>Anonymous reporting hotline with no-retaliation guarantee</li><li>Regular ethics audits and culture surveys</li><li>Executive compensation NOT tied solely to short-term financial results</li></ul><div class="nb ne"><b>CMA responsibility</b>CMAs support ethical governance: providing accurate financial information, flagging internal control weaknesses, maintaining professional standards even under business pressure, and refusing to participate in misleading reporting.</div>`,
 
-  'p2-3': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>10% of Part 2 (~50 marks)</strong>. Covers identification, measurement, and mitigation of business risks.</p>
-
-<h4>ERM Framework (COSO)</h4>
-<p>Enterprise Risk Management aligns risk appetite with strategy. Eight components: Internal Environment · Objective Setting · Event Identification · Risk Assessment · Risk Response · Control Activities · Information &amp; Communication · Monitoring.</p>
-
-<h4>Risk Response Strategies</h4>
-<table><tr><th>Response</th><th>Description</th></tr>
-<tr><td>Avoid</td><td>Exit the activity (eliminate risk)</td></tr>
-<tr><td>Reduce/Mitigate</td><td>Controls to lower probability or impact</td></tr>
-<tr><td>Share/Transfer</td><td>Insurance, outsourcing, hedging</td></tr>
-<tr><td>Accept</td><td>Bear the risk (within risk appetite)</td></tr></table>
-
-<h4>Hedging Instruments</h4>
-<table><tr><th>Instrument</th><th>Description</th></tr>
-<tr><td>Forward contract</td><td>OTC; locked-in price for future delivery; no exchange</td></tr>
-<tr><td>Futures contract</td><td>Exchange-traded; standardized; marked-to-market daily</td></tr>
-<tr><td>Options</td><td>Right (not obligation) to buy (call) or sell (put) at strike price</td></tr>
-<tr><td>Swaps</td><td>Exchange cash flows (interest rate swap: fixed ↔ floating)</td></tr></table>
-<div class="ibox ibox-tip"><b>Hedging Example</b>Indian exporter receiving USD in 3 months fears USD weakening → enters forward contract to sell USD at today's rate → locks in INR amount regardless of FX movement.</div>
-</div>`,
-
-  'p2-4': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>10% of Part 2 (~50 marks)</strong>. Covers capital budgeting under uncertainty and project evaluation.</p>
-
-<h4>Capital Budgeting Under Uncertainty</h4>
-<ul><li><strong>Sensitivity analysis:</strong> Change one variable (sales price, volume, cost) — identify which has greatest impact on NPV</li><li><strong>Scenario analysis:</strong> Best/base/worst case with multiple variable changes</li><li><strong>Monte Carlo simulation:</strong> Probabilistic; models thousands of random scenarios</li><li><strong>Risk-adjusted discount rate:</strong> Use higher WACC for riskier projects</li></ul>
-
-<h4>Real Options</h4>
-<p>Strategic flexibility embedded in investment decisions. Types:</p>
-<ul><li><strong>Option to expand</strong> — invest more if project succeeds</li><li><strong>Option to abandon</strong> — exit if project fails</li><li><strong>Option to delay</strong> — wait for better information</li><li><strong>Option to switch</strong> — change inputs or outputs</li></ul>
-<p>Real options add value beyond standard NPV — especially in volatile, uncertain environments.</p>
-
-<h4>Post-Audit of Capital Investments</h4>
-<p>Compare actual cash flows to projections. Benefits: improve future estimates, hold managers accountable, identify underperforming assets for divestiture. Risk: managers may bias estimates to avoid unfavorable audits.</p>
-
-<h4>Lease vs Buy</h4>
-<div class="formula">NAL (Net Advantage to Leasing) = PV of Lease Payments (after-tax) vs. Cost of Owning
-If NAL > 0 → lease preferred
-Consider: tax benefits, maintenance responsibility, flexibility, balance sheet impact</div>
-</div>`,
-
-  'p2-5': `<div class="inote">
-<h4>Overview &amp; Exam Weight</h4>
-<p><strong>15% of Part 2 (~75 marks)</strong>. Covers IMA's ethical standards and their application in practice.</p>
-
-<h4>IMA Statement of Ethical Professional Practice</h4>
-<p>Four core principles (overarching):</p>
-<ul><li><strong>Honesty</strong> — truthful in all communications</li><li><strong>Fairness</strong> — impartial, unbiased judgment</li><li><strong>Objectivity</strong> — communicate information fairly</li><li><strong>Responsibility</strong> — act in accordance with standards</li></ul>
-<p>Four standards (specific obligations):</p>
-<table><tr><th>Standard</th><th>Key Requirements</th></tr>
-<tr><td>Competence</td><td>Maintain skills, perform duties professionally, provide accurate information</td></tr>
-<tr><td>Confidentiality</td><td>Don't disclose confidential info except legally obligated; don't use info for personal gain</td></tr>
-<tr><td>Integrity</td><td>Avoid conflicts of interest; refuse gifts that influence decisions; communicate unfavorable news</td></tr>
-<tr><td>Credibility</td><td>Report information fairly, disclose limitations; don't suppress material information</td></tr></table>
-
-<h4>Conflict of Interest</h4>
-<p>When personal interests conflict with professional duties. <strong>Best solution: Avoid the conflict</strong> — recuse yourself from the decision. If unavoidable: disclose fully and transparently.</p>
-<div class="ibox ibox-tip"><b>Real Example</b>A CFO approving a loan to a company where their spouse holds equity = clear conflict of interest. Should recuse from that decision entirely.</div>
-
-<h4>Whistleblowing &amp; Escalation</h4>
-<p>When ethical issue identified: (1) Discuss with immediate supervisor. (2) If unresolved, escalate to next level. (3) Use confidential ethics hotline if internal channels fail. (4) If illegal activity, may need to notify regulatory authorities. Do NOT discuss outside the organization unless legally required.</p>
-
-<h4>IMA's Resolution Process</h4>
-<ol><li>Consult IMA's published guidance</li><li>Consult your own attorney</li><li>Escalate within organization per ethics policy</li><li>If still unresolved, resign and submit confidential report to IMA Ethics Hotline</li></ol>
-</div>`
+"p2-5-8":`<h4>Global Ethics &amp; ESG Considerations</h4><table><tr><th>Framework</th><th>Key Focus</th></tr><tr><td>IMA Statement</td><td>Competence, confidentiality, integrity, credibility</td></tr><tr><td>IFAC Code of Ethics</td><td>Integrity, objectivity, professional competence, confidentiality, professional behavior</td></tr><tr><td>UN Global Compact</td><td>Human rights, labour standards, environmental protection, anti-corruption</td></tr><tr><td>OECD Guidelines</td><td>Corporate governance, anti-bribery, responsible business conduct, tax transparency</td></tr></table><h4>ESG in Management Accounting (2025)</h4><ul><li><strong>ISSB IFRS S1:</strong> General requirements for sustainability-related financial disclosures</li><li><strong>ISSB IFRS S2:</strong> Climate-related disclosures (effective January 2024)</li><li>CMAs involved in: carbon accounting, sustainability KPIs, integrated reporting, ESG assurance, supply chain ethics</li></ul><div class="nb nu"><b>Exam trend</b>ESG governance increasingly tested in Professional Ethics section. Know the difference between GRI (stakeholder-focused) and ISSB (investor-focused) frameworks.</div>`
 };
-
-/* ── MINDMAP DATA ── */
-var DATA = {
-  p1:{label:'Part 1',cls:'p1',fillCls:'p1-fill',name:'Financial planning, performance & analytics',icon:'📊',
-    topics:[
-      {n:'External financial reporting',wt:15,subs:['Balance sheet, income stmt, cash flow','Revenue recognition (ASC 606)','Lease accounting (ASC 842)','Inventory valuation methods','Financial instruments & hedging']},
-      {n:'Planning, budgeting & forecasting',wt:20,subs:['Strategic planning process','Master budget components','Flexible vs static budgets','Rolling forecasts','Sensitivity & scenario analysis']},
-      {n:'Performance management',wt:20,subs:['CVP & breakeven analysis','Variance analysis (price, volume, mix)','Responsibility accounting','Balanced scorecard','KPIs & non-financial measures']},
-      {n:'Cost management',wt:15,subs:['Job order vs process costing','Activity-based costing (ABC)','Standard costing & variances','JIT & lean manufacturing','Quality cost analysis']},
-      {n:'Internal controls',wt:15,subs:['COSO framework','Control environment & risk assessment','Segregation of duties','IT general & application controls','Sarbanes-Oxley compliance']},
-      {n:'Technology & analytics',wt:15,subs:['Data governance & integrity','Business intelligence & dashboards','ERP systems & automation','Robotic process automation','Blockchain & emerging tech']}
-    ]
-  },
-  p2:{label:'Part 2',cls:'p2',fillCls:'p2-fill',name:'Strategic financial management',icon:'📈',
-    topics:[
-      {n:'Financial statement analysis',wt:20,subs:['Ratio analysis (liquidity, solvency, profitability)','DuPont decomposition','Common-size statements','Earnings quality & red flags','Cross-company & trend analysis']},
-      {n:'Corporate finance',wt:20,subs:['Capital structure (D/E tradeoff)','WACC calculation','Capital budgeting (NPV, IRR, payback)','Dividend policy','Working capital management']},
-      {n:'Decision analysis',wt:25,subs:['Relevant costs & incremental analysis','Make-or-buy & outsourcing','Pricing decisions (cost-plus, target)','Product mix under constraints','Decision trees & expected value']},
-      {n:'Risk management',wt:10,subs:['Enterprise risk management (ERM)','Hedging (forwards, futures, options)','FX & interest rate risk','Operational risk','Insurance & risk transfer']},
-      {n:'Investment decisions',wt:10,subs:['Capital budgeting under uncertainty','Real options analysis','Post-audit of investments','International capital budgeting','Lease vs buy analysis']},
-      {n:'Professional ethics',wt:15,subs:['IMA Statement of Ethical Practice','Confidentiality & integrity','Conflict of interest','Whistleblowing & reporting','Global ethics standards']}
-    ]
-  }
-};
-
-var mmFilter_active='all', activeTopic=null, activeTab='study', cache={};
-
-function mmFilter(f,btn){
-  mmFilter_active=f;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  activeTopic=null;
-  document.getElementById('mm-detail').classList.remove('show');
-  renderMM();
-}
-
-function renderMM(){
-  var grid=document.getElementById('mm-grid');
-  grid.innerHTML='';
-  var keys=mmFilter_active==='all'?['p1','p2']:mmFilter_active==='p1'?['p1']:['p2'];
-  grid.style.gridTemplateColumns=keys.length===1?'minmax(300px,520px)':'repeat(auto-fit,minmax(300px,1fr))';
-  grid.style.justifyContent=keys.length===1?'center':'';
+var mfa='all',at=null,asi=null,atab='study',cache={};
+function mmf(f,btn){mfa=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');at=null;asi=null;document.getElementById('det').classList.remove('show');render();}
+function render(){
+  var g=document.getElementById('grid');g.innerHTML='';
+  var keys=mfa==='all'?['p1','p2']:mfa==='p1'?['p1']:['p2'];
+  g.style.gridTemplateColumns=keys.length===1?'minmax(300px,520px)':'repeat(auto-fit,minmax(300px,1fr))';
+  g.style.justifyContent=keys.length===1?'center':'';
   keys.forEach(function(pk){
-    var p=DATA[pk];
-    var card=document.createElement('div');
-    card.className='part-card '+p.cls;
-    card.id='card-'+pk;
-    card.innerHTML=
-      '<div class="part-header" onclick="toggleCard(\''+pk+'\')">' +
-        '<div class="part-icon">'+p.icon+'</div>' +
-        '<div class="part-info"><div class="part-label">'+p.label+'</div><div class="part-name">'+p.name+'</div></div>' +
-        '<span class="part-chevron">›</span>' +
-      '</div>' +
-      '<div class="topics-body">' +
-        p.topics.map(function(t,i){
-          return '<div class="topic-row" id="tr-'+pk+'-'+i+'" onclick="selectTopic(\''+pk+'\','+i+')">' +
-            '<div class="topic-top"><span class="topic-name">'+t.n+'</span><span class="topic-wt">'+t.wt+'%</span></div>' +
-            '<div class="wt-track"><div class="wt-fill '+p.fillCls+'" style="width:'+t.wt+'%"></div></div>' +
-          '</div>';
-        }).join('')+
-      '</div>';
-    grid.appendChild(card);
+    var p=DATA[pk],c=document.createElement('div');
+    c.className='pc '+p.cls;c.id='pc-'+pk;
+    c.innerHTML='<div class="ph" onclick="tog(\''+pk+'\')">' +
+      '<div class="pi">'+p.icon+'</div>' +
+      '<div class="pinfo"><div class="plabel">'+p.label+' · Section '+p.topics.map(function(t){return t.los;}).join('/')+'</div>' +
+      '<div class="pname">'+p.name+'</div></div>' +
+      '<span class="pchev">&#8250;</span></div>' +
+      '<div class="tb">'+p.topics.map(function(t,i){
+        return '<div class="tr" id="tr-'+pk+'-'+i+'" onclick="sel(\''+pk+'\','+i+')">' +
+          '<div class="ttop"><span class="tnl">'+t.n+'</span><span class="twt">'+t.wt+'%</span></div>' +
+          '<div class="wt-bar"><div class="wf '+p.ff+'" style="width:'+t.wt+'%"></div></div></div>';
+      }).join('')+'</div>';
+    g.appendChild(c);
   });
 }
-
-function toggleCard(pk){
-  var card=document.getElementById('card-'+pk);
-  var wasOpen=card.classList.contains('open');
-  document.querySelectorAll('.part-card').forEach(c=>c.classList.remove('open'));
-  if(!wasOpen) card.classList.add('open');
-  activeTopic=null;
-  document.getElementById('mm-detail').classList.remove('show');
+function tog(pk){
+  var c=document.getElementById('pc-'+pk),was=c.classList.contains('open');
+  document.querySelectorAll('.pc').forEach(x=>x.classList.remove('open'));
+  if(!was)c.classList.add('open');
+  at=null;asi=null;document.getElementById('det').classList.remove('show');
 }
-
-function selectTopic(pk,i){
-  activeTopic={pk:pk,i:i};
-  var card=document.getElementById('card-'+pk);
-  if(!card.classList.contains('open')){
-    document.querySelectorAll('.part-card').forEach(c=>c.classList.remove('open'));
-    card.classList.add('open');
-  }
-  document.querySelectorAll('.topic-row').forEach(r=>r.classList.remove('active'));
-  var row=document.getElementById('tr-'+pk+'-'+i);
-  if(row) row.classList.add('active');
+function sel(pk,i){
+  at={pk:pk,i:i};asi=null;
+  var c=document.getElementById('pc-'+pk);
+  if(!c.classList.contains('open')){document.querySelectorAll('.pc').forEach(x=>x.classList.remove('open'));c.classList.add('open');}
+  document.querySelectorAll('.tr').forEach(r=>r.classList.remove('active'));
+  var row=document.getElementById('tr-'+pk+'-'+i);if(row)row.classList.add('active');
   var p=DATA[pk],t=p.topics[i];
-  var det=document.getElementById('mm-detail');
-  det.className='detail-panel show '+(pk==='p1'?'p1-panel':'p2-panel');
-  document.getElementById('d-badge').textContent=p.label+' · '+t.wt+'% of exam';
-  document.getElementById('d-title').textContent=t.n;
-  document.getElementById('d-subs').innerHTML=t.subs.map(s=>'<div class="sub-chip">'+s+'</div>').join('');
-  /* reset to study strategy tab */
-  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-study').classList.add('active');
-  activeTab='study';
-  callAI('study', pk+'-'+i+'-study');
+  var det=document.getElementById('det');
+  det.className='det show '+(pk==='p1'?'p1-panel':'p2-panel');
+  document.getElementById('dbadge').textContent=p.label+' · Section '+t.los+' · '+t.wt+'% of exam';
+  document.getElementById('dtitle').textContent=t.n;
+  var ch='';
+  t.subs.forEach(function(s,si){ch+='<div class="chip" id="chip-'+pk+'-'+i+'-'+si+'" onclick="openChip(\''+pk+'\','+i+','+si+')">'+s+'</div>';});
+  document.getElementById('dchips').innerHTML=ch;
+  closeSnp(true);
+  document.querySelectorAll('.at').forEach(b=>b.classList.remove('active'));
+  document.getElementById('at-study').classList.add('active');
+  atab='study';callAI('study',pk+'-'+i+'-study');
   det.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-
-function switchTab(tab,btn){
-  if(!activeTopic) return;
-  activeTab=tab;
-  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-
-  /* Notes tab — serve inline, no API */
-  if(tab==='notes'){
-    var key=activeTopic.pk+'-'+activeTopic.i;
-    var html=NOTES[key];
-    if(html){
-      document.getElementById('ai-box').innerHTML=html;
-    } else {
-      document.getElementById('ai-box').innerHTML='<div class="inote"><p style="color:var(--muted);font-size:13px">Detailed notes for this topic are coming soon.</p></div>';
-    }
-    return;
-  }
-
-  var cacheKey=activeTopic.pk+'-'+activeTopic.i+'-'+tab;
-  if(cache[cacheKey]){
-    document.getElementById('ai-box').innerHTML='<div class="ai-content">'+cache[cacheKey]+'</div>';
-    return;
-  }
-  callAI(tab,cacheKey);
+function openChip(pk,ti,si){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('ac'));
+  if(asi===si){asi=null;closeSnp(true);return;}
+  asi=si;
+  document.getElementById('chip-'+pk+'-'+ti+'-'+si).classList.add('ac');
+  var key=pk+'-'+ti+'-'+si;
+  var html=N[key]||'<p style="color:var(--muted)">Notes coming soon for this sub-topic.</p>';
+  document.getElementById('snp-lbl').textContent=DATA[pk].topics[ti].subs[si];
+  document.getElementById('snp-body').innerHTML=html;
+  var snp=document.getElementById('snp');
+  snp.style.display='block';snp.classList.add('show');
+  setTimeout(function(){snp.scrollIntoView({behavior:'smooth',block:'nearest'});},50);
 }
-
-async function callAI(tab,cacheKey){
-  var p=DATA[activeTopic.pk],t=p.topics[activeTopic.i];
-  var prompts={
-    study:'You are a CMA exam coach. For the CMA '+p.label+' topic "'+t.n+'" ('+t.wt+'% of exam), give a concise study strategy in 5-6 bullet points. Cover: what to prioritise, common pitfalls, how to approach practice questions. Be specific and practical. Use • for bullets.',
-    practice:'You are a CMA exam question writer. Write 3 exam-style multiple-choice questions for CMA '+p.label+' topic "'+t.n+'". For each: write the question, 4 options (A-D), mark the correct answer, and give a 1-sentence explanation. Format clearly.',
-    resources:'You are a CMA exam advisor. For CMA '+p.label+' topic "'+t.n+'", recommend the best study resources. Include: top prep providers (Gleim, Wiley, Hock, Surgent), specific chapters to focus on, free online resources, and estimated study hours. Be concise and specific.'
+function closeSnp(silent){
+  asi=null;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('ac'));
+  var snp=document.getElementById('snp');snp.classList.remove('show');snp.style.display='none';
+}
+function swt(tab,btn){
+  if(!at)return;atab=tab;
+  document.querySelectorAll('.at').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  var ck=at.pk+'-'+at.i+'-'+tab;
+  if(cache[ck]){document.getElementById('aib').innerHTML='<div class="aic">'+cache[ck]+'</div>';return;}
+  callAI(tab,ck);
+}
+async function callAI(tab,ck){
+  var p=DATA[at.pk],t=p.topics[at.i];
+  var pm={
+    study:'You are a CMA exam coach. For CMA '+p.label+' Section '+t.los+' "'+t.n+'" ('+t.wt+'% of exam, 2024 LOS), give a concise study strategy in 5-6 bullet points: what LOS sub-sections to prioritise, common pitfalls, MCQ and essay exam tips. Use bullet points.',
+    practice:'You are a CMA exam question writer. Write 3 exam-style MCQs for CMA '+p.label+' "'+t.n+'" (2024 LOS). For each: question stem, 4 options A-D, correct answer marked, 1-sentence explanation.',
+    resources:'You are a CMA exam advisor. For CMA '+p.label+' "'+t.n+'", recommend: specific chapters in Gleim/Wiley/Hock/Surgent, free IMA resources, estimated study hours, and top 2-3 highest-priority practice areas.'
   };
-  var box=document.getElementById('ai-box');
-  box.innerHTML='<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div><span>Generating…</span></div>';
+  var box=document.getElementById('aib');
+  box.innerHTML='<div class="ail"><div class="dots"><span></span><span></span><span></span></div><span>Generating\u2026</span></div>';
   try{
-    var res=await fetch('https://api.anthropic.com/v1/messages',{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompts[tab]}]})
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:pm[tab]}]})
     });
-    var data=await res.json();
-    var text=(data.content&&data.content[0]&&data.content[0].text)||'No response received.';
-    text=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
-    cache[cacheKey]=text;
-    box.innerHTML='<div class="ai-content">'+text+'</div>';
-  }catch(e){
-    box.innerHTML='<div style="font-size:12px;color:#c0392b">Error loading content. Please try again.</div>';
-  }
+    var d=await r.json();
+    var txt=(d.content&&d.content[0]&&d.content[0].text)||'No response.';
+    txt=txt.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    cache[ck]=txt;box.innerHTML='<div class="aic">'+txt+'</div>';
+  }catch(e){box.innerHTML='<div style="font-size:12px;color:#c0392b">Error loading content. Please retry.</div>';}
 }
-
-renderMM();
-</script>
-</body>
-</html>
+render();
+</script></body></html>
