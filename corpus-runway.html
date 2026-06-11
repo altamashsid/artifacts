@@ -5,242 +5,176 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Corpus Runway Calculator</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #f9f8f6;
-    --surface: #ffffff;
-    --border: #e4e2dd;
-    --border-strong: #c8c5be;
-    --text: #1a1916;
-    --muted: #7a776f;
-    --hint: #b0ada6;
-    --accent: #2d6a4f;
-    --accent-bg: #eaf4ee;
-    --warn: #b5410b;
-    --warn-bg: #fdf0ea;
-    --tag-blue: #1a4e7a;
-    --tag-blue-bg: #e8f1f9;
-    --tag-purple: #4a2d8a;
-    --tag-purple-bg: #f0ecfb;
-    --tag-amber: #7a4a0a;
-    --tag-amber-bg: #fdf3e3;
-    --radius: 10px;
-    --radius-sm: 6px;
-  }
-
-  body {
-    background: var(--bg);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 14px;
-    color: var(--text);
-    line-height: 1.5;
-    min-height: 100vh;
-    padding: 2rem 1rem 4rem;
-  }
-
-  .page { max-width: 720px; margin: 0 auto; }
-
-  header { margin-bottom: 2rem; }
-  header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
-  header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    color: var(--hint);
-    margin-bottom: .6rem;
-  }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip {
-    padding: 5px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border-strong);
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    background: transparent;
-    color: var(--muted);
-    transition: all .15s;
-    line-height: 1.5;
-  }
-  .chip:hover { border-color: var(--text); color: var(--text); }
-  .chip.on { background: var(--text); color: var(--bg); border-color: var(--text); }
-
-  .custom-input {
-    margin-top: 10px;
-    display: none;
-  }
-  .custom-input input {
-    width: 100%;
-    max-width: 240px;
-    padding: 7px 12px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-  }
-  .custom-input input:focus { border-color: var(--text); }
-  .custom-input label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
-
-  .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
-  @media(max-width:560px) { .controls-grid { grid-template-columns: 1fr; } }
-
-  .summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 1.25rem 0 1rem; }
-  .sm {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    text-align: center;
-  }
-  .sm .v { font-size: 21px; font-weight: 600; letter-spacing: -0.5px; }
-  .sm .v.green { color: var(--accent); }
-  .sm .k { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-  .list { display: flex; flex-direction: column; gap: 6px; }
-
-  .item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 11px 14px;
-    display: grid;
-    grid-template-columns: 28px 1fr auto;
-    gap: 10px;
-    align-items: center;
-    transition: border-color .15s;
-  }
-  .item.sus { border-color: #a8d5b8; background: #fafdfb; }
-  .item:hover { border-color: var(--border-strong); }
-
-  .rk { font-size: 12px; color: var(--hint); text-align: center; font-weight: 500; }
-
-  .dd .title { font-size: 13px; font-weight: 500; color: var(--text); }
-  .dd .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .dd .tag {
-    display: inline-block;
-    margin-top: 5px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .04em;
-  }
-  .tag-green { background: var(--accent-bg); color: var(--accent); }
-  .tag-blue { background: var(--tag-blue-bg); color: var(--tag-blue); }
-  .tag-purple { background: var(--tag-purple-bg); color: var(--tag-purple); }
-  .tag-amber { background: var(--tag-amber-bg); color: var(--tag-amber); }
-  .tag-warn { background: var(--warn-bg); color: var(--warn); }
-
-  .bar-track { height: 3px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 2px; }
-
-  .rv { text-align: right; white-space: nowrap; }
-  .ry { font-size: 15px; font-weight: 600; }
-  .ry.g { color: var(--accent); }
-  .rw { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-  .phase-hint {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 6px;
-    padding: 6px 10px;
-    background: var(--bg);
-    border-radius: var(--radius-sm);
-    border-left: 3px solid var(--border-strong);
-  }
-
-  footer { margin-top: 2rem; text-align: center; font-size: 11px; color: var(--hint); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f8f6;--surface:#fff;--border:#e4e2dd;--border-strong:#c8c5be;
+  --text:#1a1916;--muted:#7a776f;--hint:#b0ada6;
+  --accent:#2d6a4f;--accent-bg:#eaf4ee;
+  --warn:#b5410b;--warn-bg:#fdf0ea;
+  --blue:#1a4e7a;--blue-bg:#e8f1f9;
+  --purple:#4a2d8a;--purple-bg:#f0ecfb;
+  --amber:#7a4a0a;--amber-bg:#fdf3e3;
+  --r:10px;--rs:6px;
+}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:var(--text);line-height:1.5;padding:1.5rem 1rem 4rem}
+.page{max-width:740px;margin:0 auto}
+h1{font-size:21px;font-weight:600;letter-spacing:-.3px}
+header p{color:var(--muted);font-size:13px;margin-top:3px;margin-bottom:1.5rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.4rem;margin-bottom:.75rem}
+.slbl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--hint);margin-bottom:.5rem}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{padding:4px 12px;border-radius:20px;border:1px solid var(--border-strong);font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:var(--muted);transition:all .12s;line-height:1.6}
+.chip:hover{border-color:var(--text);color:var(--text)}
+.chip.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.chip.on-accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip.on-warn{background:var(--warn);color:#fff;border-color:var(--warn)}
+.cinp{margin-top:8px;display:none}
+.cinp label{font-size:11px;color:var(--muted);display:block;margin-bottom:4px}
+.cinp input{padding:6px 10px;border:1px solid var(--border-strong);border-radius:var(--rs);font-size:13px;background:var(--bg);color:var(--text);outline:none;width:200px}
+.cinp input:focus{border-color:var(--text)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+@media(max-width:560px){.cgrid{grid-template-columns:1fr}}
+.mode-bar{display:flex;gap:0;margin-bottom:1rem;border:1px solid var(--border-strong);border-radius:var(--rs);overflow:hidden;width:fit-content}
+.mchip{padding:6px 18px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:var(--muted);border:none;transition:all .12s}
+.mchip.on{background:var(--text);color:var(--bg)}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:1rem 0}
+.sm{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:9px 12px;text-align:center}
+.sm .v{font-size:18px;font-weight:600;letter-spacing:-.4px}
+.sm .v.g{color:var(--accent)}
+.sm .k{font-size:10px;color:var(--muted);margin-top:1px}
+.list{display:flex;flex-direction:column;gap:5px}
+.item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 13px;cursor:pointer;transition:border-color .12s}
+.item.sus{border-color:#a8d5b8;background:#fafdfb}
+.item:hover{border-color:var(--border-strong)}
+.item.open{border-color:var(--border-strong)}
+.irow{display:grid;grid-template-columns:24px 1fr auto;gap:9px;align-items:center}
+.rk{font-size:11px;color:var(--hint);text-align:center;font-weight:500}
+.dd .ttl{font-size:13px;font-weight:500}
+.dd .sub{font-size:11px;color:var(--muted);margin-top:1px}
+.tag{display:inline-block;margin-top:4px;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.03em}
+.tag-green{background:var(--accent-bg);color:var(--accent)}
+.tag-blue{background:var(--blue-bg);color:var(--blue)}
+.tag-purple{background:var(--purple-bg);color:var(--purple)}
+.tag-amber{background:var(--amber-bg);color:var(--amber)}
+.tag-warn{background:var(--warn-bg);color:var(--warn)}
+.btrack{height:3px;background:var(--border);border-radius:2px;margin-top:5px;overflow:hidden}
+.bfill{height:100%;border-radius:2px}
+.rv{text-align:right;white-space:nowrap}
+.ry{font-size:15px;font-weight:600}
+.ry.g{color:var(--accent)}
+.rw{font-size:11px;color:var(--muted);margin-top:1px}
+.rw.dyn{color:var(--accent)}
+.detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.item.open .detail{display:block}
+.dtabs{display:flex;gap:0;border:1px solid var(--border);border-radius:var(--rs);overflow:hidden;width:fit-content;margin-bottom:10px}
+.dtab{padding:4px 14px;font-size:11px;font-weight:500;cursor:pointer;background:transparent;color:var(--muted);border:none}
+.dtab.on{background:var(--text);color:var(--bg)}
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{color:var(--hint);font-weight:500;text-align:right;padding:4px 6px;border-bottom:1px solid var(--border)}
+.tbl th:first-child{text-align:left}
+.tbl td{padding:4px 6px;text-align:right;color:var(--muted);border-bottom:1px solid var(--border)}
+.tbl td:first-child{text-align:left;color:var(--text);font-weight:500}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td.pos{color:var(--accent)}
+.tbl td.neg{color:var(--warn)}
+.sparkwrap{width:100%;height:60px;margin-bottom:8px}
+.note{font-size:11px;color:var(--muted);margin-top:6px;padding:6px 10px;background:var(--bg);border-radius:var(--rs);border-left:2px solid var(--border-strong)}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:4px}
+.ldot{width:8px;height:8px;border-radius:50%}
+footer{margin-top:2rem;text-align:center;font-size:11px;color:var(--hint)}
 </style>
 </head>
 <body>
 <div class="page">
+<header>
+  <h1>Corpus runway calculator</h1>
+  <p>How long does your capital last — monthly vs annual withdrawal, with corpus growth tracking.</p>
+</header>
 
-  <header>
-    <h1>Corpus runway calculator</h1>
-    <p>How long does your capital last under different withdrawal styles and growth rates?</p>
-  </header>
-
-  <div class="card">
-    <div class="controls-grid">
-      <div>
-        <div class="section-label">Corpus</div>
-        <div class="chips" id="cC">
-          <button class="chip" data-v="1000000">₹10L</button>
-          <button class="chip" data-v="1628000">₹16.28L</button>
-          <button class="chip" data-v="2128000">₹21.28L</button>
-          <button class="chip on" data-v="4500000">₹45L</button>
-          <button class="chip" data-v="c">Custom</button>
-        </div>
-        <div class="custom-input" id="cI">
-          <label>Amount in ₹</label>
-          <input type="number" id="cV" placeholder="e.g. 3000000" value="4500000">
-        </div>
+<div class="card">
+  <div class="cgrid">
+    <div>
+      <div class="slbl">Corpus</div>
+      <div class="chips" id="cC">
+        <button class="chip" data-v="1000000">₹10L</button>
+        <button class="chip" data-v="1628000">₹16.28L</button>
+        <button class="chip" data-v="2128000">₹21.28L</button>
+        <button class="chip on" data-v="4500000">₹45L</button>
+        <button class="chip" data-v="c">Custom</button>
       </div>
-      <div>
-        <div class="section-label">CAGR</div>
-        <div class="chips" id="gC">
-          <button class="chip" data-v="0">0%</button>
-          <button class="chip" data-v="8">8% FD</button>
-          <button class="chip on" data-v="12">12%</button>
-          <button class="chip" data-v="20">20%</button>
-          <button class="chip" data-v="25">25%</button>
-          <button class="chip" data-v="30">30%</button>
-          <button class="chip" data-v="50">50%</button>
-          <button class="chip" data-v="70">70%</button>
-          <button class="chip" data-v="100">100%</button>
-        </div>
+      <div class="cinp" id="cI"><label>Amount in ₹</label><input type="number" id="cV" value="4500000"></div>
+    </div>
+    <div>
+      <div class="slbl">CAGR</div>
+      <div class="chips" id="gC">
+        <button class="chip" data-v="0">0%</button>
+        <button class="chip" data-v="8">8% FD</button>
+        <button class="chip on" data-v="12">12%</button>
+        <button class="chip" data-v="20">20%</button>
+        <button class="chip" data-v="25">25%</button>
+        <button class="chip" data-v="30">30%</button>
+        <button class="chip" data-v="50">50%</button>
+        <button class="chip" data-v="70">70%</button>
+        <button class="chip" data-v="100">100%</button>
+        <button class="chip" data-v="c">Custom</button>
       </div>
-      <div>
-        <div class="section-label">Monthly expense</div>
-        <div class="chips" id="eC">
-          <button class="chip on" data-v="60000">₹60k</button>
-          <button class="chip" data-v="90000">₹90k</button>
-          <button class="chip" data-v="40000">₹40k</button>
-          <button class="chip" data-v="70000">₹70k</button>
-          <button class="chip" data-v="c">Custom</button>
-        </div>
-        <div class="custom-input" id="eI">
-          <label>Monthly amount in ₹</label>
-          <input type="number" id="eV" placeholder="e.g. 50000" value="60000">
-        </div>
+      <div class="cinp" id="gI"><label>Custom CAGR (%)</label><input type="number" id="gV" value="12" min="0" max="500"></div>
+    </div>
+    <div>
+      <div class="slbl">Monthly expense</div>
+      <div class="chips" id="eC">
+        <button class="chip on" data-v="60000">₹60k</button>
+        <button class="chip" data-v="90000">₹90k</button>
+        <button class="chip" data-v="40000">₹40k</button>
+        <button class="chip" data-v="70000">₹70k</button>
+        <button class="chip" data-v="c">Custom</button>
       </div>
+      <div class="cinp" id="eI"><label>Monthly ₹</label><input type="number" id="eV" value="60000"></div>
     </div>
   </div>
+</div>
 
-  <div class="summary" id="sum"></div>
+<div style="margin-bottom:.5rem">
+  <div class="slbl" style="margin-bottom:.4rem">Withdrawal mode</div>
+  <div class="mode-bar">
+    <button class="mchip on" id="mMonthly">Monthly (realistic)</button>
+    <button class="mchip" id="mAnnual">Annual lump-sum (optimistic)</button>
+  </div>
+  <div id="modeNote" style="font-size:11px;color:var(--muted);margin-top:4px"></div>
+</div>
 
-  <div style="font-size:11px;color:var(--muted);margin-bottom:.75rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase">Scenarios — longest runway first</div>
-  <div class="list" id="lst"></div>
+<div class="summary" id="sum"></div>
+<div style="font-size:10px;color:var(--hint);margin-bottom:.6rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase">Scenarios — longest runway first · click to expand</div>
+<div class="list" id="lst"></div>
 
-  <footer>Corpus grows at CAGR compounded annually. Each year: corpus × (1 + CAGR) − annual withdrawal. Start date: June 2026.</footer>
+<footer>Monthly mode: corpus × (1+CAGR)^(1/12) − monthly expense, each month. Annual mode: corpus × (1+CAGR) − annual expense, each year. Start: June 2026.</footer>
 </div>
 
 <script>
-let corpus=4500000,cagr=12,mo=60000;
+let corpus=4500000,cagr=12,mo=60000,mode='monthly';
 
 const fL=n=>{
   if(n>=10000000)return'₹'+(n/10000000).toFixed(2)+'Cr';
   if(n>=100000)return'₹'+(n/100000).toFixed(2)+'L';
   return'₹'+Math.round(n).toLocaleString('en-IN');
 };
+const fP=n=>n.toFixed(1)+'%';
 
-function runYears(corpus,ann1,cagr,ann2,p2y){
-  let c=corpus,r=cagr/100;
+function runMonthly(corp,mo1,cagrPct,mo2,p2y){
+  let c=corp,mr=Math.pow(1+cagrPct/100,1/12)-1,MAX=120*12;
+  for(let m=1;m<=MAX;m++){
+    const yr=Math.ceil(m/12);
+    const wd=(p2y&&yr>=p2y)?(mo2??mo1):mo1;
+    c=c*(1+mr)-wd;
+    if(c<=0)return+(m/12).toFixed(1);
+    if(m===MAX)return Infinity;
+  }
+  return Infinity;
+}
+
+function runAnnual(corp,ann1,cagrPct,ann2,p2y){
+  let c=corp,r=cagrPct/100;
   for(let y=1;y<=120;y++){
     const wd=(p2y&&y>=p2y)?(ann2??ann1):ann1;
     c=c*(1+r)-wd;
@@ -250,43 +184,69 @@ function runYears(corpus,ann1,cagr,ann2,p2y){
   return Infinity;
 }
 
-function val10(corpus,ann1,cagr,ann2,p2y){
-  let c=corpus,r=cagr/100;
-  for(let y=1;y<=10;y++){
-    const wd=(p2y&&y>=p2y)?(ann2??ann1):ann1;
-    c=c*(1+r)-wd;
-    if(c<=0)return 0;
+function corpusGrowthMonthly(corp,mo1,cagrPct,mo2,p2y,years=15){
+  let c=corp,mr=Math.pow(1+cagrPct/100,1/12)-1,rows=[];
+  for(let y=1;y<=years;y++){
+    const startC=c;
+    let earned=0;
+    for(let m=1;m<=12;m++){
+      const wd=(p2y&&y>=p2y)?(mo2??mo1):mo1;
+      const growth=c*mr;
+      earned+=growth;
+      c=c+growth-wd;
+      if(c<=0){c=0;break;}
+    }
+    const withdrawn=((p2y&&y>=p2y)?(mo2??mo1):mo1)*12;
+    rows.push({y,start:startC,growth:earned,withdrawn,end:Math.max(0,c)});
+    if(c<=0)break;
   }
-  return c;
+  return rows;
+}
+
+function corpusGrowthAnnual(corp,ann1,cagrPct,ann2,p2y,years=15){
+  let c=corp,r=cagrPct/100,rows=[];
+  for(let y=1;y<=years;y++){
+    const startC=c;
+    const wd=(p2y&&y>=p2y)?(ann2??ann1):ann1;
+    const growth=c*r;
+    c=c*(1+r)-wd;
+    rows.push({y,start:startC,growth,withdrawn:wd,end:Math.max(0,c)});
+    if(c<=0)break;
+  }
+  return rows;
 }
 
 function getScenarios(){
   const m=mo,y3=m*3,y6=m*6,y12=m*12,big=Math.round(m*1.5),big12=big*12;
-  return[
-    {title:'No withdrawal — full compounding',sub:'0% withdrawal, entire corpus reinvested',ann1:0,tag:'Compounding',tc:'green',bc:'#2d6a4f'},
-    {title:'3 months of expense/yr, indefinitely',sub:`₹${(m/1000).toFixed(0)}k × 3 mo = ${fL(y3)}/yr forever`,ann1:y3,tag:'Lean',tc:'blue',bc:'#185FA5'},
-    {title:'3 mo/yr × 3 yrs, then full monthly',sub:`${fL(y3)}/yr for 3 yrs → ${fL(y12)}/yr`,ann1:y3,ann2:y12,p2y:4,tag:'Phased',tc:'purple',bc:'#534AB7'},
-    {title:'6 months of expense/yr, indefinitely',sub:`₹${(m/1000).toFixed(0)}k × 6 mo = ${fL(y6)}/yr forever`,ann1:y6,tag:'Moderate',tc:'blue',bc:'#378ADD'},
-    {title:'6 mo/yr × 3 yrs, then full monthly',sub:`${fL(y6)}/yr for 3 yrs → ${fL(y12)}/yr`,ann1:y6,ann2:y12,p2y:4,tag:'Phased',tc:'purple',bc:'#7F77DD'},
-    {title:'3 mo/yr × 3 yrs, then 1.5× monthly',sub:`${fL(y3)}/yr for 3 yrs → ${fL(big12)}/yr`,ann1:y3,ann2:big12,p2y:4,tag:'Phased up',tc:'amber',bc:'#EF9F27'},
-    {title:'6 mo/yr × 3 yrs, then 1.5× monthly',sub:`${fL(y6)}/yr for 3 yrs → ${fL(big12)}/yr`,ann1:y6,ann2:big12,p2y:4,tag:'Phased up',tc:'amber',bc:'#BA7517'},
-    {title:'Full monthly from day 1',sub:`${fL(y12)}/yr immediately, no buffer period`,ann1:y12,tag:'Full spend',tc:'warn',bc:'#D85A30'},
-    {title:'1.5× monthly from day 1',sub:`${fL(big12)}/yr immediately (high expense)`,ann1:big12,tag:'High spend',tc:'warn',bc:'#E24B4A'},
-  ].map(s=>{
-    const rw=runYears(corpus,s.ann1,cagr,s.ann2,s.p2y);
-    const v10=val10(corpus,s.ann1,cagr,s.ann2,s.p2y);
-    const dynWPct=(()=>{
-      let c=corpus,r=cagr/100,tot=0,cnt=0;
-      for(let y=1;y<=Math.min(rw===Infinity?10:rw,10);y++){
-        const wd=(s.p2y&&y>=s.p2y)?(s.ann2??s.ann1):s.ann1;
-        const pre=c*(1+r);
-        if(pre>0){tot+=wd/pre*100;cnt++;}
-        c=pre-wd;
-        if(c<=0)break;
-      }
+  const defs=[
+    {title:'No withdrawal — full compounding',sub:'Entire corpus reinvested, ₹0 taken out',mo1:0,tag:'Compounding',tc:'green',bc:'#2d6a4f'},
+    {title:'3 months of expense/yr, forever',sub:`₹${(m/1000).toFixed(0)}k × 3mo = ${fL(y3)}/yr`,mo1:y3/12,ann1:y3,tag:'Lean',tc:'blue',bc:'#185FA5'},
+    {title:'3 mo/yr × 3 yrs, then full monthly',sub:`${fL(y3)}/yr → ${fL(y12)}/yr after yr 3`,mo1:y3/12,ann1:y3,mo2:m,ann2:y12,p2y:4,tag:'Phased',tc:'purple',bc:'#534AB7'},
+    {title:'6 months of expense/yr, forever',sub:`₹${(m/1000).toFixed(0)}k × 6mo = ${fL(y6)}/yr`,mo1:y6/12,ann1:y6,tag:'Moderate',tc:'blue',bc:'#378ADD'},
+    {title:'6 mo/yr × 3 yrs, then full monthly',sub:`${fL(y6)}/yr → ${fL(y12)}/yr after yr 3`,mo1:y6/12,ann1:y6,mo2:m,ann2:y12,p2y:4,tag:'Phased',tc:'purple',bc:'#7F77DD'},
+    {title:'3 mo/yr × 3 yrs, then 1.5× monthly',sub:`${fL(y3)}/yr → ${fL(big12)}/yr after yr 3`,mo1:y3/12,ann1:y3,mo2:big,ann2:big12,p2y:4,tag:'Phased up',tc:'amber',bc:'#EF9F27'},
+    {title:'6 mo/yr × 3 yrs, then 1.5× monthly',sub:`${fL(y6)}/yr → ${fL(big12)}/yr after yr 3`,mo1:y6/12,ann1:y6,mo2:big,ann2:big12,p2y:4,tag:'Phased up',tc:'amber',bc:'#BA7517'},
+    {title:'Full monthly from day 1',sub:`${fL(y12)}/yr = ₹${(m/1000).toFixed(0)}k/mo immediately`,mo1:m,ann1:y12,tag:'Full spend',tc:'warn',bc:'#D85A30'},
+    {title:'1.5× monthly from day 1',sub:`${fL(big12)}/yr = ₹${(big/1000).toFixed(0)}k/mo immediately`,mo1:big,ann1:big12,tag:'High spend',tc:'warn',bc:'#E24B4A'},
+  ];
+  return defs.map(s=>{
+    const rw=mode==='monthly'
+      ?runMonthly(corpus,s.mo1,cagr,s.mo2,s.p2y)
+      :runAnnual(corpus,s.ann1,cagr,s.ann2,s.p2y);
+    const rows=mode==='monthly'
+      ?corpusGrowthMonthly(corpus,s.mo1,cagr,s.mo2,s.p2y)
+      :corpusGrowthAnnual(corpus,s.ann1,cagr,s.ann2,s.p2y);
+    const ann=s.ann1||0;
+    const staticPct=ann/corpus*100;
+    const dynPct=(()=>{
+      if(!ann)return 0;
+      let tot=0,cnt=0;
+      rows.forEach(r=>{if(r.start>0){tot+=r.withdrawn/r.start*100;cnt++;}});
       return cnt?tot/cnt:0;
     })();
-    return{...s,rw,v10,wPct:s.ann1/corpus*100,dynWPct};
+    const v10=rows.find(r=>r.y===10)?.end??rows[rows.length-1]?.end??0;
+    const peak=Math.max(...rows.map(r=>r.end));
+    return{...s,rw,rows,staticPct,dynPct,v10,peak};
   }).sort((a,b)=>{
     if(a.rw===Infinity&&b.rw===Infinity)return b.v10-a.v10;
     if(a.rw===Infinity)return-1;
@@ -295,68 +255,158 @@ function getScenarios(){
   });
 }
 
+function sparkline(rows,color,sus){
+  const vals=rows.map(r=>r.end);
+  if(!vals.length)return'';
+  const max=Math.max(...vals,1);
+  const W=300,H=50,pad=2;
+  const pts=vals.map((v,i)=>{
+    const x=pad+(i/(Math.max(vals.length-1,1)))*(W-pad*2);
+    const y=H-pad-(v/max)*(H-pad*2);
+    return`${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  const lastY=H-pad-(vals[vals.length-1]/max)*(H-pad*2);
+  const fillPts=`${pad},${H} `+pts+` ${(pad+(vals.length-1)/(Math.max(vals.length-1,1))*(W-pad*2)).toFixed(1)},${H}`;
+  return`<svg viewBox="0 0 ${W} ${H}" width="100%" height="50" preserveAspectRatio="none">
+    <polygon points="${fillPts}" fill="${color}" opacity="0.08"/>
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+function tableHTML(rows,sid){
+  const showRows=rows.slice(0,15);
+  return`<div class="dtabs">
+    <button class="dtab on" onclick="showTab('${sid}','tbl')">Year-by-year</button>
+    <button class="dtab" onclick="showTab('${sid}','spark')">Chart</button>
+  </div>
+  <div id="${sid}-tbl">
+    <table class="tbl">
+      <tr><th>Year</th><th>Start corpus</th><th>Growth earned</th><th>Withdrawn</th><th>End corpus</th><th>Net</th></tr>
+      ${showRows.map(r=>{
+        const net=r.growth-r.withdrawn;
+        return`<tr>
+          <td>Yr ${r.y}</td>
+          <td>${fL(r.start)}</td>
+          <td class="pos">+${fL(r.growth)}</td>
+          <td class="neg">−${fL(r.withdrawn)}</td>
+          <td>${r.end>0?fL(r.end):'<span style="color:var(--warn)">Depleted</span>'}</td>
+          <td class="${net>=0?'pos':'neg'}">${net>=0?'+':''}${fL(net)}</td>
+        </tr>`;
+      }).join('')}
+    </table>
+    ${rows.length>15?`<div class="note">Showing first 15 years of ${rows.length} total.</div>`:''}
+  </div>
+  <div id="${sid}-spark" style="display:none">
+    <div class="legend">
+      <span><span class="ldot" style="background:#2d6a4f"></span>End corpus</span>
+      <span style="color:var(--hint);font-size:10px">Hover not available in SVG — see table for values</span>
+    </div>
+    <div class="sparkwrap">${sparkline(rows,'#2d6a4f',false)}</div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--hint)">
+      <span>Yr 1</span><span>Yr ${rows[rows.length-1].y}</span>
+    </div>
+    <div class="note" style="margin-top:6px">
+      Peak corpus: ${fL(Math.max(...rows.map(r=>r.end)))} · 
+      Final corpus: ${rows[rows.length-1].end>0?fL(rows[rows.length-1].end):'Depleted'}
+    </div>
+  </div>`;
+}
+
+window.showTab=function(sid,tab){
+  document.getElementById(sid+'-tbl').style.display=tab==='tbl'?'block':'none';
+  document.getElementById(sid+'-spark').style.display=tab==='spark'?'block':'none';
+  document.querySelectorAll(`#${sid}`).forEach(()=>{});
+  const tabs=document.querySelectorAll(`[onclick*="${sid}"]`);
+  tabs.forEach(t=>t.classList.toggle('on',t.getAttribute('onclick').includes("'"+tab+"'")));
+};
+
+window.toggleItem=function(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+};
+
 function render(){
   const sc=getScenarios();
   const best=sc[0],worst=sc[sc.length-1];
-  const bestStr=best.rw===Infinity?'∞':best.rw+'y';
-  const worstStr=worst.rw===Infinity?'∞':worst.rw+'y';
+  const allSus=sc.filter(s=>s.rw===Infinity);
+  const fRw=rw=>rw===Infinity?'∞':(mode==='monthly'?rw.toFixed(1)+'y':rw+'y');
+
+  document.getElementById('modeNote').textContent=mode==='monthly'
+    ?'Each month: corpus grows by monthly rate, then you withdraw. Most realistic.'
+    :'Each year: corpus grows full year, then annual withdrawal taken in one shot. Slightly optimistic.';
+
   document.getElementById('sum').innerHTML=`
-    <div class="sm"><div class="v${best.rw===Infinity?' green':''}">${bestStr}</div><div class="k">Best runway</div></div>
-    <div class="sm"><div class="v">${fL(corpus)}</div><div class="k">Corpus · ${cagr}% CAGR</div></div>
-    <div class="sm"><div class="v">${worstStr}</div><div class="k">Shortest runway</div></div>`;
+    <div class="sm"><div class="v${best.rw===Infinity?' g':''}">${fRw(best.rw)}</div><div class="k">Best runway</div></div>
+    <div class="sm"><div class="v">${fL(corpus)}</div><div class="k">Corpus</div></div>
+    <div class="sm"><div class="v">${cagr}%</div><div class="k">CAGR</div></div>
+    <div class="sm"><div class="v">${fRw(worst.rw)}</div><div class="k">Worst runway</div></div>`;
 
   const maxR=Math.max(...sc.filter(s=>s.rw!==Infinity).map(s=>s.rw),1);
   document.getElementById('lst').innerHTML=sc.map((s,i)=>{
     const sus=s.rw===Infinity;
     const bw=sus?100:Math.round(s.rw/maxR*100);
-    const rwStr=sus?'Sustainable':''+s.rw+' yrs';
-    const staticPct=(s.ann1/corpus*100).toFixed(1);
-    const dynPct=s.dynWPct.toFixed(1);
-    return`<div class="item${sus?' sus':''}">
-      <div class="rk">${i+1}</div>
-      <div class="dd">
-        <div class="title">${s.title}</div>
-        <div class="sub">${s.sub}</div>
-        <span class="tag tag-${s.tc}">${s.tag}</span>
-        <div class="bar-track"><div class="bar-fill" style="width:${bw}%;background:${s.bc}"></div></div>
+    const sid='s'+i;
+    return`<div class="item${sus?' sus':''}" id="${sid}" onclick="toggleItem('${sid}')">
+      <div class="irow">
+        <div class="rk">${i+1}</div>
+        <div class="dd">
+          <div class="ttl">${s.title}</div>
+          <div class="sub">${s.sub}</div>
+          <span class="tag tag-${s.tc}">${s.tag}</span>
+          <div class="btrack"><div class="bfill" style="width:${bw}%;background:${s.bc}"></div></div>
+        </div>
+        <div class="rv">
+          <div class="ry${sus?' g':''}">${sus?'Sustainable':fRw(s.rw)}</div>
+          <div class="rw">${s.ann1?fP(s.staticPct)+' static':'—'}</div>
+          <div class="rw dyn">${s.ann1?fP(s.dynPct)+' dynamic':'—'}</div>
+          <div class="rw">${s.ann1?fL(s.ann1)+'/yr':'₹0/yr'}</div>
+        </div>
       </div>
-      <div class="rv">
-        <div class="ry${sus?' g':''}">${rwStr}</div>
-        <div class="rw" title="Static: withdrawal ÷ starting corpus">${s.ann1===0?'—':staticPct+'% of corpus'}</div>
-        <div class="rw" style="color:var(--accent)" title="Dynamic: avg withdrawal ÷ corpus-at-that-year (CAGR-aware)">${s.ann1===0?'—':dynPct+'% dynamic'}</div>
-        <div class="rw">${s.ann1===0?'₹0/yr':fL(s.ann1)+'/yr'}</div>
-      </div>
+      <div class="detail">${tableHTML(s.rows,sid+'d')}</div>
     </div>`;
   }).join('');
 }
 
-function initChips(id,onChange){
+function chips(id,cb){
   document.getElementById(id).addEventListener('click',e=>{
     const b=e.target.closest('[data-v]');
     if(!b)return;
     document.querySelectorAll('#'+id+' .chip').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    onChange(b.dataset.v);
+    b.classList.add('on');cb(b.dataset.v);
   });
 }
 
-initChips('cC',v=>{
-  const wrap=document.getElementById('cI');
-  if(v==='c'){wrap.style.display='block';corpus=parseInt(document.getElementById('cV').value)||4500000;}
-  else{wrap.style.display='none';corpus=parseInt(v);}
-  render();
+chips('cC',v=>{
+  const w=document.getElementById('cI');
+  if(v==='c'){w.style.display='block';corpus=parseInt(document.getElementById('cV').value)||4500000;}
+  else{w.style.display='none';corpus=parseInt(v);}render();
 });
 document.getElementById('cV').addEventListener('input',e=>{corpus=parseInt(e.target.value)||1000000;render();});
-
-initChips('gC',v=>{cagr=parseFloat(v);render();});
-
-initChips('eC',v=>{
-  const wrap=document.getElementById('eI');
-  if(v==='c'){wrap.style.display='block';mo=parseInt(document.getElementById('eV').value)||60000;}
-  else{wrap.style.display='none';mo=parseInt(v);}
-  render();
+chips('gC',v=>{
+  const w=document.getElementById('gI');
+  if(v==='c'){w.style.display='block';cagr=parseFloat(document.getElementById('gV').value)||12;}
+  else{w.style.display='none';cagr=parseFloat(v);}render();
+});
+document.getElementById('gV').addEventListener('input',e=>{cagr=parseFloat(e.target.value)||0;render();});
+chips('eC',v=>{
+  const w=document.getElementById('eI');
+  if(v==='c'){w.style.display='block';mo=parseInt(document.getElementById('eV').value)||60000;}
+  else{w.style.display='none';mo=parseInt(v);}render();
 });
 document.getElementById('eV').addEventListener('input',e=>{mo=parseInt(e.target.value)||60000;render();});
+
+document.getElementById('mMonthly').addEventListener('click',()=>{
+  mode='monthly';
+  document.getElementById('mMonthly').classList.add('on');
+  document.getElementById('mAnnual').classList.remove('on');
+  render();
+});
+document.getElementById('mAnnual').addEventListener('click',()=>{
+  mode='annual';
+  document.getElementById('mAnnual').classList.add('on');
+  document.getElementById('mMonthly').classList.remove('on');
+  render();
+});
 
 render();
 </script>
