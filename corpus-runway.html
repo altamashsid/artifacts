@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corpus Runway Calculator</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f9f8f6;
+    --surface: #ffffff;
+    --border: #e4e2dd;
+    --border-strong: #c8c5be;
+    --text: #1a1916;
+    --muted: #7a776f;
+    --hint: #b0ada6;
+    --accent: #2d6a4f;
+    --accent-bg: #eaf4ee;
+    --warn: #b5410b;
+    --warn-bg: #fdf0ea;
+    --tag-blue: #1a4e7a;
+    --tag-blue-bg: #e8f1f9;
+    --tag-purple: #4a2d8a;
+    --tag-purple-bg: #f0ecfb;
+    --tag-amber: #7a4a0a;
+    --tag-amber-bg: #fdf3e3;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .page { max-width: 720px; margin: 0 auto; }
+
+  header { margin-bottom: 2rem; }
+  header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
+  header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--hint);
+    margin-bottom: .6rem;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-strong);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    transition: all .15s;
+    line-height: 1.5;
+  }
+  .chip:hover { border-color: var(--text); color: var(--text); }
+  .chip.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  .custom-input {
+    margin-top: 10px;
+    display: none;
+  }
+  .custom-input input {
+    width: 100%;
+    max-width: 240px;
+    padding: 7px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+  }
+  .custom-input input:focus { border-color: var(--text); }
+  .custom-input label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 5px; }
+
+  .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media(max-width:560px) { .controls-grid { grid-template-columns: 1fr; } }
+
+  .summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 1.25rem 0 1rem; }
+  .sm {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    text-align: center;
+  }
+  .sm .v { font-size: 21px; font-weight: 600; letter-spacing: -0.5px; }
+  .sm .v.green { color: var(--accent); }
+  .sm .k { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .list { display: flex; flex-direction: column; gap: 6px; }
+
+  .item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    transition: border-color .15s;
+  }
+  .item.sus { border-color: #a8d5b8; background: #fafdfb; }
+  .item:hover { border-color: var(--border-strong); }
+
+  .rk { font-size: 12px; color: var(--hint); text-align: center; font-weight: 500; }
+
+  .dd .title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .dd .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .dd .tag {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .tag-green { background: var(--accent-bg); color: var(--accent); }
+  .tag-blue { background: var(--tag-blue-bg); color: var(--tag-blue); }
+  .tag-purple { background: var(--tag-purple-bg); color: var(--tag-purple); }
+  .tag-amber { background: var(--tag-amber-bg); color: var(--tag-amber); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+
+  .bar-track { height: 3px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; }
+
+  .rv { text-align: right; white-space: nowrap; }
+  .ry { font-size: 15px; font-weight: 600; }
+  .ry.g { color: var(--accent); }
+  .rw { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .phase-hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    padding: 6px 10px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--border-strong);
+  }
+
+  footer { margin-top: 2rem; text-align: center; font-size: 11px; color: var(--hint); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Corpus runway calculator</h1>
+    <p>How long does your capital last under different withdrawal styles and growth rates?</p>
+  </header>
+
+  <div class="card">
+    <div class="controls-grid">
+      <div>
+        <div class="section-label">Corpus</div>
+        <div class="chips" id="cC">
+          <button class="chip" data-v="1000000">₹10L</button>
+          <button class="chip" data-v="1628000">₹16.28L</button>
+          <button class="chip" data-v="2128000">₹21.28L</button>
+          <button class="chip on" data-v="4500000">₹45L</button>
+          <button class="chip" data-v="c">Custom</button>
+        </div>
+        <div class="custom-input" id="cI">
+          <label>Amount in ₹</label>
+          <input type="number" id="cV" placeholder="e.g. 3000000" value="4500000">
+        </div>
+      </div>
+      <div>
+        <div class="section-label">CAGR</div>
+        <div class="chips" id="gC">
+          <button class="chip" data-v="0">0%</button>
+          <button class="chip" data-v="8">8% FD</button>
+          <button class="chip on" data-v="12">12%</button>
+          <button class="chip" data-v="20">20%</button>
+          <button class="chip" data-v="25">25%</button>
+          <button class="chip" data-v="30">30%</button>
+          <button class="chip" data-v="50">50%</button>
+          <button class="chip" data-v="70">70%</button>
+          <button class="chip" data-v="100">100%</button>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Monthly expense</div>
+        <div class="chips" id="eC">
+          <button class="chip on" data-v="60000">₹60k</button>
+          <button class="chip" data-v="90000">₹90k</button>
+          <button class="chip" data-v="40000">₹40k</button>
+          <button class="chip" data-v="70000">₹70k</button>
+          <button class="chip" data-v="c">Custom</button>
+        </div>
+        <div class="custom-input" id="eI">
+          <label>Monthly amount in ₹</label>
+          <input type="number" id="eV" placeholder="e.g. 50000" value="60000">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary" id="sum"></div>
+
+  <div style="font-size:11px;color:var(--muted);margin-bottom:.75rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase">Scenarios — longest runway first</div>
+  <div class="list" id="lst"></div>
+
+  <footer>Corpus grows at CAGR compounded annually. Each year: corpus × (1 + CAGR) − annual withdrawal. Start date: June 2026.</footer>
+</div>
+
+<script>
+let corpus=4500000,cagr=12,mo=60000;
+
+const fL=n=>{
+  if(n>=10000000)return'₹'+(n/10000000).toFixed(2)+'Cr';
+  if(n>=100000)return'₹'+(n/100000).toFixed(2)+'L';
+  return'₹'+Math.round(n).toLocaleString('en-IN');
+};
+
+function runYears(corpus,ann1,cagr,ann2,p2y){
+  let c=corpus,r=cagr/100;
+  for(let y=1;y<=120;y++){
+    const wd=(p2y&&y>=p2y)?(ann2??ann1):ann1;
+    c=c*(1+r)-wd;
+    if(c<=0)return y;
+    if(y===120)return Infinity;
+  }
+  return Infinity;
+}
+
+function val10(corpus,ann1,cagr,ann2,p2y){
+  let c=corpus,r=cagr/100;
+  for(let y=1;y<=10;y++){
+    const wd=(p2y&&y>=p2y)?(ann2??ann1):ann1;
+    c=c*(1+r)-wd;
+    if(c<=0)return 0;
+  }
+  return c;
+}
+
+function getScenarios(){
+  const m=mo,y3=m*3,y6=m*6,y12=m*12,big=Math.round(m*1.5),big12=big*12;
+  return[
+    {title:'No withdrawal — full compounding',sub:'0% withdrawal, entire corpus reinvested',ann1:0,tag:'Compounding',tc:'green',bc:'#2d6a4f'},
+    {title:'3 months of expense/yr, indefinitely',sub:`₹${(m/1000).toFixed(0)}k × 3 mo = ${fL(y3)}/yr forever`,ann1:y3,tag:'Lean',tc:'blue',bc:'#185FA5'},
+    {title:'3 mo/yr × 3 yrs, then full monthly',sub:`${fL(y3)}/yr for 3 yrs → ${fL(y12)}/yr`,ann1:y3,ann2:y12,p2y:4,tag:'Phased',tc:'purple',bc:'#534AB7'},
+    {title:'6 months of expense/yr, indefinitely',sub:`₹${(m/1000).toFixed(0)}k × 6 mo = ${fL(y6)}/yr forever`,ann1:y6,tag:'Moderate',tc:'blue',bc:'#378ADD'},
+    {title:'6 mo/yr × 3 yrs, then full monthly',sub:`${fL(y6)}/yr for 3 yrs → ${fL(y12)}/yr`,ann1:y6,ann2:y12,p2y:4,tag:'Phased',tc:'purple',bc:'#7F77DD'},
+    {title:'3 mo/yr × 3 yrs, then 1.5× monthly',sub:`${fL(y3)}/yr for 3 yrs → ${fL(big12)}/yr`,ann1:y3,ann2:big12,p2y:4,tag:'Phased up',tc:'amber',bc:'#EF9F27'},
+    {title:'6 mo/yr × 3 yrs, then 1.5× monthly',sub:`${fL(y6)}/yr for 3 yrs → ${fL(big12)}/yr`,ann1:y6,ann2:big12,p2y:4,tag:'Phased up',tc:'amber',bc:'#BA7517'},
+    {title:'Full monthly from day 1',sub:`${fL(y12)}/yr immediately, no buffer period`,ann1:y12,tag:'Full spend',tc:'warn',bc:'#D85A30'},
+    {title:'1.5× monthly from day 1',sub:`${fL(big12)}/yr immediately (high expense)`,ann1:big12,tag:'High spend',tc:'warn',bc:'#E24B4A'},
+  ].map(s=>{
+    const rw=runYears(corpus,s.ann1,cagr,s.ann2,s.p2y);
+    const v10=val10(corpus,s.ann1,cagr,s.ann2,s.p2y);
+    const dynWPct=(()=>{
+      let c=corpus,r=cagr/100,tot=0,cnt=0;
+      for(let y=1;y<=Math.min(rw===Infinity?10:rw,10);y++){
+        const wd=(s.p2y&&y>=s.p2y)?(s.ann2??s.ann1):s.ann1;
+        const pre=c*(1+r);
+        if(pre>0){tot+=wd/pre*100;cnt++;}
+        c=pre-wd;
+        if(c<=0)break;
+      }
+      return cnt?tot/cnt:0;
+    })();
+    return{...s,rw,v10,wPct:s.ann1/corpus*100,dynWPct};
+  }).sort((a,b)=>{
+    if(a.rw===Infinity&&b.rw===Infinity)return b.v10-a.v10;
+    if(a.rw===Infinity)return-1;
+    if(b.rw===Infinity)return 1;
+    return b.rw-a.rw;
+  });
+}
+
+function render(){
+  const sc=getScenarios();
+  const best=sc[0],worst=sc[sc.length-1];
+  const bestStr=best.rw===Infinity?'∞':best.rw+'y';
+  const worstStr=worst.rw===Infinity?'∞':worst.rw+'y';
+  document.getElementById('sum').innerHTML=`
+    <div class="sm"><div class="v${best.rw===Infinity?' green':''}">${bestStr}</div><div class="k">Best runway</div></div>
+    <div class="sm"><div class="v">${fL(corpus)}</div><div class="k">Corpus · ${cagr}% CAGR</div></div>
+    <div class="sm"><div class="v">${worstStr}</div><div class="k">Shortest runway</div></div>`;
+
+  const maxR=Math.max(...sc.filter(s=>s.rw!==Infinity).map(s=>s.rw),1);
+  document.getElementById('lst').innerHTML=sc.map((s,i)=>{
+    const sus=s.rw===Infinity;
+    const bw=sus?100:Math.round(s.rw/maxR*100);
+    const rwStr=sus?'Sustainable':''+s.rw+' yrs';
+    const staticPct=(s.ann1/corpus*100).toFixed(1);
+    const dynPct=s.dynWPct.toFixed(1);
+    return`<div class="item${sus?' sus':''}">
+      <div class="rk">${i+1}</div>
+      <div class="dd">
+        <div class="title">${s.title}</div>
+        <div class="sub">${s.sub}</div>
+        <span class="tag tag-${s.tc}">${s.tag}</span>
+        <div class="bar-track"><div class="bar-fill" style="width:${bw}%;background:${s.bc}"></div></div>
+      </div>
+      <div class="rv">
+        <div class="ry${sus?' g':''}">${rwStr}</div>
+        <div class="rw" title="Static: withdrawal ÷ starting corpus">${s.ann1===0?'—':staticPct+'% of corpus'}</div>
+        <div class="rw" style="color:var(--accent)" title="Dynamic: avg withdrawal ÷ corpus-at-that-year (CAGR-aware)">${s.ann1===0?'—':dynPct+'% dynamic'}</div>
+        <div class="rw">${s.ann1===0?'₹0/yr':fL(s.ann1)+'/yr'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function initChips(id,onChange){
+  document.getElementById(id).addEventListener('click',e=>{
+    const b=e.target.closest('[data-v]');
+    if(!b)return;
+    document.querySelectorAll('#'+id+' .chip').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    onChange(b.dataset.v);
+  });
+}
+
+initChips('cC',v=>{
+  const wrap=document.getElementById('cI');
+  if(v==='c'){wrap.style.display='block';corpus=parseInt(document.getElementById('cV').value)||4500000;}
+  else{wrap.style.display='none';corpus=parseInt(v);}
+  render();
+});
+document.getElementById('cV').addEventListener('input',e=>{corpus=parseInt(e.target.value)||1000000;render();});
+
+initChips('gC',v=>{cagr=parseFloat(v);render();});
+
+initChips('eC',v=>{
+  const wrap=document.getElementById('eI');
+  if(v==='c'){wrap.style.display='block';mo=parseInt(document.getElementById('eV').value)||60000;}
+  else{wrap.style.display='none';mo=parseInt(v);}
+  render();
+});
+document.getElementById('eV').addEventListener('input',e=>{mo=parseInt(e.target.value)||60000;render();});
+
+render();
+</script>
+</body>
+</html>
