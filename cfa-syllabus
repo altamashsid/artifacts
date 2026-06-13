@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CFA Complete Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -47,37 +49,26 @@ html,body{height:100%;overflow:hidden;font-family:'Source Sans 3',sans-serif;fon
 .ct.on{color:var(--red);border-bottom-color:var(--red);}
 .panel{display:none;padding:14px;}
 .panel.on{display:block;}
-/* ── LEVEL BADGES: bold solid pills, clearly distinct ── */
 .lbadge{display:inline-block;font-size:.6rem;font-weight:700;padding:2px 7px;letter-spacing:.07em;margin-right:3px;vertical-align:middle;border-radius:3px;line-height:1.4;}
 .lb1{background:var(--l1c);color:#fff;}
 .lb2{background:var(--l2c);color:#fff;}
 .lb3{background:var(--l3c);color:#fff;}
-
-/* ── LEVEL LEGEND strip ── */
 .lvl-legend{display:flex;gap:10px;align-items:center;padding:8px 14px;background:#fff;border-bottom:1px solid var(--bo);font-size:.67rem;color:var(--mu);}
 .lvl-legend span{font-weight:600;margin-right:2px;}
 .ll-l1{color:var(--l1c);}
 .ll-l2{color:var(--l2c);}
 .ll-l3{color:var(--l3c);}
-
-/* ── TOPIC ROW: left border shows primary level ── */
 .tree-topic.lv-l1{border-left:4px solid var(--l1c);}
 .tree-topic.lv-l2{border-left:4px solid var(--l2c);}
 .tree-topic.lv-l3{border-left:4px solid var(--l3c);}
 .tree-topic.lv-all{border-left:4px solid var(--mu);}
-
-/* ── DIM topics that don't match active level filter ── */
 .tree-topic.dimmed{opacity:.35;pointer-events:none;}
 .kc.dimmed{opacity:.3;pointer-events:none;}
-
-/* ── KC badge row ── */
 .kc-lvl-bar{display:flex;gap:4px;margin-bottom:7px;align-items:center;padding:6px 10px;background:#F8F8F8;border-bottom:1px solid var(--bo);font-size:.63rem;color:var(--mu);}
-
 .ovbox{background:#fff;border-left:3px solid var(--red);padding:12px 14px;margin-bottom:14px;font-size:.81rem;line-height:1.7;color:var(--dk);}
 .ovbox strong{display:block;font-size:.88rem;margin-bottom:3px;color:var(--bk);}
 .shd{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--bk);margin:18px 0 8px;display:flex;align-items:center;gap:8px;}
 .shd::after{content:'';flex:1;height:1px;background:var(--bo);}
-/* TREE L1 */
 .tree-topic{background:#fff;border:1px solid var(--bo);margin-bottom:5px;border-radius:2px;overflow:hidden;}
 .tt-hd{display:flex;align-items:center;gap:8px;padding:11px 14px;cursor:pointer;transition:.12s;}
 .tt-hd:hover{background:#FAFAFA;}
@@ -88,7 +79,6 @@ html,body{height:100%;overflow:hidden;font-family:'Source Sans 3',sans-serif;fon
 .tt-body{display:none;border-top:1px solid var(--bo);}
 .tt-body.open{display:block;}
 .tt-sum{padding:11px 14px;font-size:.78rem;line-height:1.7;color:var(--mid);background:#FEFEFE;border-bottom:1px solid var(--bo);}
-/* TREE L2 */
 .kc-wrap{padding:8px 12px 10px;}
 .kc{border:1px solid var(--bo);border-left:3px solid;margin-bottom:6px;overflow:hidden;border-radius:2px;}
 .kc-hd{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;transition:.12s;background:#F8F8F8;}
@@ -100,11 +90,9 @@ html,body{height:100%;overflow:hidden;font-family:'Source Sans 3',sans-serif;fon
 .kc-body{display:none;border-top:1px solid var(--bo);padding:10px 12px;font-size:.76rem;line-height:1.75;color:var(--mid);background:#fff;}
 .kc-body.open{display:block;}
 .kc-lead{margin-bottom:8px;color:var(--dk);font-size:.79rem;}
-/* TREE L3 */
 .note-block{background:#F4F4F4;border:1px solid #E0E0E0;margin-top:8px;padding:9px 12px;border-radius:2px;}
 .nb-title{font-size:.67rem;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
 .nb-text{font-size:.74rem;line-height:1.7;color:var(--mid);}
-/* OUTCOMES */
 .lo-obj{background:#fff;border-left:3px solid var(--dk);padding:12px 14px;margin-bottom:12px;font-size:.8rem;line-height:1.7;color:var(--dk);}
 .lo-obj strong{display:block;font-size:.87rem;margin-bottom:3px;color:var(--bk);}
 .lo-lvl{background:#fff;border:1px solid var(--bo);margin-bottom:8px;overflow:hidden;border-radius:2px;}
@@ -125,7 +113,6 @@ html,body{height:100%;overflow:hidden;font-family:'Source Sans 3',sans-serif;fon
 .lo-di::before{content:'→';color:var(--red);flex-shrink:0;}
 .skill-row{display:flex;flex-wrap:wrap;gap:5px;padding:11px 14px;background:#fff;border-top:1px solid var(--bo);}
 .stag{font-size:.62rem;padding:2px 8px;border:1px solid var(--bo);color:var(--mid);}
-/* RESOURCES */
 .rcat{font-size:.61rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin:14px 0 6px;}
 .rcard{background:#fff;border:1px solid var(--bo);padding:11px 13px;margin-bottom:6px;display:flex;align-items:flex-start;gap:11px;cursor:pointer;transition:.15s;text-decoration:none;color:inherit;}
 .rcard:hover{border-color:var(--red);box-shadow:0 1px 6px rgba(192,57,43,.12);}
@@ -145,7 +132,6 @@ html,body{height:100%;overflow:hidden;font-family:'Source Sans 3',sans-serif;fon
 .rtag.l2{border-color:var(--l2c);color:var(--l2c);}
 .rtag.l3{border-color:var(--l3c);color:var(--l3c);}
 .rext{font-size:.67rem;color:var(--mu);margin-left:auto;flex-shrink:0;align-self:flex-start;padding-top:1px;}
-/* HOME */
 .hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
 .hstat{background:#fff;border:1px solid var(--bo);padding:12px 8px;text-align:center;}
 .hsv{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;line-height:1;margin-bottom:3px;}
@@ -173,8 +159,7 @@ html,body{height:100%;overflow:hidden;font-family:'Source Sans 3',sans-serif;fon
 <div class="carea" id="carea"></div>
 </div>
 <script>
-var LVL='all', TOP='home', TAB='notes';
-
+var LVL='all',TOP='home',TAB='notes';
 var TOPICS=[
   {id:'home',s:'Home'},{id:'ethics',s:'Ethics'},{id:'quant',s:'Quant'},
   {id:'econ',s:'Econ'},{id:'fsa',s:'FSA'},{id:'corp',s:'Corporate'},
@@ -182,8 +167,6 @@ var TOPICS=[
   {id:'alts',s:'Alts'},{id:'pm',s:'Port. Mgmt'},{id:'l3core',s:'L3 Core'},
   {id:'pm_p',s:'PM Pathway'},{id:'pw_p',s:'PW Pathway'},{id:'priv_p',s:'Priv. Mkts'},
 ];
-
-// lv: array of which levels this node appears in. [] = all levels.
 var D={
 home:{title:'CFA Program — Complete Notes',eye:'2026 Curriculum · 3 Levels · 10 Topics',weights:{l1:'—',l2:'—',l3:'—'},
   overview:'The CFA Program awards the globally recognised Chartered Financial Analyst designation. Three progressive exams cover investment analysis, portfolio management, and professional ethics.',
@@ -199,7 +182,6 @@ home:{title:'CFA Program — Complete Notes',eye:'2026 Curriculum · 3 Levels ·
     {type:'art',t:'CFA Institute Official Exam Info',ch:'cfainstitute.org',tags:['free'],url:'https://www.cfainstitute.org/en/programs/cfa/exam'},
   ]
 },
-
 ethics:{title:'Ethics & Professional Standards',eye:'Tested ALL 3 Levels — complexity grows each level',weights:{l1:'15–20%',l2:'10–15%',l3:'10–15%'},
   overview:'The only topic tested in full depth at all three levels. Covers the CFA Code of Ethics, 7 Standards of Professional Conduct (22 sub-standards), GIPS, and at L3, the Asset Manager Code. A special ethics adjustment can push borderline candidates to a pass.',
   notes:[
@@ -247,7 +229,6 @@ ethics:{title:'Ethics & Professional Standards',eye:'Tested ALL 3 Levels — com
     {type:'prac',t:'Ethics Practice Questions — 300+ Qs',ch:'Kaplan Schweser',tags:['paid','l1','l2','l3'],url:'https://www.schweser.com'},
   ]
 },
-
 quant:{title:'Quantitative Methods',eye:'Tested L1 & L2 · Applied in Portfolio Mgmt at L3',weights:{l1:'6–9%',l2:'5–10%',l3:'N/A'},
   overview:'Mathematical and statistical tools underpinning all investment analysis. L1: TVM, statistics, probability, hypothesis testing, simple regression. L2: multiple regression with violations, time series, machine learning. L3: assumed knowledge applied within Portfolio Management.',
   notes:[
@@ -294,7 +275,6 @@ quant:{title:'Quantitative Methods',eye:'Tested L1 & L2 · Applied in Portfolio 
     {type:'yt',t:'Machine Learning in Finance',ch:'AnalystPrep',tags:['free','l2'],url:'https://www.youtube.com/results?search_query=CFA+machine+learning+finance+level+2+analystprep'},
   ]
 },
-
 deriv:{title:'Derivatives',eye:'Tested ALL 3 Levels — weight grows L1→L2→L3',weights:{l1:'5–8%',l2:'5–10%',l3:'10–15%'},
   overview:'The only non-ethics topic tested at all three levels with growing weight. L1: payoffs and no-arbitrage basics. L2: Black-Scholes model, Greeks, swap valuation. L3: applying derivatives to manage portfolio risk — beta/duration/currency adjustment and options strategies.',
   notes:[
@@ -338,7 +318,6 @@ deriv:{title:'Derivatives',eye:'Tested ALL 3 Levels — weight grows L1→L2→L
     {type:'yt',t:'Options Strategies Visualised',ch:'tastytrade',tags:['free','l2','l3'],url:'https://www.youtube.com/results?search_query=options+strategies+tastytrade+explained'},
   ]
 },
-
 pm:{title:'Portfolio Management',eye:'L1: Intro · L2: Advanced · L3: Dominant (40%+)',weights:{l1:'8–12%',l2:'10–15%',l3:'40%+'},
   overview:'The culminating topic of the entire CFA program. L1: Markowitz, CAPM, IPS basics, behavioural finance. L2: multifactor models, active management theory. L3: everything comes together — asset allocation, portfolio construction, client management, performance measurement.',
   notes:[
@@ -392,7 +371,6 @@ pm:{title:'Portfolio Management',eye:'L1: Intro · L2: Advanced · L3: Dominant 
     {type:'yt',t:'Performance Attribution Deep Dive',ch:'AnalystPrep',tags:['free','l3'],url:'https://www.youtube.com/results?search_query=CFA+performance+attribution+brinson+level+3'},
   ]
 },
-
 l3core:{title:'Level 3 — Core Curriculum',eye:'ALL L3 candidates · 65–70% of exam',weights:{l1:'—',l2:'—',l3:'65–70%'},
   overview:'The shared foundation every Level 3 candidate must master. Five areas: Asset Allocation (15–20%), Portfolio Construction (15–20%), Derivatives & Risk Management (10–15%), Performance Measurement (5–10%), Ethics & GIPS (10–15%).',
   notes:[
@@ -406,8 +384,7 @@ l3core:{title:'Level 3 — Core Curriculum',eye:'ALL L3 candidates · 65–70% o
     },
   ],
   outcomes:{objective:'Master all five L3 Core areas to demonstrate integration of CFA knowledge in portfolio management decision-making.',
-    byLevel:{
-      l1:['N/A'],l2:['N/A'],
+    byLevel:{l1:['N/A'],l2:['N/A'],
       l3:['Design asset allocation for institutional and individual clients','Apply derivatives overlays for beta, duration, and currency management','Conduct performance attribution and manager evaluation','Construct GIPS-compliant composites and verify performance records','Apply the Asset Manager Code to firm-level ethics scenarios in essay format']},
     skills:['Asset Allocation','Portfolio Construction','Derivatives Overlay','Performance Attribution','Ethics','GIPS']},
   resources:[
@@ -416,7 +393,6 @@ l3core:{title:'Level 3 — Core Curriculum',eye:'ALL L3 candidates · 65–70% o
     {type:'prac',t:'CFA L3 Mock Exams with Essay Marking',ch:'Kaplan Schweser',tags:['paid','l3'],url:'https://www.schweser.com/cfa/level-3'},
   ]
 },
-
 pw_p:{title:'L3 Pathway: Private Wealth',eye:'Level 3 Specialised Pathway · 30–35% of exam',weights:{l1:'—',l2:'—',l3:'30–35%'},
   overview:'For private bankers, wealth advisors, and family office professionals. Covers HNW individuals and families: personalised IPS construction, tax planning, estate planning, wealth transfer, behavioural coaching.',
   notes:[
@@ -456,7 +432,6 @@ pw_p:{title:'L3 Pathway: Private Wealth',eye:'Level 3 Specialised Pathway · 30�
     {type:'yt',t:'Behavioural Finance — Why Investors Make Bad Decisions',ch:'The Plain Bagel',tags:['free','l3'],url:'https://www.youtube.com/results?search_query=behavioural+finance+why+investors+bad+decisions'},
   ]
 },
-
 priv_p:{title:'L3 Pathway: Private Markets',eye:'Level 3 Specialised Pathway · 30–35% of exam',weights:{l1:'—',l2:'—',l3:'30–35%'},
   overview:'For PE analysts, private credit investors, infrastructure fund managers, and real asset specialists. Deal structuring, valuation, performance metrics, and portfolio management for illiquid alternative investments.',
   notes:[
@@ -490,7 +465,6 @@ priv_p:{title:'L3 Pathway: Private Markets',eye:'Level 3 Specialised Pathway · 
     {type:'yt',t:'CFA L3 Private Markets Pathway Review',ch:'AnalystPrep',tags:['free','l3'],url:'https://www.youtube.com/results?search_query=CFA+level+3+private+markets+pathway+analystprep'},
   ]
 },
-
 pm_p:{title:'L3 Pathway: Portfolio Management',eye:'Level 3 Specialised Pathway · 30–35% of exam',weights:{l1:'—',l2:'—',l3:'30–35%'},
   overview:'For institutional asset managers. Covers managing assets for DB pension funds, endowments, sovereign wealth funds, and insurance companies. Advanced multi-asset strategies, LDI, and institutional due diligence.',
   notes:[
@@ -516,8 +490,6 @@ pm_p:{title:'L3 Pathway: Portfolio Management',eye:'Level 3 Specialised Pathway 
   ]
 },
 };
-
-// Stub remaining topics
 ['econ','fsa','corp','equity','fi','alts'].forEach(function(id){
   var meta={
     econ:{title:'Economics',eye:'Tested L1 & L2',weights:{l1:'6–9%',l2:'5–10%',l3:'N/A'},ov:'Micro (demand/supply, market structures), macro (GDP, business cycles, monetary/fiscal policy), and international economics (FX, trade). At L2: currency exchange rate models, economic growth theories.'},
@@ -528,8 +500,7 @@ pm_p:{title:'L3 Pathway: Portfolio Management',eye:'Level 3 Specialised Pathway 
     alts:{title:'Alternative Investments',eye:'Tested L1 & L2',weights:{l1:'7–10%',l2:'5–10%',l3:'N/A'},ov:'Private equity, hedge funds, real estate, commodities, infrastructure. L2: deep valuation methods (LBO, cap rates, DCF). L3: portfolio pacing, manager selection, correlation smoothing.'},
   };
   var m=meta[id];
-  D[id]={title:m.title,eye:m.eye,weights:m.weights,overview:m.ov,
-    notes:[],
+  D[id]={title:m.title,eye:m.eye,weights:m.weights,overview:m.ov,notes:[],
     outcomes:{objective:'See full topic notes for '+m.title+'.',byLevel:{l1:['Refer to full topic notes'],l2:['Refer to full topic notes'],l3:['Refer to full topic notes']},skills:[]},
     resources:[
       {type:'yt',t:'CFA '+m.title+' Complete Review',ch:'Mark Meldrum',tags:['free'],url:'https://www.youtube.com/results?search_query=CFA+'+encodeURIComponent(m.title)+'+complete+review'},
@@ -537,147 +508,52 @@ pm_p:{title:'L3 Pathway: Portfolio Management',eye:'Level 3 Specialised Pathway 
     ]
   };
 });
-
-function lvMatch(lv){
-  if(!lv||lv.length===0) return true;
-  if(LVL==='all') return true;
-  return lv.indexOf(LVL)>=0;
-}
-
-function renderNav(){
-  document.getElementById('tnav').innerHTML=TOPICS.map(function(t){
-    return '<div class="tn'+(TOP===t.id?' on':'')+'" onclick="go(\''+t.id+'\')">'+t.s+'</div>';
-  }).join('');
-}
-
-function renderBC(){
-  var d=D[TOP];
-  var bc=document.getElementById('bc');
-  if(TOP==='home'){
-    bc.innerHTML='<span class="bci on">E-Tutorial</span>';
-  } else {
-    bc.innerHTML='<span class="bci" onclick="go(\'home\')">E-Tutorial</span><span class="bcsep">›</span><span class="bci on">'+(d?d.title:TOP)+'</span>';
-  }
-}
-
-function mkBadges(lv){
-  if(!lv||lv.length===0) return '';
-  return lv.map(function(l){
-    var n=l.replace('l','');
-    return '<span class="lbadge lb'+n+'">L'+n+'</span>';
-  }).join('');
-}
-
-function topicBorderClass(lv){
-  if(!lv||lv.length===0) return 'lv-all';
-  if(lv.length===3) return 'lv-all';
-  if(lv.length===1) return 'lv-'+lv[0];
-  // mixed — use highest level present
-  if(lv.indexOf('l3')>=0) return 'lv-l3';
-  if(lv.indexOf('l2')>=0) return 'lv-l2';
-  return 'lv-l1';
-}
-
-function isDimmed(lv){
-  if(LVL==='all') return false;
-  if(!lv||lv.length===0) return false;
-  return lv.indexOf(LVL)<0;
-}
-
-function renderLegend(){
-  if(LVL!=='all') return '';
-  return '<div class="lvl-legend">Level colour key: '+
-    '<span class="lbadge lb1">L1</span><span class="ll-l1">Level 1 only</span>  '+
-    '<span class="lbadge lb2">L2</span><span class="ll-l2">Level 2 only</span>  '+
-    '<span class="lbadge lb3">L3</span><span class="ll-l3">Level 3 only</span>  '+
-    '<span style="font-size:.63rem;color:var(--mu)">— multiple badges = tested at those levels</span></div>';
-}
-
+function lvMatch(lv){if(!lv||!lv.length)return true;if(LVL==='all')return true;return lv.indexOf(LVL)>=0;}
+function renderNav(){document.getElementById('tnav').innerHTML=TOPICS.map(function(t){return'<div class="tn'+(TOP===t.id?' on':'')+'" onclick="go(\''+t.id+'\')">'+t.s+'</div>';}).join('');}
+function renderBC(){var d=D[TOP],bc=document.getElementById('bc');if(TOP==='home'){bc.innerHTML='<span class="bci on">E-Tutorial</span>';}else{bc.innerHTML='<span class="bci" onclick="go(\'home\')">E-Tutorial</span><span class="bcsep">›</span><span class="bci on">'+(d?d.title:TOP)+'</span>';}}
+function mkBadges(lv){if(!lv||!lv.length)return'';return lv.map(function(l){var n=l.replace('l','');return'<span class="lbadge lb'+n+'">L'+n+'</span>';}).join('');}
+function topicBorderClass(lv){if(!lv||!lv.length||lv.length===3)return'lv-all';if(lv.length===1)return'lv-'+lv[0];return lv.indexOf('l3')>=0?'lv-l3':lv.indexOf('l2')>=0?'lv-l2':'lv-l1';}
+function isDimmed(lv){if(LVL==='all'||!lv||!lv.length)return false;return lv.indexOf(LVL)<0;}
+function renderLegend(){if(LVL!=='all')return'';return'<div class="lvl-legend">Level colour key: <span class="lbadge lb1">L1</span><span class="ll-l1">L1 only</span> <span class="lbadge lb2">L2</span><span class="ll-l2">L2 only</span> <span class="lbadge lb3">L3</span><span class="ll-l3">L3 only</span></div>';}
 function renderContent(){
-  var d=D[TOP]; if(!d) return;
+  var d=D[TOP];if(!d)return;
   var area=document.getElementById('carea');
-  var wt=[
-    d.weights.l1!=='—'?'L1: '+d.weights.l1:null,
-    d.weights.l2!=='—'?'L2: '+d.weights.l2:null,
-    d.weights.l3!=='—'?'L3: '+d.weights.l3:null,
-  ].filter(Boolean);
-
-  var h='<div class="hero"><div class="heye">'+d.eye+'</div><div class="htitle">'+d.title+'</div>';
-  h+='<div class="htags">'+wt.map(function(w){return '<span class="htag">'+w+'</span>';}).join('')+'</div></div>';
-  h+='<div class="ctabs">';
-  h+='<div class="ct'+(TAB==='notes'?' on':'')+'" onclick="swTab(\'notes\')">📋 Notes</div>';
-  h+='<div class="ct'+(TAB==='outcomes'?' on':'')+'" onclick="swTab(\'outcomes\')">🎯 Learning Outcomes</div>';
-  h+='<div class="ct'+(TAB==='resources'?' on':'')+'" onclick="swTab(\'resources\')">🎥 Resources</div>';
-  h+='</div>';
-
-  // NOTES PANEL
+  var wt=[d.weights.l1!=='—'?'L1: '+d.weights.l1:null,d.weights.l2!=='—'?'L2: '+d.weights.l2:null,d.weights.l3!=='—'?'L3: '+d.weights.l3:null].filter(Boolean);
+  var h='<div class="hero"><div class="heye">'+d.eye+'</div><div class="htitle">'+d.title+'</div><div class="htags">'+wt.map(function(w){return'<span class="htag">'+w+'</span>';}).join('')+'</div></div>';
+  h+='<div class="ctabs"><div class="ct'+(TAB==='notes'?' on':'')+'" onclick="swTab(\'notes\')">📋 Notes</div><div class="ct'+(TAB==='outcomes'?' on':'')+'" onclick="swTab(\'outcomes\')">🎯 Learning Outcomes</div><div class="ct'+(TAB==='resources'?' on':'')+'" onclick="swTab(\'resources\')">🎥 Resources</div></div>';
   h+='<div class="panel'+(TAB==='notes'?' on':'')+'" id="p-notes">';
   h+='<div class="ovbox"><strong>Overview</strong>'+d.overview+'</div>';
-
   if(TOP==='home'){
-    h+='<div class="hstats">';
-    h+='<div class="hstat"><div class="hsv" style="color:var(--l1c)">3</div><div class="hsl">Levels</div></div>';
-    h+='<div class="hstat"><div class="hsv" style="color:var(--l2c)">10</div><div class="hsl">Topics</div></div>';
-    h+='<div class="hstat"><div class="hsv" style="color:var(--l3c)">~900</div><div class="hsl">Study Hrs</div></div>';
-    h+='</div>';
+    h+='<div class="hstats"><div class="hstat"><div class="hsv" style="color:var(--l1c)">3</div><div class="hsl">Levels</div></div><div class="hstat"><div class="hsv" style="color:var(--l2c)">10</div><div class="hsl">Topics</div></div><div class="hstat"><div class="hsv" style="color:var(--l3c)">~900</div><div class="hsl">Study Hrs</div></div></div>';
     h+='<div class="shd">Topics & Exam Weights</div>';
-    var tlist=[
-      ['Ethics','ethics','#C0392B','15–20%','10–15%','10–15%'],
-      ['FSA','fsa','#2980B9','11–14%','10–15%','—'],
-      ['Equity','equity','#E67E22','11–14%','10–15%','—'],
-      ['Fixed Income','fi','#2980B9','11–14%','10–15%','—'],
-      ['Portfolio Mgmt','pm','#27AE60','8–12%','10–15%','40%+'],
-      ['Alts','alts','#E67E22','7–10%','5–10%','—'],
-      ['Quant','quant','#7F8C8D','6–9%','5–10%','—'],
-      ['Corporate','corp','#7F8C8D','6–9%','5–10%','—'],
-      ['Economics','econ','#7F8C8D','6–9%','5–10%','—'],
-      ['Derivatives','deriv','#27AE60','5–8%','5–10%','10–15%'],
-    ];
-    tlist.forEach(function(r){
+    [['Ethics','ethics','#C0392B','15–20%','10–15%','10–15%'],['FSA','fsa','#2980B9','11–14%','10–15%','—'],['Equity','equity','#E67E22','11–14%','10–15%','—'],['Fixed Income','fi','#2980B9','11–14%','10–15%','—'],['Portfolio Mgmt','pm','#27AE60','8–12%','10–15%','40%+'],['Alts','alts','#E67E22','7–10%','5–10%','—'],['Quant','quant','#7F8C8D','6–9%','5–10%','—'],['Corporate','corp','#7F8C8D','6–9%','5–10%','—'],['Economics','econ','#7F8C8D','6–9%','5–10%','—'],['Derivatives','deriv','#27AE60','5–8%','5–10%','10–15%']].forEach(function(r){
       var show=(LVL==='all')||(LVL==='l1'&&r[3]!=='—')||(LVL==='l2'&&r[4]!=='—')||(LVL==='l3'&&r[5]!=='—');
-      if(!show) return;
+      if(!show)return;
       h+='<div class="ucard" style="border-left-color:'+r[2]+'" onclick="go(\''+r[1]+'\')"><div><div class="ucn">'+r[0]+'</div><div class="ucw">L1: '+r[3]+' · L2: '+r[4]+' · L3: '+r[5]+'</div></div><div class="ucarr">›</div></div>';
     });
     h+='<div class="shd">Level 3 Pathways</div>';
     [['🏛','Portfolio Mgmt Pathway','pm_p'],['💼','Private Wealth Pathway','pw_p'],['🔒','Private Markets Pathway','priv_p']].forEach(function(r){
-      if(LVL!=='all'&&LVL!=='l3') return;
+      if(LVL!=='all'&&LVL!=='l3')return;
       h+='<div class="ucard" style="border-left-color:var(--l3c)" onclick="go(\''+r[2]+'\')"><div><div class="ucn">'+r[0]+' '+r[1]+'</div></div><div class="ucarr">›</div></div>';
     });
-    if(LVL==='all'||LVL==='l3'){
-      h+='<div class="shd">L3 Core Curriculum</div>';
-      h+='<div class="ucard" style="border-left-color:var(--l3c)" onclick="go(\'l3core\')"><div><div class="ucn">📋 L3 Core Curriculum (65–70%)</div><div class="ucw">Asset Allocation · Portfolio Construction · Derivatives · Performance · Ethics/GIPS</div></div><div class="ucarr">›</div></div>';
-    }
+    if(LVL==='all'||LVL==='l3'){h+='<div class="shd">L3 Core Curriculum</div><div class="ucard" style="border-left-color:var(--l3c)" onclick="go(\'l3core\')"><div><div class="ucn">📋 L3 Core Curriculum (65–70%)</div><div class="ucw">Asset Allocation · Portfolio Construction · Derivatives · Performance · Ethics/GIPS</div></div><div class="ucarr">›</div></div>';}
   }
-
   if(d.notes&&d.notes.length>0){
     h+=renderLegend();
     h+='<div class="shd">Topics & Subtopics</div>';
     d.notes.forEach(function(topic,ti){
-      if(!lvMatch(topic.lv)) return;
-      var tid='tt'+ti;
-      var bdrCls=topicBorderClass(topic.lv);
-      var dimCls=isDimmed(topic.lv)?' dimmed':'';
-      h+='<div class="tree-topic '+bdrCls+dimCls+'" id="'+tid+'-w"><div class="tt-hd" id="'+tid+'-h" onclick="togTT(\''+tid+'\')">';
-      h+='<div class="tt-title">'+mkBadges(topic.lv)+'&nbsp;'+topic.title+'</div>';
-      h+='<div class="tt-arr">▼</div></div>';
+      if(!lvMatch(topic.lv))return;
+      var tid='tt'+ti,bdrCls=topicBorderClass(topic.lv),dimCls=isDimmed(topic.lv)?' dimmed':'';
+      h+='<div class="tree-topic '+bdrCls+dimCls+'" id="'+tid+'-w"><div class="tt-hd" id="'+tid+'-h" onclick="togTT(\''+tid+'\')"><div class="tt-title">'+mkBadges(topic.lv)+'&nbsp;'+topic.title+'</div><div class="tt-arr">▼</div></div>';
       h+='<div class="tt-body" id="'+tid+'-b"><div class="tt-sum">'+topic.sum+'</div>';
       if(topic.kcs&&topic.kcs.length>0){
         h+='<div class="kc-wrap">';
         topic.kcs.forEach(function(kc,ki){
-          if(!lvMatch(kc.lv)) return;
-          var kid=tid+'k'+ki;
-          var kcDim=isDimmed(kc.lv)?' dimmed':'';
-          h+='<div class="kc'+kcDim+'" id="'+kid+'-w" style="border-left-color:'+(kc.col||'#C0392B')+'">';
-          h+='<div class="kc-hd" id="'+kid+'-h" onclick="togKC(\''+kid+'\')">';
-          h+='<div class="kc-title">'+mkBadges(kc.lv)+'&nbsp;'+kc.title+'</div>';
-          h+='<div class="kc-arr">▼</div></div>';
-          h+='<div class="kc-body" id="'+kid+'-b">';
-          h+='<div class="kc-lvl-bar">'+mkBadges(kc.lv)+'<span style="margin-left:4px;">'+kc.lead+'</span></div>';
-          if(kc.notes&&kc.notes.length>0){
-            kc.notes.forEach(function(n){
-              h+='<div class="note-block"><div class="nb-title">'+n.t+'</div><div class="nb-text">'+n.b+'</div></div>';
-            });
-          }
+          if(!lvMatch(kc.lv))return;
+          var kid=tid+'k'+ki,kcDim=isDimmed(kc.lv)?' dimmed':'';
+          h+='<div class="kc'+kcDim+'" id="'+kid+'-w" style="border-left-color:'+(kc.col||'#C0392B')+'"><div class="kc-hd" id="'+kid+'-h" onclick="togKC(\''+kid+'\')"><div class="kc-title">'+mkBadges(kc.lv)+'&nbsp;'+kc.title+'</div><div class="kc-arr">▼</div></div>';
+          h+='<div class="kc-body" id="'+kid+'-b"><div class="kc-lvl-bar">'+mkBadges(kc.lv)+'<span style="margin-left:4px;">'+kc.lead+'</span></div>';
+          (kc.notes||[]).forEach(function(n){h+='<div class="note-block"><div class="nb-title">'+n.t+'</div><div class="nb-text">'+n.b+'</div></div>';});
           h+='</div></div>';
         });
         h+='</div>';
@@ -686,110 +562,44 @@ function renderContent(){
     });
   }
   h+='</div>';
-
-  // OUTCOMES PANEL
   h+='<div class="panel'+(TAB==='outcomes'?' on':'')+'" id="p-outcomes">';
   var oc=d.outcomes;
   h+='<div class="lo-obj"><strong>Learning Objective</strong>'+oc.objective+'</div>';
   var lcfg={l1:{bg:'#E67E22',label:'Level 1'},l2:{bg:'#2980B9',label:'Level 2'},l3:{bg:'#27AE60',label:'Level 3'}};
   ['l1','l2','l3'].forEach(function(lv){
     var items=oc.byLevel[lv];
-    if(!items||items.length===0) return;
-    if(LVL!=='all'&&LVL!==lv) return;
+    if(!items||!items.length)return;
+    if(LVL!=='all'&&LVL!==lv)return;
     var lc=lcfg[lv];
-    h+='<div class="lo-lvl"><div class="lo-hd" id="lo-'+lv+'-h" style="background:'+lc.bg+'" onclick="togLO(\'lo-'+lv+'\')">';
-    h+='<div class="lo-lbl">'+lc.label+' — What You Must Be Able To Do</div>';
-    h+='<div class="lo-arr">▼</div></div>';
+    h+='<div class="lo-lvl"><div class="lo-hd" id="lo-'+lv+'-h" style="background:'+lc.bg+'" onclick="togLO(\'lo-'+lv+'\')"><div class="lo-lbl">'+lc.label+' — What You Must Be Able To Do</div><div class="lo-arr">▼</div></div>';
     h+='<div class="lo-body" id="lo-'+lv+'-b">';
-    items.forEach(function(item,i){
-      h+='<div class="lo-item"><div class="lo-num">'+(i+1)+'.</div><div>'+item+'</div></div>';
-    });
+    items.forEach(function(item,i){h+='<div class="lo-item"><div class="lo-num">'+(i+1)+'.</div><div>'+item+'</div></div>';});
     h+='</div></div>';
   });
-  if(oc.outcomes&&oc.outcomes.length>0){
-    h+='<div class="shd">Competencies on Completion</div>';
-    h+='<div class="lo-deep"><div class="lo-dt">You will be able to</div>';
-    oc.outcomes.forEach(function(o){h+='<div class="lo-di">'+o+'</div>';});
-    h+='</div>';
-  }
-  if(oc.skills&&oc.skills.length>0){
-    h+='<div class="skill-row">'+oc.skills.map(function(s){return '<span class="stag">'+s+'</span>';}).join('')+'</div>';
-  }
+  if(oc.skills&&oc.skills.length>0){h+='<div class="skill-row">'+oc.skills.map(function(s){return'<span class="stag">'+s+'</span>';}).join('')+'</div>';}
   h+='</div>';
-
-  // RESOURCES PANEL
   h+='<div class="panel'+(TAB==='resources'?' on':'')+'" id="p-resources">';
-  var tord=['yt','art','prac','book'];
-  var tlbl={yt:'🎥 Video Tutorials',art:'📄 Articles & Guides',prac:'🎯 Practice & Exam Prep',book:'📖 Books'};
-  var tico={yt:'▶',art:'📄',prac:'🎯',book:'📖'};
-  var tbg={yt:'ryt',art:'rart',prac:'rprac',book:'rbook'};
+  var tord=['yt','art','prac','book'],tlbl={yt:'🎥 Video Tutorials',art:'📄 Articles & Guides',prac:'🎯 Practice & Exam Prep',book:'📖 Books'},tico={yt:'▶',art:'📄',prac:'🎯',book:'📖'},tbg={yt:'ryt',art:'rart',prac:'rprac',book:'rbook'};
   tord.forEach(function(type){
-    var items=(d.resources||[]).filter(function(r){return r.type===type;});
-    if(items.length===0) return;
-    var shown=items.filter(function(r){return LVL==='all'||r.tags.indexOf(LVL)>=0||r.tags.indexOf('all')>=0;});
-    if(shown.length===0) return;
+    var shown=(d.resources||[]).filter(function(r){return r.type===type&&(LVL==='all'||r.tags.indexOf(LVL)>=0||r.tags.indexOf('all')>=0);});
+    if(!shown.length)return;
     h+='<div class="rcat">'+tlbl[type]+'</div>';
     shown.forEach(function(r){
-      h+='<a class="rcard" href="'+(r.url||'#')+'" target="_blank" rel="noopener">';
-      h+='<div class="rico '+tbg[type]+'">'+tico[type]+'</div>';
-      h+='<div class="rinfo"><div class="rtit">'+(r.t||r.title)+'</div>';
-      h+='<div class="rch">'+(r.ch||r.channel||'')+'</div>';
-      h+='<div class="rtags">'+r.tags.map(function(t){return '<span class="rtag '+t+'">'+t.toUpperCase()+'</span>';}).join('')+'</div>';
-      h+='</div><div class="rext">↗ open</div></a>';
+      h+='<a class="rcard" href="'+(r.url||'#')+'" target="_blank" rel="noopener"><div class="rico '+tbg[type]+'">'+tico[type]+'</div><div class="rinfo"><div class="rtit">'+(r.t||r.title)+'</div><div class="rch">'+(r.ch||'')+'</div><div class="rtags">'+r.tags.map(function(t){return'<span class="rtag '+t+'">'+t.toUpperCase()+'</span>';}).join('')+'</div></div><div class="rext">↗ open</div></a>';
     });
   });
-  h+='<div style="background:#fff;border:1px solid var(--bo);padding:11px 13px;margin-top:12px;font-size:.72rem;color:var(--mu);line-height:1.65;"><strong style="color:var(--dk);display:block;margin-bottom:3px;">📌 Search Tips</strong>Click any card above to open YouTube search results. Mark Meldrum and IFT are widely regarded as the best free resources. Use level filter buttons to show only relevant resources.</div>';
+  h+='<div style="background:#fff;border:1px solid var(--bo);padding:11px 13px;margin-top:12px;font-size:.72rem;color:var(--mu);line-height:1.65;"><strong style="color:var(--dk);display:block;margin-bottom:3px;">📌 Search Tips</strong>Click any card above to open YouTube search results. Mark Meldrum and IFT are widely regarded as the best free resources.</div>';
   h+='</div>';
-
   area.innerHTML=h;
   area.scrollTop=0;
 }
-
-function setLvl(lv){
-  LVL=lv;
-  ['all','l1','l2','l3'].forEach(function(l){
-    var el=document.getElementById('lb-'+l);
-    if(el) el.className='lb'+(l===lv?' on':'');
-  });
-  renderContent();
-}
-
-function go(id){
-  TOP=id; TAB='notes';
-  renderNav(); renderBC(); renderContent();
-}
-
-function swTab(tab){
-  TAB=tab;
-  document.querySelectorAll('.ct').forEach(function(el){el.classList.remove('on');});
-  document.querySelectorAll('.panel').forEach(function(el){el.classList.remove('on');});
-  if(event&&event.target) event.target.classList.add('on');
-  var p=document.getElementById('p-'+tab);
-  if(p) p.classList.add('on');
-}
-
-function togTT(tid){
-  var h=document.getElementById(tid+'-h');
-  var b=document.getElementById(tid+'-b');
-  if(h) h.classList.toggle('open');
-  if(b) b.classList.toggle('open');
-}
-
-function togKC(kid){
-  var h=document.getElementById(kid+'-h');
-  var b=document.getElementById(kid+'-b');
-  if(h) h.classList.toggle('open');
-  if(b) b.classList.toggle('open');
-}
-
-function togLO(id){
-  var h=document.getElementById(id+'-h');
-  var b=document.getElementById(id+'-b');
-  if(h) h.classList.toggle('open');
-  if(b) b.classList.toggle('open');
-}
-
-renderNav(); renderBC(); renderContent();
+function setLvl(lv){LVL=lv;['all','l1','l2','l3'].forEach(function(l){var el=document.getElementById('lb-'+l);if(el)el.className='lb'+(l===lv?' on':'');});renderContent();}
+function go(id){TOP=id;TAB='notes';renderNav();renderBC();renderContent();}
+function swTab(tab){TAB=tab;document.querySelectorAll('.ct').forEach(function(el){el.classList.remove('on');});document.querySelectorAll('.panel').forEach(function(el){el.classList.remove('on');});if(event&&event.target)event.target.classList.add('on');var p=document.getElementById('p-'+tab);if(p)p.classList.add('on');}
+function togTT(tid){var h=document.getElementById(tid+'-h'),b=document.getElementById(tid+'-b');if(h)h.classList.toggle('open');if(b)b.classList.toggle('open');}
+function togKC(kid){var h=document.getElementById(kid+'-h'),b=document.getElementById(kid+'-b');if(h)h.classList.toggle('open');if(b)b.classList.toggle('open');}
+function togLO(id){var h=document.getElementById(id+'-h'),b=document.getElementById(id+'-b');if(h)h.classList.toggle('open');if(b)b.classList.toggle('open');}
+renderNav();renderBC();renderContent();
 </script>
 </body>
 </html>
